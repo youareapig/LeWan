@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_snap_up"
+        android:padding="@dimen/dp_5">
+
+        <TextView
+            android:id="@+id/tv_day_decade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="@dimen/sp_11"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/tv_day_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="@dimen/sp_11"
+            android:textColor="#fff"
+            android:layout_marginLeft="@dimen/dp_1" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/colon_day"
+        android:text="天"
+        android:textColor="#3E3D3D"
+        android:layout_gravity="center"
+        android:textSize="@dimen/sp_11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_2"
+        android:layout_marginRight="@dimen/dp_2"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_snap_up"
+        android:padding="@dimen/dp_5">
+
+        <TextView
+            android:id="@+id/tv_hour_decade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="@dimen/sp_11"
+            android:textColor="#fff"  />
+
+        <TextView
+            android:id="@+id/tv_hour_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="@dimen/sp_11"
+            android:textColor="#fff"
+            android:layout_marginLeft="@dimen/dp_1" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/colon_hour"
+        android:text=":"
+        android:textColor="#000"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_2"
+        android:layout_marginLeft="@dimen/dp_2"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_snap_up"
+        android:padding="@dimen/dp_5">
+
+        <TextView
+            android:id="@+id/tv_min_decade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="@dimen/sp_11"
+            android:textColor="#fff"/>
+
+        <TextView
+            android:id="@+id/tv_min_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="@dimen/sp_11"
+            android:textColor="#fff"
+            android:layout_marginLeft="@dimen/dp_1" />
+    </LinearLayout>
+
+
+    <TextView
+        android:text=":"
+        android:textColor="#000"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_2"
+        android:layout_marginLeft="@dimen/dp_2"/>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_snap_up"
+        android:padding="@dimen/dp_5">
+
+        <TextView
+            android:id="@+id/tv_sec_decade"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="@dimen/sp_11"
+            android:textColor="#fff" />
+
+        <TextView
+            android:id="@+id/tv_sec_unit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="0"
+            android:textSize="@dimen/sp_11"
+            android:textColor="#fff"
+            android:layout_marginLeft="@dimen/dp_1" />
+    </LinearLayout>
+
+</LinearLayout>

@@ -21,12 +21,11 @@ import butterknife.Unbinder;
 public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder unbinder;
     @Override
-    public void onCreate(Bundle savedInstanceState) {        // 设置全屏
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayout());
         unbinder= ButterKnife.bind(this);
-
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setView();
         setData();
     }
@@ -66,7 +65,8 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param clazz
      */
     protected void toClass(Context context, Class<? extends BaseActivity> clazz) {
-        toClass(context, clazz, null);
+        Intent intent = new Intent(context, clazz);
+        context.startActivity(intent);
     }
 
     /**

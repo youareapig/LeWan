@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context="com.leiwan.zl.bank.IDBankActivity">
+
+    <RelativeLayout style="@style/title">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/titleback"
+            android:src="@mipmap/back" />
+
+        <TextView
+            style="@style/titlename"
+            android:text="我的银行卡" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lineview" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1" />
+
+    <RelativeLayout
+        android:id="@+id/addbank"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50"
+        android:background="#d8d8d8">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dp_17"
+                android:layout_height="@dimen/dp_17"
+                android:src="@mipmap/add" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_8"
+                android:text="添加银行卡"
+                android:textColor="#fff"
+                android:textSize="@dimen/sp_15" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_85"
+        android:paddingLeft="@dimen/dp_13"
+        android:paddingRight="@dimen/dp_23"
+        android:paddingTop="@dimen/dp_16">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="张三"
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_16" />
+
+        <TextView
+            android:id="@+id/tel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_36"
+            android:layout_toRightOf="@+id/name"
+            android:text="15983302245"
+            android:textColor="#333333"
+            android:textSize="@dimen/sp_16" />
+
+        <TextView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="删除"
+            android:textColor="#F56117"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:id="@+id/adr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_18"
+            android:text="四川省成都市锦江区 城区 龙舟路华润广场A栋1811室"
+            android:textColor="#999999"
+            android:textSize="@dimen/sp_12" />
+
+        <ImageView
+            android:id="@+id/bianji"
+            android:layout_width="@dimen/dp_14"
+            android:layout_height="@dimen/dp_14"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="@dimen/dp_18"
+            android:src="@mipmap/bianji" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_2"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lineview" />
+    </RelativeLayout>
+</LinearLayout>

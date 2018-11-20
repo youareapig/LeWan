@@ -29,7 +29,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -37,8 +36,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        tools:replace="android:icon, android:label,android:theme"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon, android:label,android:theme">
         <activity android:name=".home.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -46,10 +45,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name="com.amap.api.location.APSService"/>
+
+        <service android:name="com.amap.api.location.APSService" />
+
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="cc58566533d06c0aa1bf6bca88ff09dc" />
+
+        <activity android:name=".yaoqing.YaoqingActivity" />
+        <activity android:name=".xinshou.XinShouActivity" />
+        <activity android:name=".bank.IDBankActivity" />
+        <activity android:name=".bank.AddBankActivity" />
+        <activity android:name=".lianxi.LianXiActivity" />
+        <activity android:name=".address.AddressIndexActivity" />
+        <activity android:name=".address.UpdateAddressActivity"></activity>
     </application>
 
 </manifest>

@@ -27,11 +27,13 @@ dependencies {
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    //retrofit
+    //转换器，请求结果转换成Model
+    //配合Rxjava 使用
+
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.jakewharton:butterknife:8.4.0'
-    testCompile 'junit:junit:4.12'
-    apt 'com.jakewharton:butterknife-compiler:8.4.0'
     compile 'com.android.support:recyclerview-v7:25.3.1'
     compile 'com.androidkun:XTabLayout:1.1.3'
     compile 'jp.wasabeef:glide-transformations:2.0.0'
@@ -39,12 +41,13 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.10'
     compile 'io.reactivex:rxjava:1.1.0'
     compile 'io.reactivex:rxandroid:1.2.0'
-    compile 'com.squareup.retrofit2:retrofit:2.4.0'//retrofit
-    compile 'com.squareup.retrofit2:converter-gson:2.4.0'//转换器，请求结果转换成Model
-    compile 'com.squareup.retrofit2:adapter-rxjava:2.4.0'//配合Rxjava 使用
-
+    compile 'com.squareup.retrofit2:retrofit:2.4.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.4.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.4.0'
     compile 'com.amap.api:location:latest.integration'
-    apt 'com.zhy:mpermission-compiler:1.0.0'
     compile 'com.zhy:mpermission-api:1.0.0'
     compile 'com.jwenfeng.pulltorefresh:library:1.2.6'
+    testCompile 'junit:junit:4.12'
+    apt 'com.jakewharton:butterknife-compiler:8.4.0'
+    apt 'com.zhy:mpermission-compiler:1.0.0'
 }

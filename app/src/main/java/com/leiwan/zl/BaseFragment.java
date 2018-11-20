@@ -73,7 +73,8 @@ public abstract class BaseFragment extends Fragment {
      * @param clazz
      */
     protected void toClass(Context context, Class<? extends BaseActivity> clazz) {
-        toClass(context, clazz, null);
+        Intent intent = new Intent(context, clazz);
+        context.startActivity(intent);
     }
 
     /**

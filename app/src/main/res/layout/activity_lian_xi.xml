@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.leiwan.zl.lianxi.LianXiActivity">
+
+    <RelativeLayout
+        style="@style/title"
+        android:background="#fff">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/titleback"
+            android:src="@mipmap/back" />
+
+        <TextView
+            style="@style/titlename"
+            android:text="联系我们" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lineview" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg4">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.5"
+            android:background="#000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_43"
+            android:text="联系我们"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_30" />
+
+        <TextView
+            android:layout_width="@dimen/dp_156"
+            android:layout_height="@dimen/dp_69"
+            android:layout_marginLeft="@dimen/dp_17"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp_164"
+            android:text="客服咨询时间： 9:00-21：00 如有疑问，敬请来电。 "
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_15" />
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="@dimen/dp_168"
+            android:layout_height="@dimen/dp_100"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_149"
+            android:background="#fff"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_17"
+                android:text="028-81479055"
+                android:textColor="#E1B872"
+                android:textSize="@dimen/sp_19" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_17"
+                android:text="咨询客服"
+                android:textColor="#E1B872"
+                android:textSize="@dimen/sp_13" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/shangwuview"
+            android:layout_width="@dimen/dp_168"
+            android:layout_height="@dimen/dp_100"
+            android:layout_below="@+id/linearLayout"
+            android:layout_marginLeft="@dimen/dp_13"
+            android:layout_toStartOf="@+id/linearLayout"
+            android:background="#fff"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_17"
+                android:text="13547858819"
+                android:textColor="#E1B872"
+                android:textSize="@dimen/sp_19" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_17"
+                android:text="商务合作"
+                android:textColor="#E1B872"
+                android:textSize="@dimen/sp_13" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="@dimen/dp_156"
+            android:layout_height="@dimen/dp_69"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_18"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp_264"
+            android:text="乐玩联盟商务合作洽谈事宜请致电该号码，我们会及时回复您。"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_15" />
+
+        <TextView
+            android:layout_width="@dimen/dp_156"
+            android:layout_height="@dimen/dp_69"
+            android:layout_below="@+id/shangwuview"
+            android:layout_marginLeft="@dimen/dp_17"
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="欢迎社会各界人士加入乐玩联盟，渠道运营职位期待您的加入！ "
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_15" />
+
+        <LinearLayout
+            android:layout_width="@dimen/dp_168"
+            android:layout_height="@dimen/dp_100"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_12"
+            android:layout_marginTop="@dimen/dp_349"
+            android:background="#fff"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_17"
+                android:text="18080188080"
+                android:textColor="#E1B872"
+                android:textSize="@dimen/sp_19" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_17"
+                android:text="渠道运营"
+                android:textColor="#E1B872"
+                android:textSize="@dimen/sp_13" />
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

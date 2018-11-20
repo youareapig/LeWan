@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context="com.leiwan.zl.xinshou.XinShouActivity">
+
+    <RelativeLayout style="@style/title">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/titleback"
+            android:src="@mipmap/back" />
+
+        <TextView
+            style="@style/titlename"
+            android:text="新手教程" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lineview" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_150"
+        android:layout_marginTop="@dimen/dp_12">
+
+        <ImageView
+            android:layout_width="@dimen/dp_316"
+            android:layout_height="@dimen/dp_150"
+            android:layout_centerInParent="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/dp_13"
+            android:text="新手教程"
+            android:textColor="#FF8F40"
+            android:textSize="@dimen/sp_34" />
+
+    </RelativeLayout>
+
+    <com.androidkun.xtablayout.XTabLayout
+        android:id="@+id/xinshou_tab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_47"
+        app:xTabDisplayNum="3"
+        app:xTabDividerWidthWidthText="true"
+        app:xTabIndicatorColor="#E1B872"
+        app:xTabIndicatorHeight="6dp"
+        app:xTabMode="scrollable"
+        app:xTabSelectedTextColor="#333333"
+        app:xTabTextColor="#333333"
+        app:xTabTextSize="@dimen/sp_14" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/center_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_19" />
+</LinearLayout>

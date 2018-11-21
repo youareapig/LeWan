@@ -60,7 +60,8 @@
         <activity android:name=".address.AddressIndexActivity" />
         <activity android:name=".address.UpdateAddressActivity" />
         <activity android:name=".shiming.RenZhengActivity" />
-        <activity android:name=".shiming.IsRenZhengActivity"></activity>
+        <activity android:name=".shiming.IsRenZhengActivity" />
+        <activity android:name=".quanyi.QuanYiActivity"></activity>
     </application>
 
 </manifest>

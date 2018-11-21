@@ -2,11 +2,15 @@ package com.leiwan.zl.home.mine;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -17,16 +21,21 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.leiwan.zl.App;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
 import com.leiwan.zl.address.AddressIndexActivity;
 import com.leiwan.zl.bank.IDBankActivity;
 import com.leiwan.zl.lianxi.LianXiActivity;
+import com.leiwan.zl.quanyi.QuanYiActivity;
 import com.leiwan.zl.shiming.RenZhengActivity;
 import com.leiwan.zl.utils.CameraUtil;
+import com.leiwan.zl.utils.ToastUtil;
 import com.leiwan.zl.yaoqing.YaoqingActivity;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
@@ -67,12 +76,20 @@ public class MineFragment extends BaseFragment {
     private static String testImageUrl = "http://img2.imgtn.bdimg.com/it/u=3097866831,856626641&fm=26&gp=0.jpg";
     @BindView(R.id.userhead)
     ImageView userhead;
+    @BindView(R.id.vip_quanyi)
+    TextView vipQuanyi;
 
     private final int ACT_GALLERY = 0;
     private final int ACT_CAMERA = 1;
     private final int ACT_CROP = 2;
+    @BindView(R.id.yaoqingma)
+    TextView yaoqingma;
+    @BindView(R.id.copy)
+    TextView copy;
     private Uri pictureUri = null;
-    private String filePath = android.os.Environment.getExternalStorageDirectory() + File.separator + "myself" + File.separator;
+    private String filePath = Environment.getExternalStorageDirectory() + File.separator + "myself" + File.separator;
+    private ClipboardManager clipboardManager;
+    private ClipData clipData;
 
     @Override
     protected int setLayout() {
@@ -81,7 +98,7 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void setView() {
-
+        clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
     }
 
     @Override
@@ -105,7 +122,7 @@ public class MineFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.userhead, R.id.view_yaoqing, R.id.view_jiaocheng, R.id.view_yinhangka, R.id.view_youhui, R.id.view_dingdan, R.id.view_dizhi, R.id.view_shiming, R.id.view_lianxi})
+    @OnClick({R.id.copy, R.id.vip_quanyi, R.id.userhead, R.id.view_yaoqing, R.id.view_jiaocheng, R.id.view_yinhangka, R.id.view_youhui, R.id.view_dingdan, R.id.view_dizhi, R.id.view_shiming, R.id.view_lianxi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.view_yaoqing:
@@ -128,6 +145,15 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.view_lianxi:
                 toClass(getActivity(), LianXiActivity.class);
+                break;
+            case R.id.vip_quanyi:
+                toClass(getActivity(), QuanYiActivity.class);
+                break;
+            case R.id.copy:
+                String stringMa = yaoqingma.getText().toString().trim();
+                clipData = ClipData.newPlainText("ma", stringMa);
+                clipboardManager.setPrimaryClip(clipData);
+                ToastUtil.showShortToast("复制成功");
                 break;
             case R.id.userhead:
                 final AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
@@ -250,5 +276,6 @@ public class MineFragment extends BaseFragment {
         }
 
     }
+
 
 }

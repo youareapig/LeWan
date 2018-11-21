@@ -23,6 +23,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/userview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -81,7 +82,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -137,6 +138,7 @@
                         android:textSize="@dimen/sp_11" />
 
                     <TextView
+                        android:id="@+id/vip_quanyi"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -154,15 +156,27 @@
                         android:background="@drawable/line3">
 
                         <TextView
+                            android:id="@+id/textYaoqing"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_46"
                             android:layout_marginTop="@dimen/dp_16"
-                            android:text="邀请码:888888"
+                            android:text="邀请码:"
+                            android:textColor="#C5A063"
+                            android:textSize="@dimen/sp_15" />
+                        <TextView
+                            android:id="@+id/yaoqingma"
+                            android:layout_toRightOf="@+id/textYaoqing"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_6"
+                            android:layout_marginTop="@dimen/dp_16"
+                            android:text="888888"
                             android:textColor="#C5A063"
                             android:textSize="@dimen/sp_15" />
 
                         <TextView
+                            android:id="@+id/copy"
                             android:layout_width="@dimen/dp_45"
                             android:layout_height="@dimen/dp_23"
                             android:layout_alignParentRight="true"

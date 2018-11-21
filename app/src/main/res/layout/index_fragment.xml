@@ -260,6 +260,7 @@
                         android:textSize="@dimen/sp_15" />
 
                     <View
+                        android:id="@+id/zonghe_line"
                         android:layout_width="@dimen/dp_26"
                         android:layout_height="@dimen/dp_4"
                         android:layout_below="@+id/zonghe_text"
@@ -284,11 +285,12 @@
                         android:textSize="@dimen/sp_15" />
 
                     <View
+                        android:id="@+id/xiaoliang_line"
                         android:layout_width="@dimen/dp_26"
                         android:layout_height="@dimen/dp_4"
                         android:layout_below="@+id/xiaoliang_text"
                         android:layout_centerHorizontal="true"
-                        android:background="#E1B872"
+                        android:background="@drawable/line1"
                         android:visibility="gone" />
                 </RelativeLayout>
 
@@ -325,11 +327,12 @@
                     </RelativeLayout>
 
                     <View
+                        android:id="@+id/price_line"
                         android:layout_width="@dimen/dp_26"
                         android:layout_height="@dimen/dp_4"
                         android:layout_below="@+id/price_text"
                         android:layout_centerHorizontal="true"
-                        android:background="#E1B872"
+                        android:background="@drawable/line1"
                         android:visibility="gone" />
                 </RelativeLayout>
 
@@ -344,16 +347,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:text="综合"
+                        android:text="距离"
                         android:textColor="@color/xuanzhong"
                         android:textSize="@dimen/sp_15" />
 
                     <View
+                        android:id="@+id/juli_line"
                         android:layout_width="@dimen/dp_26"
                         android:layout_height="@dimen/dp_4"
                         android:layout_below="@+id/juli_text"
                         android:layout_centerHorizontal="true"
-                        android:background="#E1B872"
+                        android:background="@drawable/line1"
                         android:visibility="gone" />
                 </RelativeLayout>
             </LinearLayout>

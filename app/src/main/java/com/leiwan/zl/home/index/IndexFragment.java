@@ -1,27 +1,15 @@
 package com.leiwan.zl.home.index;
 
 import android.Manifest;
-import android.content.Context;
 import android.graphics.Color;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
-import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,7 +22,6 @@ import com.amap.api.location.AMapLocationListener;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.HomeData;
-import com.leiwan.zl.testdata.TestData;
 import com.leiwan.zl.utils.GlideImageLoader;
 import com.leiwan.zl.utils.MMap;
 import com.leiwan.zl.utils.ObservableScrollView;
@@ -48,21 +35,16 @@ import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import rx.Scheduler;
 import rx.Subscriber;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-
-import static android.content.Context.LOCATION_SERVICE;
 
 /**
  * Created by Administrator on 2018/11/14.
@@ -87,14 +69,6 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     RelativeLayout jingqu;
     @BindView(R.id.chuxing)
     RelativeLayout chuxing;
-    @BindView(R.id.zonghe)
-    RelativeLayout zonghe;
-    @BindView(R.id.xiaoliang)
-    RelativeLayout xiaoliang;
-    @BindView(R.id.price)
-    RelativeLayout price;
-    @BindView(R.id.juli)
-    RelativeLayout juli;
     @BindView(R.id.index_recycler)
     RecyclerView indexRecycler;
     @BindView(R.id.obscrollview)
@@ -105,6 +79,22 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     LinearLayout hengxiangtitle;
     @BindView(R.id.city)
     TextView city;
+    @BindView(R.id.zonghe_line)
+    View zongheLine;
+    @BindView(R.id.zonghe)
+    RelativeLayout zonghe;
+    @BindView(R.id.xiaoliang_line)
+    View xiaoliangLine;
+    @BindView(R.id.xiaoliang)
+    RelativeLayout xiaoliang;
+    @BindView(R.id.price_line)
+    View priceLine;
+    @BindView(R.id.price)
+    RelativeLayout price;
+    @BindView(R.id.juli_line)
+    View juliLine;
+    @BindView(R.id.juli)
+    RelativeLayout juli;
     private List<String> list;
     private int heigh = 380;
     private int heigh1 = 750;
@@ -201,6 +191,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
         Toast.makeText(getActivity(), "定位权限申请失败", Toast.LENGTH_SHORT).show();
     }
 
+
     class MyAMapLocationListener implements AMapLocationListener {
         @Override
         public void onLocationChanged(AMapLocation aMapLocation) {
@@ -231,7 +222,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
 
-    @OnClick({R.id.newpeople, R.id.food, R.id.hotel, R.id.lipin, R.id.qinzi, R.id.leyuan, R.id.jingqu, R.id.chuxing})
+    @OnClick({R.id.zonghe, R.id.xiaoliang, R.id.price, R.id.juli, R.id.newpeople, R.id.food, R.id.hotel, R.id.lipin, R.id.qinzi, R.id.leyuan, R.id.jingqu, R.id.chuxing})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.newpeople:
@@ -249,6 +240,30 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
             case R.id.jingqu:
                 break;
             case R.id.chuxing:
+                break;
+            case R.id.zonghe:
+                zongheLine.setVisibility(View.VISIBLE);
+                xiaoliangLine.setVisibility(View.GONE);
+                priceLine.setVisibility(View.GONE);
+                juliLine.setVisibility(View.GONE);
+                break;
+            case R.id.xiaoliang:
+                zongheLine.setVisibility(View.GONE);
+                xiaoliangLine.setVisibility(View.VISIBLE);
+                priceLine.setVisibility(View.GONE);
+                juliLine.setVisibility(View.GONE);
+                break;
+            case R.id.price:
+                zongheLine.setVisibility(View.GONE);
+                xiaoliangLine.setVisibility(View.GONE);
+                priceLine.setVisibility(View.VISIBLE);
+                juliLine.setVisibility(View.GONE);
+                break;
+            case R.id.juli:
+                zongheLine.setVisibility(View.GONE);
+                xiaoliangLine.setVisibility(View.GONE);
+                priceLine.setVisibility(View.GONE);
+                juliLine.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -282,12 +297,6 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
         super.onStop();
         Log.d("tag", "停止定位");
         mLocationClient.stopLocation();
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mLocationClient.onDestroy();
     }
 
 

@@ -58,7 +58,9 @@
         <activity android:name=".bank.AddBankActivity" />
         <activity android:name=".lianxi.LianXiActivity" />
         <activity android:name=".address.AddressIndexActivity" />
-        <activity android:name=".address.UpdateAddressActivity"></activity>
+        <activity android:name=".address.UpdateAddressActivity" />
+        <activity android:name=".shiming.RenZhengActivity" />
+        <activity android:name=".shiming.IsRenZhengActivity"></activity>
     </application>
 
 </manifest>

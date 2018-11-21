@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp_120"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="@dimen/dp_333"
+        android:layout_height="@dimen/dp_120"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/photograph"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="手机拍摄"
+            android:textSize="@dimen/sp_17" />
+
+        <TextView
+            android:layout_width="@dimen/dp_167"
+            android:layout_height="1px"
+            android:layout_gravity="center"
+            android:background="#d2d2d2" />
+
+        <TextView
+            android:id="@+id/photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="相册选取"
+            android:textSize="@dimen/sp_17" />
+    </LinearLayout>
+</LinearLayout>

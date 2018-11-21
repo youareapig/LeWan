@@ -55,6 +55,7 @@ public class AddressIndexActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.addadr:
+                toClass(this, UpdateAddressActivity.class);
                 break;
         }
     }

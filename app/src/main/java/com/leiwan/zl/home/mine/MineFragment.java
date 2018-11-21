@@ -1,10 +1,20 @@
 package com.leiwan.zl.home.mine;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -15,7 +25,13 @@ import com.leiwan.zl.R;
 import com.leiwan.zl.address.AddressIndexActivity;
 import com.leiwan.zl.bank.IDBankActivity;
 import com.leiwan.zl.lianxi.LianXiActivity;
+import com.leiwan.zl.shiming.RenZhengActivity;
+import com.leiwan.zl.utils.CameraUtil;
 import com.leiwan.zl.yaoqing.YaoqingActivity;
+import com.zhy.m.permission.MPermissions;
+import com.zhy.m.permission.PermissionGrant;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,8 +39,10 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static android.app.Activity.RESULT_OK;
+
 /**
- * Created by Administrator on 2018/11/14.
+ * 选择图片需要裁剪
  */
 
 public class MineFragment extends BaseFragment {
@@ -50,6 +68,12 @@ public class MineFragment extends BaseFragment {
     @BindView(R.id.userhead)
     ImageView userhead;
 
+    private final int ACT_GALLERY = 0;
+    private final int ACT_CAMERA = 1;
+    private final int ACT_CROP = 2;
+    private Uri pictureUri = null;
+    private String filePath = android.os.Environment.getExternalStorageDirectory() + File.separator + "myself" + File.separator;
+
     @Override
     protected int setLayout() {
         return R.layout.mine_fragment;
@@ -62,6 +86,9 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void setData() {
+        //TODO 创建文件夹
+        CameraUtil.createDir(filePath);
+
         Glide.with(getActivity())
                 .load(testImageUrl)
                 .placeholder(R.mipmap.yuan)
@@ -78,7 +105,7 @@ public class MineFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.view_yaoqing, R.id.view_jiaocheng, R.id.view_yinhangka, R.id.view_youhui, R.id.view_dingdan, R.id.view_dizhi, R.id.view_shiming, R.id.view_lianxi})
+    @OnClick({R.id.userhead, R.id.view_yaoqing, R.id.view_jiaocheng, R.id.view_yinhangka, R.id.view_youhui, R.id.view_dingdan, R.id.view_dizhi, R.id.view_shiming, R.id.view_lianxi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.view_yaoqing:
@@ -97,12 +124,131 @@ public class MineFragment extends BaseFragment {
                 toClass(getActivity(), AddressIndexActivity.class);
                 break;
             case R.id.view_shiming:
+                toClass(getActivity(), RenZhengActivity.class);
                 break;
             case R.id.view_lianxi:
                 toClass(getActivity(), LianXiActivity.class);
                 break;
+            case R.id.userhead:
+                final AlertDialog builder = new AlertDialog.Builder(getActivity()).create();
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                View layout = inflater.inflate(R.layout.layout_camera_control,
+                        null);
+                builder.setView(layout);
+                builder.show();
+                Window window = builder.getWindow();
+                WindowManager.LayoutParams layoutParams = window.getAttributes();
+                layoutParams.width = 800;
+                window.setAttributes(layoutParams);
+                layout.findViewById(R.id.photograph).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        MPermissions.requestPermissions(MineFragment.this, 4, Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE);
+                        builder.cancel();
+                    }
+                });
+                layout.findViewById(R.id.photo).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        MPermissions.requestPermissions(MineFragment.this, 5, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                        builder.cancel();
+                    }
+                });
+
+                break;
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        MPermissions.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @PermissionGrant(4)
+    public void requestCameraSuccess() {
+        startCamera();
+    }
+
+    @PermissionGrant(5)
+    public void requestPhotoSuccess() {
+        startGallery();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        switch (requestCode) {
+            case ACT_GALLERY:
+                galleryBack(data.getData());
+                break;
+            case ACT_CAMERA:
+                startCrop(pictureUri);
+                break;
+            case ACT_CROP:
+                cropBack(data.getData());
+                break;
+            default:
+                break;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+    private void startGallery() {
+        Intent intent = CameraUtil.openGallery();
+        startActivityForResult(intent, ACT_GALLERY);
+    }
+
+    private void startCamera() {
+        String fileName = CameraUtil.createFileName(".jpg");
+        CameraUtil.createFile(filePath, fileName);
+        File file = new File(filePath, fileName);
+        pictureUri = Uri.fromFile(file);
+
+        Intent intent = CameraUtil.openCamera(pictureUri);
+        startActivityForResult(intent, ACT_CAMERA);
+
+    }
+
+    private void startCrop(Uri inUri) {
+        Intent intent = CameraUtil.cropPicture(inUri, pictureUri);
+        startActivityForResult(intent, ACT_CROP);
+    }
+
+    private void galleryBack(Uri inUri) {
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getActivity().getContentResolver().query(inUri, projection, null, null, null);
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                String filePath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+                startCrop(Uri.fromFile(new File(filePath)));
+
+                Log.d("zhenglei", "path----需要上传" + filePath);
+                Log.d("zhenglei", "path-------------" + Uri.fromFile(new File(filePath)));
+
+            }
+            if (!cursor.isClosed()) {
+                cursor.close();
+            }
+        }
+
+    }
+
+    private void cropBack(Uri inUri) {
+        if (inUri == null) {
+            return;
+        }
+        try {
+            Bitmap bitmap = CameraUtil.getBitmapByUri(getActivity(), inUri);
+            userhead.setImageBitmap(bitmap);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }

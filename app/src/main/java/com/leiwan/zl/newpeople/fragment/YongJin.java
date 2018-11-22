@@ -1,11 +1,7 @@
-package com.leiwan.zl.home.center.fragment;
+package com.leiwan.zl.newpeople.fragment;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
@@ -14,14 +10,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
- * Created by Administrator on 2018/11/19.
+ * Created by Administrator on 2018/11/22.
  */
 
-public class WeiYuYue extends BaseFragment {
+public class YongJin extends BaseFragment {
     @BindView(R.id.recycler)
     RecyclerView recycler;
     private List<String> list;
@@ -29,7 +23,7 @@ public class WeiYuYue extends BaseFragment {
 
     @Override
     protected int setLayout() {
-        return R.layout.weiyuyue;
+        return R.layout.xinshou_tab;
     }
 
     @Override
@@ -40,11 +34,8 @@ public class WeiYuYue extends BaseFragment {
     @Override
     protected void setData() {
         list = new ArrayList<>();
-        list.add("麻辣烫");
-        list.add("九锅一堂");
-        list.add("越吃越好吃");
-        list.add("刘二娃干锅");
-        adapter = new Adapter(R.layout.center_item, list);
+        list.add("http://tpic2.eastlady.cn/info/201806/28/e98bbb94-29b9-78c3-78e4-92bfc9e9571f.jpg");
+        adapter = new Adapter(R.layout.xinshou_tab_item, list);
         recycler.setAdapter(adapter);
         adapter.openLoadAnimation();
     }

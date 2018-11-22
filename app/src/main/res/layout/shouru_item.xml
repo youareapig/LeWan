@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_83"
+        android:paddingLeft="@dimen/dp_18"
+        android:paddingRight="@dimen/dp_12">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_18"
+            android:text="运营奖励"
+            android:textColor="#333"
+            android:textSize="@dimen/sp_15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_14"
+            android:layout_marginTop="@dimen/dp_18"
+            android:text="11月18日 11:04"
+            android:textColor="#333"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:id="@+id/money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="+16.7"
+            android:textColor="#FC9929"
+            android:textSize="@dimen/sp_19" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lineview" />
+    </RelativeLayout>
+</LinearLayout>

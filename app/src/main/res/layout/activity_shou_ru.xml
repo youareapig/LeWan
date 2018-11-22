@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        style="@style/title"
+        android:background="#fff">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/titleback"
+            android:src="@mipmap/back" />
+
+        <TextView
+            style="@style/titlename"
+            android:text="收入明细" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lineview" />
+    </RelativeLayout>
+
+    <com.androidkun.xtablayout.XTabLayout
+        android:id="@+id/shouru_tab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_47"
+        app:xTabDisplayNum="2"
+        app:xTabDividerWidthWidthText="true"
+        app:xTabIndicatorColor="#E1B872"
+        app:xTabIndicatorHeight="6dp"
+        app:xTabMode="scrollable"
+        app:xTabSelectedTextColor="#333333"
+        app:xTabTextColor="#333333"
+        app:xTabTextSize="@dimen/sp_14" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_5"
+        android:background="@drawable/jianbian" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/shouru_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+</LinearLayout>

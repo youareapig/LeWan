@@ -1,6 +1,8 @@
 package com.leiwan.zl.home.hot;
 
 import android.app.Activity;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +13,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
+import com.leiwan.zl.App;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.HomeData;
 import com.leiwan.zl.utils.SnapUpCountDownTimerView;
@@ -22,67 +27,39 @@ import java.util.Map;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
+import static android.R.id.list;
+
 
 /**
  * Created by DELL on 2017/8/30.
  */
 
-public class Adapter extends RecyclerView.Adapter {
+public class Adapter extends BaseQuickAdapter<Map<String, String>, BaseViewHolder> {
 
 
-    private List<Map<String,String>> list;
-    private Activity activity;
-
-    public Adapter(List<Map<String,String>> list, Activity activity) {
-        this.list = list;
-        this.activity = activity;
+    public Adapter(@LayoutRes int layoutResId, @Nullable List<Map<String, String>> data) {
+        super(layoutResId, data);
     }
 
-    @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        ViewHolder holder = new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.share_item, parent, false));
-        return holder;
-    }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        final ViewHolder viewHolder = (ViewHolder) holder;
-        Map<String,String> map=list.get(position);
-
-
-        Glide.with(activity)
-                .load(map.get("first"))
-                .bitmapTransform(new CenterCrop(activity), new RoundedCornersTransformation(activity, 10, 0))
+    protected void convert(BaseViewHolder helper, Map<String, String> item) {
+        ImageView imageLift, imageRight;
+        imageLift = helper.getView(R.id.item_image_left);
+        imageRight = helper.getView(R.id.item_image_right);
+        Glide.with(App.content)
+                .load(item.get("first"))
+                .bitmapTransform(new CenterCrop(App.content), new RoundedCornersTransformation(App.content, 10, 0))
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
-                .into(viewHolder.imageLift);
-        Glide.with(activity)
-                .load(map.get("second"))
-                .bitmapTransform(new CenterCrop(activity), new RoundedCornersTransformation(activity, 10, 0))
+                .into(imageLift);
+        Glide.with(App.content)
+                .load(item.get("second"))
+                .bitmapTransform(new CenterCrop(App.content), new RoundedCornersTransformation(App.content, 10, 0))
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
-                .into(viewHolder.imageRight);
-
-
+                .into(imageRight);
     }
-
-
-    @Override
-    public int getItemCount() {
-        return list.size();
-    }
-
-    private class ViewHolder extends RecyclerView.ViewHolder {
-        private ImageView imageLift,imageRight;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-            imageLift = (ImageView) itemView.findViewById(R.id.item_image_left);
-            imageRight = (ImageView) itemView.findViewById(R.id.item_image_right);
-        }
-    }
-
-
 
 
 }

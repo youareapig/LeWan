@@ -27,6 +27,7 @@ public class IDBankActivity extends BaseActivity {
     @BindView(R.id.addbank)
     RelativeLayout addbank;
     private List<String> list;
+    private Adapter adapter;
 
     @Override
     protected int setLayout() {
@@ -47,7 +48,10 @@ public class IDBankActivity extends BaseActivity {
         list.add("1238");
         list.add("1239");
         list.add("1226");
-        recycler.setAdapter(new Adapter(list, this));
+        adapter = new Adapter(R.layout.bank_list_item, list);
+        recycler.setAdapter(adapter);
+        adapter.openLoadAnimation();
+
     }
 
 
@@ -55,7 +59,7 @@ public class IDBankActivity extends BaseActivity {
     public void onViewClicked(View v) {
         switch (v.getId()) {
             case R.id.addbank:
-                toClass(this,AddBankActivity.class);
+                toClass(this, AddBankActivity.class);
                 break;
             case R.id.back:
                 finish();

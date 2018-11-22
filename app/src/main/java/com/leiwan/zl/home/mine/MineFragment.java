@@ -31,9 +31,12 @@ import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
 import com.leiwan.zl.address.AddressIndexActivity;
 import com.leiwan.zl.bank.IDBankActivity;
+import com.leiwan.zl.daren.DaRenActivity;
 import com.leiwan.zl.lianxi.LianXiActivity;
+import com.leiwan.zl.newpeople.NewPeopleActivity;
 import com.leiwan.zl.quanyi.QuanYiActivity;
 import com.leiwan.zl.shiming.RenZhengActivity;
+import com.leiwan.zl.shouru.ShouRuActivity;
 import com.leiwan.zl.utils.CameraUtil;
 import com.leiwan.zl.utils.ToastUtil;
 import com.leiwan.zl.yaoqing.YaoqingActivity;
@@ -78,18 +81,22 @@ public class MineFragment extends BaseFragment {
     ImageView userhead;
     @BindView(R.id.vip_quanyi)
     TextView vipQuanyi;
-
-    private final int ACT_GALLERY = 0;
-    private final int ACT_CAMERA = 1;
-    private final int ACT_CROP = 2;
+    @BindView(R.id.vip_daren)
+    TextView vipDaren;
     @BindView(R.id.yaoqingma)
     TextView yaoqingma;
     @BindView(R.id.copy)
     TextView copy;
+    @BindView(R.id.vip_shouru)
+    TextView vipShouru;
+
     private Uri pictureUri = null;
     private String filePath = Environment.getExternalStorageDirectory() + File.separator + "myself" + File.separator;
     private ClipboardManager clipboardManager;
     private ClipData clipData;
+    private final int ACT_GALLERY = 0;
+    private final int ACT_CAMERA = 1;
+    private final int ACT_CROP = 2;
 
     @Override
     protected int setLayout() {
@@ -122,13 +129,14 @@ public class MineFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.copy, R.id.vip_quanyi, R.id.userhead, R.id.view_yaoqing, R.id.view_jiaocheng, R.id.view_yinhangka, R.id.view_youhui, R.id.view_dingdan, R.id.view_dizhi, R.id.view_shiming, R.id.view_lianxi})
+    @OnClick({R.id.vip_shouru, R.id.vip_daren, R.id.copy, R.id.vip_quanyi, R.id.userhead, R.id.view_yaoqing, R.id.view_jiaocheng, R.id.view_yinhangka, R.id.view_youhui, R.id.view_dingdan, R.id.view_dizhi, R.id.view_shiming, R.id.view_lianxi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.view_yaoqing:
                 toClass(getActivity(), YaoqingActivity.class);
                 break;
             case R.id.view_jiaocheng:
+                toClass(getActivity(), NewPeopleActivity.class);
                 break;
             case R.id.view_yinhangka:
                 toClass(getActivity(), IDBankActivity.class);
@@ -149,11 +157,17 @@ public class MineFragment extends BaseFragment {
             case R.id.vip_quanyi:
                 toClass(getActivity(), QuanYiActivity.class);
                 break;
+            case R.id.vip_shouru:
+                toClass(getActivity(), ShouRuActivity.class);
+                break;
             case R.id.copy:
                 String stringMa = yaoqingma.getText().toString().trim();
                 clipData = ClipData.newPlainText("ma", stringMa);
                 clipboardManager.setPrimaryClip(clipData);
                 ToastUtil.showShortToast("复制成功");
+                break;
+            case R.id.vip_daren:
+                toClass(getActivity(), DaRenActivity.class);
                 break;
             case R.id.userhead:
                 final AlertDialog builder = new AlertDialog.Builder(getActivity()).create();

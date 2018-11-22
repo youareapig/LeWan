@@ -1,28 +1,31 @@
-package com.leiwan.zl.address;
+package com.leiwan.zl.shouru.fragment;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.util.Log;
 import android.widget.ImageView;
-import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.leiwan.zl.App;
 import com.leiwan.zl.R;
+import com.leiwan.zl.data.HomeData;
+import com.leiwan.zl.utils.SnapUpCountDownTimerView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 
 /**
  * Created by DELL on 2017/8/30.
  */
 
-public class Adapter extends BaseQuickAdapter<String,BaseViewHolder> {
+public class Adapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
 
     public Adapter(@LayoutRes int layoutResId, @Nullable List<String> data) {
@@ -32,10 +35,11 @@ public class Adapter extends BaseQuickAdapter<String,BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.name,item)
-                .addOnClickListener(R.id.bianji)
-                .addOnClickListener(R.id.delete);
+        helper.setText(R.id.money,item);
+
     }
+
+
 
 
 

@@ -48,7 +48,11 @@ dependencies {
     compile 'com.amap.api:location:latest.integration'
     compile 'com.zhy:mpermission-api:1.0.0'
     compile 'com.jwenfeng.pulltorefresh:library:1.2.6'
+    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.22'
+    compile 'org.greenrobot:eventbus:3.0.0'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     apt 'com.zhy:mpermission-compiler:1.0.0'
+    compile 'com.github.addappcn:android-pickers:1.0.1'
+    compile 'com.alibaba:fastjson:1.1.55.android'
 }

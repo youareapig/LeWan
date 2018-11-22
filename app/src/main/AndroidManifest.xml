@@ -38,7 +38,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:label,android:theme">
-        <activity android:name=".home.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,7 +53,6 @@
             android:value="cc58566533d06c0aa1bf6bca88ff09dc" />
 
         <activity android:name=".yaoqing.YaoqingActivity" />
-        <activity android:name=".xinshou.XinShouActivity" />
         <activity android:name=".bank.IDBankActivity" />
         <activity android:name=".bank.AddBankActivity" />
         <activity android:name=".lianxi.LianXiActivity" />
@@ -61,7 +60,10 @@
         <activity android:name=".address.UpdateAddressActivity" />
         <activity android:name=".shiming.RenZhengActivity" />
         <activity android:name=".shiming.IsRenZhengActivity" />
-        <activity android:name=".quanyi.QuanYiActivity"></activity>
+        <activity android:name=".quanyi.QuanYiActivity" />
+        <activity android:name=".daren.DaRenActivity" />
+        <activity android:name=".shouru.ShouRuActivity" />
+        <activity android:name=".newpeople.NewPeopleActivity"></activity>
     </application>
 
 </manifest>

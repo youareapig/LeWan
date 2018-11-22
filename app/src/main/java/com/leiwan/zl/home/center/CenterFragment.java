@@ -7,6 +7,7 @@ import com.androidkun.xtablayout.XTabLayout;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
 import com.leiwan.zl.home.center.fragment.WeiYuYue;
+import com.leiwan.zl.home.center.fragment.YiShiYong;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class CenterFragment extends BaseFragment {
     ViewPager centerViewpager;
     private List<String> titleList;
     private List<Fragment> fragmentList;
+
     @Override
     protected int setLayout() {
         return R.layout.center_fragment;
@@ -31,14 +33,14 @@ public class CenterFragment extends BaseFragment {
 
     @Override
     protected void setView() {
-    titleList=new ArrayList<>();
+        titleList = new ArrayList<>();
         titleList.add("未预约");
         titleList.add("已使用");
-        fragmentList=new ArrayList<>();
+        fragmentList = new ArrayList<>();
         fragmentList.add(new WeiYuYue());
-        fragmentList.add(new WeiYuYue());
+        fragmentList.add(new YiShiYong());
 
-        centerViewpager.setAdapter(new TabAdapter(getActivity().getSupportFragmentManager(),titleList,fragmentList));
+        centerViewpager.setAdapter(new TabAdapter(getActivity().getSupportFragmentManager(), titleList, fragmentList));
         centerViewpager.setOffscreenPageLimit(0);
         centerTab.setupWithViewPager(centerViewpager);
         centerTab.getTabAt(0).select();

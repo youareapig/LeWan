@@ -34,6 +34,7 @@ public class HotFragment extends BaseFragment {
     PullToRefreshLayout refresh;
     private List<Map<String, String>> testList;
     private Map<String, String> map;
+    private Adapter adapter;
 
     @Override
     protected int setLayout() {
@@ -57,7 +58,9 @@ public class HotFragment extends BaseFragment {
         testList.add(map);
         testList.add(map);
         testList.add(map);
-        shareList.setAdapter(new Adapter(testList, getActivity()));
+        adapter = new Adapter(R.layout.share_item, testList);
+        shareList.setAdapter(adapter);
+        adapter.openLoadAnimation();
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {

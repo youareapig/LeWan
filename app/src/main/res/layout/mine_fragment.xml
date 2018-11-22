@@ -347,6 +347,7 @@
                         android:src="@mipmap/right" />
 
                     <TextView
+                        android:id="@+id/vip_shouru"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -454,12 +455,13 @@
                     android:background="@mipmap/bg2">
 
                     <TextView
+                        android:id="@+id/vip_daren"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/dp_3"
                         android:layout_marginTop="@dimen/dp_3"
-                        android:text="收入指数"
+                        android:text="达人后台"
                         android:textColor="#fff"
                         android:textSize="@dimen/dp_10" />
 

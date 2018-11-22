@@ -102,6 +102,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     public AMapLocationClient mLocationClient = null;
     public AMapLocationListener mLocationListener = new MyAMapLocationListener();
     public AMapLocationClientOption mLocationOption = null;
+    private Adapter adapter;
 
     @Override
     protected int setLayout() {
@@ -137,7 +138,10 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
         //TODO 设置状态栏颜色
         StatusBarUtils.setStatusBarColor(getActivity(), R.color.bar);
         MPermissions.requestPermissions(IndexFragment.this, 1, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
+        getData();
+    }
 
+    private void getData() {
         Subscription subscription = RetrofitUtil.GetData().getData(MMap.getMap(0, 0), null, 1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -158,7 +162,10 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
                         Log.d("tag", "获取数据成功" + homeData.getCode());
                         if (homeData.getCode() == 200) {
                             datalist = homeData.getData();
-                            indexRecycler.setAdapter(new Adapter(datalist, getActivity()));
+                            adapter = new Adapter(R.layout.index_list_item, datalist);
+                            indexRecycler.setAdapter(adapter);
+                            adapter.openLoadAnimation();
+
 
                             indexBanner.setImageLoader(new GlideImageLoader());
                             indexBanner.setImages(list);
@@ -171,7 +178,6 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
 
                     }
                 });
-
     }
 
     @Override

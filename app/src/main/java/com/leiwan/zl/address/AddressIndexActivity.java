@@ -4,16 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.leiwan.zl.App;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
-import com.leiwan.zl.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +30,8 @@ public class AddressIndexActivity extends BaseActivity {
     RecyclerView recycler;
     @BindView(R.id.addadr)
     RelativeLayout addadr;
+    @BindView(R.id.noData)
+    TextView noData;
     private List<String> list;
     private Adapter adapter;
 
@@ -68,6 +69,12 @@ public class AddressIndexActivity extends BaseActivity {
                 }
             }
         });
+        //判断是否有数据
+        if (list.size() == 0) {
+            noData.setVisibility(View.VISIBLE);
+        } else {
+            noData.setVisibility(View.GONE);
+        }
     }
 
 
@@ -82,4 +89,5 @@ public class AddressIndexActivity extends BaseActivity {
                 break;
         }
     }
+
 }

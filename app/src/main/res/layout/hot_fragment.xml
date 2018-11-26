@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#fff">
+    android:background="#fff"
+    android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
@@ -12,11 +12,13 @@
         android:text="分享圈"
         android:textColor="#333333"
         android:textSize="@dimen/sp_18" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
-        android:background="@color/lineview"
-        android:layout_marginTop="@dimen/dp_15"/>
+        android:layout_marginTop="@dimen/dp_15"
+        android:background="@color/lineview" />
+
     <com.jwenfeng.library.pulltorefresh.PullToRefreshLayout
         android:id="@+id/refresh"
         android:layout_width="match_parent"

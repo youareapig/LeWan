@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.leiwan.zl.dingdan.DingDanActivity">
+
+    <RelativeLayout style="@style/title"
+        android:background="#fff">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/titleback"
+            android:src="@mipmap/back" />
+
+        <TextView
+            style="@style/titlename"
+            android:text="我的订单" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lineview" />
+    </RelativeLayout>
+
+    <com.androidkun.xtablayout.XTabLayout
+        android:background="#fff"
+        android:id="@+id/dingdan_tab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_47"
+        app:xTabDisplayNum="6"
+        app:xTabDividerWidthWidthText="true"
+        app:xTabIndicatorColor="#E1B872"
+        app:xTabIndicatorHeight="@dimen/dp_4"
+        app:xTabMode="scrollable"
+        app:xTabSelectedTextColor="#333333"
+        app:xTabTextColor="#999999"
+        app:xTabTextSize="@dimen/sp_14" />
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/dingdan_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

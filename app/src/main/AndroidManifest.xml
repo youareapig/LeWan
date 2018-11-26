@@ -63,7 +63,10 @@
         <activity android:name=".quanyi.QuanYiActivity" />
         <activity android:name=".daren.DaRenActivity" />
         <activity android:name=".shouru.ShouRuActivity" />
-        <activity android:name=".newpeople.NewPeopleActivity"></activity>
+        <activity android:name=".newpeople.NewPeopleActivity" />
+        <activity android:name=".dingdan.DingDanActivity" />
+        <activity android:name=".second.SecondActivity" />
+        <activity android:name=".friend.FriendActivity"></activity>
     </application>
 
 </manifest>

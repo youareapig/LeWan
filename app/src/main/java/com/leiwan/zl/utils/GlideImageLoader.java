@@ -15,17 +15,35 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  * Created by Administrator on 2018/11/14.
  */
 
-public class GlideImageLoader extends ImageLoader{
+public class GlideImageLoader extends ImageLoader {
+    private int isCenter;
+
+    public GlideImageLoader(int isCenter) {
+        this.isCenter = isCenter;
+    }
+
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
-        Glide.with(context).load(path).into(imageView);
-        Glide.with(context)
-                .load(path)
-                .bitmapTransform(new CenterCrop(context),new RoundedCornersTransformation(context,16,0))
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
-                .into(imageView);
-        Uri uri = Uri.parse((String) path);
-        imageView.setImageURI(uri);
+        switch (isCenter) {
+            //有圆角
+            case 1:
+                Glide.with(context)
+                        .load(path)
+                        .bitmapTransform(new CenterCrop(context), new RoundedCornersTransformation(context, 16, 0))
+                        .placeholder(R.mipmap.ic_launcher)
+                        .error(R.mipmap.ic_launcher)
+                        .into(imageView);
+                break;
+            case 2:
+                //直角
+                Glide.with(context)
+                        .load(path)
+                        .placeholder(R.mipmap.ic_launcher)
+                        .error(R.mipmap.ic_launcher)
+                        .into(imageView);
+                break;
+        }
+
+
     }
 }

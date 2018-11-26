@@ -1,8 +1,10 @@
 package com.leiwan.zl.home.index;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,6 +26,7 @@ import com.amap.api.location.AMapLocationListener;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.HomeData;
+import com.leiwan.zl.second.SecondActivity;
 import com.leiwan.zl.utils.GlideImageLoader;
 import com.leiwan.zl.utils.MMap;
 import com.leiwan.zl.utils.ObservableScrollView;
@@ -103,6 +108,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     public AMapLocationListener mLocationListener = new MyAMapLocationListener();
     public AMapLocationClientOption mLocationOption = null;
     private Adapter adapter;
+    private Bundle bundle;
 
     @Override
     protected int setLayout() {
@@ -111,12 +117,14 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
 
     @Override
     protected void setView() {
+        bundle = new Bundle();
         indexRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         indexRecycler.setNestedScrollingEnabled(false);
     }
 
     @Override
     protected void setData() {
+        showDialog();
         ViewTreeObserver observer = indexBanner.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -167,7 +175,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
                             adapter.openLoadAnimation();
 
 
-                            indexBanner.setImageLoader(new GlideImageLoader());
+                            indexBanner.setImageLoader(new GlideImageLoader(1));
                             indexBanner.setImages(list);
                             indexBanner.setBannerAnimation(Transformer.DepthPage);
                             indexBanner.isAutoPlay(true);
@@ -232,20 +240,36 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.newpeople:
+                bundle.putString("title", "1");
+                toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.food:
+                bundle.putString("title", "2");
+                toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.hotel:
+                bundle.putString("title", "3");
+                toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.lipin:
+                bundle.putString("title", "4");
+                toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.qinzi:
+                bundle.putString("title", "5");
+                toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.leyuan:
+                bundle.putString("title", "6");
+                toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.jingqu:
+                bundle.putString("title", "7");
+                toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.chuxing:
+                bundle.putString("title", "8");
+                toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.zonghe:
                 zongheLine.setVisibility(View.VISIBLE);
@@ -303,6 +327,26 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
         super.onStop();
         Log.d("tag", "停止定位");
         mLocationClient.stopLocation();
+    }
+
+    private void showDialog() {
+        final AlertDialog dialog = new AlertDialog.Builder(getActivity(), R.style.FullScreenDialog).create();
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View v = inflater.inflate(R.layout.index_show_dialog, null);
+        dialog.setCancelable(false);
+        v.findViewById(R.id.close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        dialog.setView(v);
+        dialog.show();
+//        Window window = dialog.getWindow();
+//        window.setLayout(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+//        WindowManager.LayoutParams layoutParams = window.getAttributes();
+//        layoutParams.alpha = 0.9f;
+//        window.setAttributes(layoutParams);
     }
 
 

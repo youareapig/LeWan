@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="@dimen/dp_300"
+        android:layout_height="@dimen/dp_370"
+        android:layout_centerInParent="true"
+        android:background="@drawable/line6">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_243"
+            android:background="#569">
+
+            <ImageView
+                android:id="@+id/close"
+                android:layout_width="@dimen/dp_13"
+                android:layout_height="@dimen/dp_13"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/dp_18"
+                android:layout_marginTop="@dimen/dp_18"
+                android:src="@mipmap/close" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/erweima"
+            android:layout_width="@dimen/dp_85"
+            android:layout_height="@dimen/dp_85"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_26"
+            android:layout_marginTop="@dimen/dp_200"
+            android:background="#F77917">
+
+            <ImageView
+                android:layout_width="@dimen/dp_71"
+                android:layout_height="@dimen/dp_71"
+                android:layout_centerInParent="true"
+                android:src="@mipmap/erweima" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/erweima"
+            android:layout_marginRight="@dimen/dp_25"
+            android:layout_marginTop="@dimen/dp_6"
+            android:text="长按识别二维码"
+            android:textColor="#333"
+            android:textSize="@dimen/sp_12" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/erweima"
+            android:layout_marginLeft="@dimen/dp_17"
+            android:text="更多限量好物"
+            android:textColor="#333"
+            android:textSize="@dimen/sp_15" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/erweima"
+            android:layout_marginLeft="@dimen/dp_17"
+            android:layout_marginTop="@dimen/dp_39"
+            android:text="尽在乐玩联盟公众号"
+            android:textColor="#333"
+            android:textSize="@dimen/sp_12" />
+    </RelativeLayout>
+</RelativeLayout>

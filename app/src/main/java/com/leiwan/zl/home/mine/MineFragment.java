@@ -22,16 +22,16 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.leiwan.zl.App;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
 import com.leiwan.zl.address.AddressIndexActivity;
 import com.leiwan.zl.bank.IDBankActivity;
 import com.leiwan.zl.daren.DaRenActivity;
+import com.leiwan.zl.dingdan.DingDanActivity;
+import com.leiwan.zl.friend.FriendActivity;
 import com.leiwan.zl.lianxi.LianXiActivity;
 import com.leiwan.zl.newpeople.NewPeopleActivity;
 import com.leiwan.zl.quanyi.QuanYiActivity;
@@ -89,6 +89,8 @@ public class MineFragment extends BaseFragment {
     TextView copy;
     @BindView(R.id.vip_shouru)
     TextView vipShouru;
+    @BindView(R.id.myfriend)
+    RelativeLayout myfriend;
 
     private Uri pictureUri = null;
     private String filePath = Environment.getExternalStorageDirectory() + File.separator + "myself" + File.separator;
@@ -129,7 +131,7 @@ public class MineFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.vip_shouru, R.id.vip_daren, R.id.copy, R.id.vip_quanyi, R.id.userhead, R.id.view_yaoqing, R.id.view_jiaocheng, R.id.view_yinhangka, R.id.view_youhui, R.id.view_dingdan, R.id.view_dizhi, R.id.view_shiming, R.id.view_lianxi})
+    @OnClick({R.id.myfriend, R.id.vip_shouru, R.id.vip_daren, R.id.copy, R.id.vip_quanyi, R.id.userhead, R.id.view_yaoqing, R.id.view_jiaocheng, R.id.view_yinhangka, R.id.view_youhui, R.id.view_dingdan, R.id.view_dizhi, R.id.view_shiming, R.id.view_lianxi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.view_yaoqing:
@@ -144,6 +146,7 @@ public class MineFragment extends BaseFragment {
             case R.id.view_youhui:
                 break;
             case R.id.view_dingdan:
+                toClass(getActivity(), DingDanActivity.class);
                 break;
             case R.id.view_dizhi:
                 toClass(getActivity(), AddressIndexActivity.class);
@@ -168,6 +171,9 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.vip_daren:
                 toClass(getActivity(), DaRenActivity.class);
+                break;
+            case R.id.myfriend:
+                toClass(getActivity(), FriendActivity.class);
                 break;
             case R.id.userhead:
                 final AlertDialog builder = new AlertDialog.Builder(getActivity()).create();

@@ -18,7 +18,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.leiwan.zl.App;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.HomeData;
-import com.leiwan.zl.testdata.TestData;
 import com.leiwan.zl.utils.SnapUpCountDownTimerView;
 
 import java.text.DateFormat;

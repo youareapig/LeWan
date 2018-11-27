@@ -66,7 +66,9 @@
         <activity android:name=".newpeople.NewPeopleActivity" />
         <activity android:name=".dingdan.DingDanActivity" />
         <activity android:name=".second.SecondActivity" />
-        <activity android:name=".friend.FriendActivity"></activity>
+        <activity android:name=".friend.FriendActivity" />
+        <activity android:name=".tixian.TiXianActivity" />
+        <activity android:name=".details.DetailsActivity"></activity>
     </application>
 
 </manifest>

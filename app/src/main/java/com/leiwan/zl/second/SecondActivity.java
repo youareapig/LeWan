@@ -1,5 +1,6 @@
 package com.leiwan.zl.second;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,14 +10,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
+import com.leiwan.zl.details.DetailsActivity;
 import com.leiwan.zl.utils.GlideImageLoader;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +66,7 @@ public class SecondActivity extends BaseActivity {
     RecyclerView recycler;
     @BindView(R.id.refresh)
     PullToRefreshLayout refresh;
-    private List<String> list,imgList;
+    private List<String> list, imgList;
     private Adapter adapter;
 
     @Override
@@ -118,7 +122,14 @@ public class SecondActivity extends BaseActivity {
         adapter = new Adapter(R.layout.index_list_item, list);
         recycler.setAdapter(adapter);
         adapter.openLoadAnimation();
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent=new Intent(view.getContext(), DetailsActivity.class);
+                startActivity(intent);
 
+            }
+        });
         imgList = new ArrayList<>();
         imgList.add("http://img03.tooopen.com/uploadfile/downs/images/20110714/sy_20110714135215645030.jpg");
         imgList.add("http://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/lvpics/w=600/sign=3da54689a11ea8d38a227704a70a30cf/ac6eddc451da81cb378472ff5566d016092431a5.jpg");
@@ -131,7 +142,12 @@ public class SecondActivity extends BaseActivity {
         secondBanner.setDelayTime(3000);
         secondBanner.setIndicatorGravity(BannerConfig.RIGHT);
         secondBanner.start();
-
+//        secondBanner.setOnBannerListener(new OnBannerListener() {
+//            @Override
+//            public void OnBannerClick(int position) {
+//
+//            }
+//        });
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
@@ -190,4 +206,9 @@ public class SecondActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        secondBanner.stopAutoPlay();
+    }
 }

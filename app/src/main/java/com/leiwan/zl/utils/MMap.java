@@ -10,12 +10,13 @@ import java.util.Map;
 public class MMap {
     public static Map<String, Object> map;
 
-    public static Map getMap(int provincecode, int citycode) {
+    public static Map getMap(int provincecode, int citycode,String app,String android) {
         map = new HashMap<>();
         map.put("provincecode", provincecode);
         map.put("citycode", citycode);
-        map.put("product", "app");
-        map.put("platform", "android");
+//        map.put("sign", sign);
+        map.put("product", app);
+        map.put("platform", android);
         return map;
     }
 }

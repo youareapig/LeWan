@@ -1,6 +1,7 @@
 package com.leiwan.zl.details;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,14 +10,23 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.androidkun.xtablayout.XTabLayout;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
+import com.leiwan.zl.details.fragment.GMXZ;
+import com.leiwan.zl.details.fragment.TSJS;
+import com.leiwan.zl.home.center.TabAdapter;
+import com.leiwan.zl.newpeople.fragment.KeTang;
+import com.leiwan.zl.newpeople.fragment.ShouCe;
+import com.leiwan.zl.newpeople.fragment.YongJin;
+import com.youth.banner.view.BannerViewPager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class DetailsActivity extends BaseActivity {
 
@@ -25,13 +35,22 @@ public class DetailsActivity extends BaseActivity {
     ViewPager viewpager;
     @BindView(R.id.points)
     LinearLayout points;
+    @BindView(R.id.back)
+    ImageView back;
+    @BindView(R.id.banner)
+    BannerViewPager banner;
+    @BindView(R.id.details_tab)
+    XTabLayout detailsTab;
+    @BindView(R.id.details_viewpager)
+    ViewPager detailsViewpager;
     private ImageView[] ivPoints;//小圆点图片的集合
     private int totalPage; //总的页数
     private int mPageSize = 8; //每页显示的最大的数量
     private List<String> listDatas;//总的数据源
     private List<View> viewPagerList;//GridView作为一个View对象添加到ViewPager集合中
 
-
+    private List<String> titleList;
+    private List<Fragment> fragmentList;
     @Override
     protected int setLayout() {
         return R.layout.activity_details;
@@ -39,12 +58,24 @@ public class DetailsActivity extends BaseActivity {
 
     @Override
     protected void setView() {
+        titleList = new ArrayList<>();
+        titleList.add("购买须知");
+        titleList.add("特色介绍");
+        fragmentList = new ArrayList<>();
+        fragmentList.add(new GMXZ());
+        fragmentList.add(new TSJS());
 
+        detailsViewpager.setAdapter(new TabAdapter(getSupportFragmentManager(), titleList, fragmentList));
+        detailsViewpager.setOffscreenPageLimit(0);
+        detailsTab.setupWithViewPager(detailsViewpager);
+        detailsTab.getTabAt(0).select();
+        detailsTab.getTabAt(1).select();
+        detailsViewpager.setCurrentItem(0);
     }
 
     @Override
     protected void setData() {
-        listDatas=new ArrayList<>();
+        listDatas = new ArrayList<>();
         listDatas.add("名称");
         listDatas.add("名称");
         listDatas.add("名称");
@@ -112,4 +143,10 @@ public class DetailsActivity extends BaseActivity {
     }
 
 
+
+
+    @OnClick(R.id.back)
+    public void onViewClicked() {
+        finish();
+    }
 }

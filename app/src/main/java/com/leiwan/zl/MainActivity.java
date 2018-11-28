@@ -22,6 +22,7 @@ import com.leiwan.zl.home.center.CenterFragment;
 import com.leiwan.zl.home.hot.HotFragment;
 import com.leiwan.zl.home.index.IndexFragment;
 import com.leiwan.zl.home.mine.MineFragment;
+import com.leiwan.zl.utils.SharedPreferencesUtil;
 import com.leiwan.zl.utils.StatusBarUtils;
 
 import java.util.ArrayList;
@@ -72,7 +73,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
-
+        //TODO 测试token
+        SharedPreferencesUtil.getInstance(this).putSP("token", "eea585bbe61373501e7e9acd0807ab10");
 
         fragment = new Fragment();
         fragmentList = new ArrayList<>();

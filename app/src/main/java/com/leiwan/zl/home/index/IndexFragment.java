@@ -19,18 +19,25 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.google.gson.Gson;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.HomeData;
 import com.leiwan.zl.second.SecondActivity;
+import com.leiwan.zl.utils.CameraUtil;
+import com.leiwan.zl.utils.Connector;
+import com.leiwan.zl.utils.CustomDialog;
+import com.leiwan.zl.utils.DialogUtils;
 import com.leiwan.zl.utils.GlideImageLoader;
 import com.leiwan.zl.utils.MMap;
 import com.leiwan.zl.utils.ObservableScrollView;
 import com.leiwan.zl.utils.RetrofitUtil;
+import com.leiwan.zl.utils.SharedPreferencesUtil;
 import com.leiwan.zl.utils.StatusBarUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -39,8 +46,13 @@ import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -109,6 +121,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     public AMapLocationClientOption mLocationOption = null;
     private Adapter adapter;
     private Bundle bundle;
+    private String token;
 
     @Override
     protected int setLayout() {
@@ -117,6 +130,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
 
     @Override
     protected void setView() {
+
         bundle = new Bundle();
         indexRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         indexRecycler.setNestedScrollingEnabled(false);
@@ -124,7 +138,10 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
 
     @Override
     protected void setData() {
-        showDialog();
+        token = SharedPreferencesUtil.getInstance(getActivity()).getSP("token");
+        Log.d("tag", "token------>" + token);
+//        showDialog();
+
         ViewTreeObserver observer = indexBanner.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -146,47 +163,8 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
         //TODO 设置状态栏颜色
         StatusBarUtils.setStatusBarColor(getActivity(), R.color.bar);
         MPermissions.requestPermissions(IndexFragment.this, 1, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
-        getData();
     }
 
-    private void getData() {
-        Subscription subscription = RetrofitUtil.GetData().getData(MMap.getMap(0, 0), null, 1)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Subscriber<HomeData>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        Log.d("tag", "获取数据失败" + e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(HomeData homeData) {
-
-                        Log.d("tag", "获取数据成功" + homeData.getCode());
-                        if (homeData.getCode() == 200) {
-                            datalist = homeData.getData();
-                            adapter = new Adapter(R.layout.index_list_item, datalist);
-                            indexRecycler.setAdapter(adapter);
-                            adapter.openLoadAnimation();
-
-
-                            indexBanner.setImageLoader(new GlideImageLoader(1));
-                            indexBanner.setImages(list);
-                            indexBanner.setBannerAnimation(Transformer.DepthPage);
-                            indexBanner.isAutoPlay(true);
-                            indexBanner.setDelayTime(3000);
-                            indexBanner.setIndicatorGravity(BannerConfig.RIGHT);
-                            indexBanner.start();
-                        }
-
-                    }
-                });
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
@@ -213,6 +191,10 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
                 if (aMapLocation.getErrorCode() == 0) {
                     city.setText(aMapLocation.getCity());
                     Log.d("tag", "-----location----");
+                    String lng = aMapLocation.getLongitude() + "";
+                    String lat = aMapLocation.getLatitude() + "";
+                    getData(lat, lng);
+                    getBanner();
                 }
 
             }
@@ -348,6 +330,38 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
 //        WindowManager.LayoutParams layoutParams = window.getAttributes();
 //        layoutParams.alpha = 0.9f;
 //        window.setAttributes(layoutParams);
+    }
+
+    private void getData(String lat, String lng) {
+        Connector.IndexList(getActivity(), token, lat, lng, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                Log.d("tag", "成功" + result);
+                HomeData data = JSON.parseObject(result, HomeData.class);
+                if (data.getCode() == 200) {
+                    datalist = data.getData();
+                    adapter = new Adapter(R.layout.index_list_item, datalist);
+                    indexRecycler.setAdapter(adapter);
+                    adapter.openLoadAnimation();
+
+                    indexBanner.setImageLoader(new GlideImageLoader(1));
+                    indexBanner.setImages(list);
+                    indexBanner.setBannerAnimation(Transformer.DepthPage);
+                    indexBanner.isAutoPlay(true);
+                    indexBanner.setDelayTime(3000);
+                    indexBanner.setIndicatorGravity(BannerConfig.RIGHT);
+                    indexBanner.start();
+                }
+            }
+        });
+    }
+    private void getBanner(){
+        Connector.BannerList(getActivity(), new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                Log.d("tag","banner数据"+result);
+            }
+        });
     }
 
 

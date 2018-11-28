@@ -19,9 +19,11 @@ import rx.Observable;
 public interface Api {
     @FormUrlEncoded
     @POST("api/Product/ProductList")
-    Observable<HomeData> getData(@HeaderMap Map<String,Object> headers,
+    Observable<HomeData> getData(@HeaderMap Map<String, Object> headers,
                                  @Field("token") String token,
-                                 @Field("type") int type
+                                 @Field("type") int type,
+                                 @Field("lat") String lat,
+                                 @Field("lng") String lng
 
     );
 }

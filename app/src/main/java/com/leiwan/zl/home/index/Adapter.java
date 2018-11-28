@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -52,19 +53,25 @@ public class Adapter extends BaseQuickAdapter<HomeData.DataBean, BaseViewHolder>
         long endtime = item.getProduct_endtime();
         long nowtime = dateToStamp();
         long time = endtime - nowtime;
-        Long day = time / (1000 * 60 * 60 * 24);   //以天数为单位取整
-        Long hour = (time / (60 * 60 * 1000) - day * 24);    //以小时为单位取整
-        Long min = ((time / (60 * 1000)) - day * 24 * 60 - hour * 60); //以分钟为单位取整
-        Long second = (time / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);//秒
-        Log.d("tag", "当前时间戳" + dateToStamp());
+        int day = (int) (time / (1000 * 60 * 60 * 24));   //以天数为单位取整
+        int hour = (int) (time / (60 * 60 * 1000) - day * 24);    //以小时为单位取整
+        int min = (int) ((time / (60 * 1000)) - day * 24 * 60 - hour * 60); //以分钟为单位取整
+        int second = (int) (time / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);//秒
+        Log.d("tag", "shijian--" + "day:"+day+"  hour:"+hour+"  min:"+min+"  second:"+second);
+
 
         helper.setText(R.id.index_list_item_title, item.getProduct_name())
                 .setText(R.id.index_list_item_jiage, "¥" + item.getTemp_price())
-                .setText(R.id.index_list_item_xiaoliang, "已售" + item.getProduct_sold())
-                .setText(R.id.index_list_item_youhui, "赚" + item.getTemp_commission());
+                .setText(R.id.index_list_item_xiaoliang, "已售" + item.getProduct_sold());
+//                .setText(R.id.index_list_item_youhui, "赚" + item.getTemp_commission());
         ImageView imageView = helper.getView(R.id.index_list_item_image);
         SnapUpCountDownTimerView timerView = helper.getView(R.id.item_timer);
-        timerView.setTime(0, 2, 12, 30);
+        if (day <= 0 && hour <= 0 && min <= 0 && second <= 0) {
+
+        } else {
+            timerView.setTime(day, hour, min, second);
+        }
+
         timerView.start();
         Glide.with(App.content)
                 .load(item.getProduct_pic())

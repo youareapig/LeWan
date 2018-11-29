@@ -22,6 +22,7 @@ public class TSJS extends BaseFragment {
     @BindView(R.id.webview)
     WebView webview;
     private WebSettings webSettings;
+
     @Override
     protected int setLayout() {
         return R.layout.details_rich;
@@ -29,7 +30,7 @@ public class TSJS extends BaseFragment {
 
     @Override
     protected void setView() {
-        webSettings=webview.getSettings();
+        webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setBlockNetworkImage(false);
         webSettings.setLoadWithOverviewMode(true);

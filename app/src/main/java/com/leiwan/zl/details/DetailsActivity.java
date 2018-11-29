@@ -45,7 +45,7 @@ public class DetailsActivity extends BaseActivity {
     ViewPager detailsViewpager;
     private ImageView[] ivPoints;//小圆点图片的集合
     private int totalPage; //总的页数
-    private int mPageSize = 8; //每页显示的最大的数量
+    private int mPageSize = 4; //每页显示的最大的数量
     private List<String> listDatas;//总的数据源
     private List<View> viewPagerList;//GridView作为一个View对象添加到ViewPager集合中
 
@@ -76,20 +76,15 @@ public class DetailsActivity extends BaseActivity {
     @Override
     protected void setData() {
         listDatas = new ArrayList<>();
-        listDatas.add("名称");
-        listDatas.add("名称");
-        listDatas.add("名称");
-        listDatas.add("名称");
-        listDatas.add("名称");
-        listDatas.add("名称");
-        listDatas.add("名称");
-        listDatas.add("名称");
-        listDatas.add("名称");
-        listDatas.add("名称");
-        listDatas.add("名称");
-        listDatas.add("名称");
-        listDatas.add("名称");
-        listDatas.add("名称");
+        listDatas.add("【万达瑞华国际酒店】");
+        listDatas.add("【4人团套餐温泉票】");
+        listDatas.add("【海鲜牛排自助】");
+        listDatas.add("【三生有幸花店】");
+        listDatas.add("【万达瑞华国际酒店】");
+        listDatas.add("【4人团套餐温泉票】");
+        listDatas.add("【海鲜牛排自助】");
+        listDatas.add("【三生有幸花店】");
+
 
         totalPage = (int) Math.ceil(listDatas.size() * 1.0 / mPageSize);
         viewPagerList = new ArrayList<View>();
@@ -119,10 +114,16 @@ public class DetailsActivity extends BaseActivity {
         for (int i = 0; i < totalPage; i++) {
             //循坏加入点点图片组
             ivPoints[i] = new ImageView(this);
+            ImageView imageView=new ImageView(this);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(15, 15);
+            layoutParams.leftMargin = 10;
+            layoutParams.rightMargin = 10;
+            imageView.setLayoutParams(layoutParams);
+            ivPoints[i]=imageView;
             if (i == 0) {
-                ivPoints[i].setImageResource(R.mipmap.ic_launcher);
+                ivPoints[i].setBackgroundResource(R.drawable.vpchecked);
             } else {
-                ivPoints[i].setImageResource(R.mipmap.time1);
+                ivPoints[i].setBackgroundResource(R.drawable.vpunchecked);
             }
             ivPoints[i].setPadding(8, 8, 8, 8);
             points.addView(ivPoints[i]);
@@ -133,9 +134,9 @@ public class DetailsActivity extends BaseActivity {
                 super.onPageSelected(position);
                 for (int i = 0; i < totalPage; i++) {
                     if (i == position) {
-                        ivPoints[i].setImageResource(R.mipmap.ic_launcher);
+                        ivPoints[i].setBackgroundResource(R.drawable.vpchecked);
                     } else {
-                        ivPoints[i].setImageResource(R.mipmap.time1);
+                        ivPoints[i].setBackgroundResource(R.drawable.vpunchecked);
                     }
                 }
             }

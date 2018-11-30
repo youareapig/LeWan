@@ -11,14 +11,20 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.google.gson.JsonObject;
 import com.leiwan.zl.App;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.HomeData;
+import com.leiwan.zl.utils.DateUtils;
+import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.SnapUpCountDownTimerView;
+
+import org.json.JSONException;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,31 +40,49 @@ import static android.R.id.list;
  * Created by DELL on 2017/8/30.
  */
 
-public class Adapter extends BaseQuickAdapter<Map<String, String>, BaseViewHolder> {
+public class Adapter extends BaseQuickAdapter<HomeData.DataBean, BaseViewHolder> {
 
 
-    public Adapter(@LayoutRes int layoutResId, @Nullable List<Map<String, String>> data) {
+    public Adapter(@LayoutRes int layoutResId, @Nullable List<HomeData.DataBean> data) {
         super(layoutResId, data);
     }
 
 
     @Override
-    protected void convert(BaseViewHolder helper, Map<String, String> item) {
+    protected void convert(BaseViewHolder helper, HomeData.DataBean item) {
         ImageView imageLift, imageRight;
         imageLift = helper.getView(R.id.item_image_left);
         imageRight = helper.getView(R.id.item_image_right);
+
         Glide.with(App.content)
-                .load(item.get("first"))
+                .load(item.getProduct_compic().get(0))
                 .bitmapTransform(new CenterCrop(App.content), new RoundedCornersTransformation(App.content, 10, 0))
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(imageLift);
         Glide.with(App.content)
-                .load(item.get("second"))
+                .load(item.getProduct_compic().get(1))
                 .bitmapTransform(new CenterCrop(App.content), new RoundedCornersTransformation(App.content, 10, 0))
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(imageRight);
+
+        try {
+            String time=item.getProduct_addtime()+"";
+
+            org.json.JSONObject jsonObject = new org.json.JSONObject(item.getTemp_commission().get(0) + "");
+            LogUtil.d("fengxiang", "fenx----" + jsonObject.getString("fenxiang"));
+            LogUtil.d("fengxiang", "zigou----" + jsonObject.getString("zigou"));
+            String fenxiang = jsonObject.getString("fenxiang");
+            String zigou = jsonObject.getString("zigou");
+            helper.setText(R.id.item_name, item.getProduct_name())
+                    .setText(R.id.share_item_jiage, "¥" + item.getTemp_price())
+                    .setText(R.id.item_fenxiang, "分享赚"+fenxiang)
+                    .setText(R.id.item_date, DateUtils.timedate(time));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
 
 

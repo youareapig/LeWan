@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         unbinder = ButterKnife.bind(this);
         //TODO 测试token
-        SharedPreferencesUtil.getInstance(this).putSP("token", "eea585bbe61373501e7e9acd0807ab10");
+        SharedPreferencesUtil.getInstance(this).putSP("token", "16b416bbf92a8284a88a2643a4d32da4");
 
         fragment = new Fragment();
         fragmentList = new ArrayList<>();

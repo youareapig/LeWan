@@ -21,8 +21,16 @@ public class Connector {
     private static final int SUCCESS = 0;//code返回成功；
     private static final int FAILURE = 1000;
     private static final int OTHER = 2000;
+    private static String token,lat;
 
-    //使用****************************
+    public Connector() {
+        token = SharedPreferencesUtil.getInstance(App.content).getSP("token");
+
+        LogUtil.d("test","token---"+token);
+
+    }
+
+    //首页列表(综合排序)
     public static void IndexList(Context context, String token, String lat, String lng, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().indexUrl);
         params.addHeader("provincecode", "510000");
@@ -36,17 +44,85 @@ public class Connector {
         params.addBodyParameter("lng", lng);
         xUtilsPostRequest(context, params, myCallback);
     }
-    public static void BannerList(Context context, MyCallback myCallback) {
+
+    //首页列表(价格排序)sales  0取消 1降序 2升序
+    public static void IndexList_sale(Context context, String token, String lat, String lng,String price, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().indexUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
         params.addHeader("sign", null);
         params.addHeader("product", "app");
         params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
         params.addBodyParameter("type", "2");
+        params.addBodyParameter("lat", lat);
+        params.addBodyParameter("lng", lng);
+        params.addBodyParameter("price", price);
         xUtilsPostRequest(context, params, myCallback);
     }
 
+    //首页列表(销量排序)
+    public static void IndexList_num(Context context, String token, String lat, String lng,String num, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().indexUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("type", "2");
+        params.addBodyParameter("lat", lat);
+        params.addBodyParameter("lng", lng);
+        params.addBodyParameter("sales", num);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+
+    //首页列表(距离排序)
+    public static void IndexList_away(Context context, String token, String lat, String lng, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().indexUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("type", "2");
+        params.addBodyParameter("lat", lat);
+        params.addBodyParameter("lng", lng);
+        params.addBodyParameter("distance", "1");
+        xUtilsPostRequest(context, params, myCallback);
+    }
+
+    //首页banner列表
+    public static void indexBannerList(Context context, String lat, String lng, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().indexUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("type", "2");
+        params.addBodyParameter("lat", lat);
+        params.addBodyParameter("lng", lng);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+
+    //分享圈列表
+    public static void HotList(Context context, String token, String lat, String lng, String paging, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().indexUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("type", "2");
+        params.addBodyParameter("lat", lat);
+        params.addBodyParameter("lng", lng);
+        params.addBodyParameter("bursting", "1");
+        xUtilsPostRequest(context, params, myCallback);
+    }
 
     //调用的请求方式（封装的方法）
     private static void xUtilsPostRequest(final Context context, final RequestParams params, final MyCallback callback) {

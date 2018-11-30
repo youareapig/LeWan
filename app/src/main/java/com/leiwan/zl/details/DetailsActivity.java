@@ -65,7 +65,7 @@ public class DetailsActivity extends BaseActivity {
         fragmentList.add(new GMXZ());
         fragmentList.add(new TSJS());
 
-        detailsViewpager.setAdapter(new TabAdapter(getSupportFragmentManager(), titleList, fragmentList));
+        detailsViewpager.setAdapter(new MyTabAdapter(getSupportFragmentManager(), titleList, fragmentList));
         detailsViewpager.setOffscreenPageLimit(0);
         detailsTab.setupWithViewPager(detailsViewpager);
         detailsTab.getTabAt(0).select();
@@ -82,7 +82,6 @@ public class DetailsActivity extends BaseActivity {
         listDatas.add("【三生有幸花店】");
         listDatas.add("【万达瑞华国际酒店】");
         listDatas.add("【4人团套餐温泉票】");
-        listDatas.add("【海鲜牛排自助】");
         listDatas.add("【三生有幸花店】");
 
 

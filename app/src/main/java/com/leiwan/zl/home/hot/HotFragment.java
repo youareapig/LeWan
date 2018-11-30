@@ -8,11 +8,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.alibaba.fastjson.JSON;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
+import com.leiwan.zl.App;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
+import com.leiwan.zl.data.HomeData;
 import com.leiwan.zl.home.index.*;
+import com.leiwan.zl.utils.Connector;
+import com.leiwan.zl.utils.LogUtil;
+import com.leiwan.zl.utils.SharedPreferencesUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,10 +38,10 @@ public class HotFragment extends BaseFragment {
     RecyclerView shareList;
     @BindView(R.id.refresh)
     PullToRefreshLayout refresh;
-    private List<Map<String, String>> testList;
-    private Map<String, String> map;
+    private List<HomeData.DataBean> testList;
     private Adapter adapter;
-
+    private String token,lat,lng;
+    private int page = 1;
     @Override
     protected int setLayout() {
         return R.layout.hot_fragment;
@@ -45,28 +51,26 @@ public class HotFragment extends BaseFragment {
     protected void setView() {
         shareList.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         shareList.setNestedScrollingEnabled(false);
+        LogUtil.d("test","lat---");
     }
 
     @Override
     protected void setData() {
-        map = new HashMap<>();
-        map.put("first", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542622085340&di=25d7163de1083a13cb37cd322b9b4069&imgtype=0&src=http%3A%2F%2Fpic157.nipic.com%2Ffile%2F20180301%2F21485791_202149495000_2.jpg");
-        map.put("second", "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1542622085340&di=5cfcc7195f458e20408ccc92c282c13f&imgtype=0&src=http%3A%2F%2Fpic41.nipic.com%2F20140510%2F9899750_140054382000_2.jpg");
-        testList = new ArrayList<>();
-        testList.add(map);
-        testList.add(map);
-        testList.add(map);
-        testList.add(map);
-        testList.add(map);
-        adapter = new Adapter(R.layout.share_item, testList);
-        shareList.setAdapter(adapter);
-        adapter.openLoadAnimation();
+        token= SharedPreferencesUtil.getInstance(getActivity()).getSP("token");
+        lat=SharedPreferencesUtil.getInstance(getActivity()).getSP("lat");
+        lng=SharedPreferencesUtil.getInstance(getActivity()).getSP("lng");
+        getHotData();
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+//                        if (testList!=null){
+//                            testList.clear();
+//                        }
+//                        page=1;
+//                        getHotData();
                         refresh.finishRefresh();
                     }
                 }, 1000);
@@ -78,9 +82,27 @@ public class HotFragment extends BaseFragment {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+//                        page++;
+//                        getHotData();
                         refresh.finishLoadMore();
                     }
                 }, 1000);
+            }
+        });
+    }
+    private void getHotData(){
+        Connector.HotList(getActivity(), token, lat, lng,page+"", new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("hot","hot---"+result);
+                HomeData data= JSON.parseObject(result,HomeData.class);
+                if (data.getCode()==200){
+                    testList=data.getData();
+                    adapter = new Adapter(R.layout.share_item, testList);
+                    shareList.setAdapter(adapter);
+                    adapter.openLoadAnimation();
+                }
+
             }
         });
     }

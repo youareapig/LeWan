@@ -130,7 +130,7 @@ public class SnapUpCountDownTimerView extends LinearLayout {
                             if (isCarry4Decade(tv_hour_decade)) {
                                 if (isCarry4Unit(tv_day_unit)) {
                                     if (isCarry4Decade(tv_day_decade)) {
-                                       ToastUtil.showShortToast("计算完成");
+//                                       ToastUtil.showShortToast("计算完成");
                                         stop();
                                         setTime(0, 0, 0, 0);//重置为0
                                     }

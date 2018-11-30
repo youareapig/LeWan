@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <RelativeLayout
+        android:id="@+id/zonghe1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/zonghe1_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="综合"
+            android:textColor="@color/xuanzhong"
+            android:textSize="@dimen/sp_15" />
+
+        <View
+            android:id="@+id/zonghe1_line"
+            android:layout_width="@dimen/dp_26"
+            android:layout_height="@dimen/dp_4"
+            android:layout_below="@+id/zonghe1_text"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/line1" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/xiaoliang1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/xiaoliang1_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="销量"
+            android:textColor="@color/xuanzhong"
+            android:textSize="@dimen/sp_15" />
+
+        <View
+            android:id="@+id/xiaoliang1_line"
+            android:layout_width="@dimen/dp_26"
+            android:layout_height="@dimen/dp_4"
+            android:layout_below="@+id/xiaoliang1_text"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/line1"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/price1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/price1_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="价格"
+            android:textColor="@color/xuanzhong"
+            android:textSize="@dimen/sp_15" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_toRightOf="@id/price1_text">
+
+            <ImageView
+                android:layout_width="@dimen/dp_11"
+                android:layout_height="@dimen/dp_11"
+                android:src="@mipmap/down" />
+
+            <ImageView
+                android:layout_width="@dimen/dp_11"
+                android:layout_height="@dimen/dp_11"
+                android:src="@mipmap/up" />
+        </RelativeLayout>
+
+        <View
+            android:id="@+id/price1_line"
+            android:layout_width="@dimen/dp_26"
+            android:layout_height="@dimen/dp_4"
+            android:layout_below="@+id/price1_text"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/line1"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/juli1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/juli1_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="距离"
+            android:textColor="@color/xuanzhong"
+            android:textSize="@dimen/sp_15" />
+
+        <View
+            android:id="@+id/juli1_line"
+            android:layout_width="@dimen/dp_26"
+            android:layout_height="@dimen/dp_4"
+            android:layout_below="@+id/juli1_text"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/line1"
+            android:visibility="gone" />
+    </RelativeLayout>
+</LinearLayout>

@@ -52,9 +52,9 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.github.addappcn:android-pickers:1.0.1'
     compile 'com.alibaba:fastjson:1.1.55.android'
+    compile 'org.jsoup:jsoup:1.10.3'
+    compile 'org.xutils:xutils:3.3.36'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     apt 'com.zhy:mpermission-compiler:1.0.0'
-    compile 'org.jsoup:jsoup:1.10.3'
-    compile 'org.xutils:xutils:3.3.36'
 }

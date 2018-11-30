@@ -1,7 +1,6 @@
 package com.leiwan.zl.home.index;
 
 import android.Manifest;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -12,9 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,21 +22,20 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.google.gson.Gson;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
+import com.leiwan.zl.data.BannerBean;
 import com.leiwan.zl.data.HomeData;
+import com.leiwan.zl.notice.NoticeActivity;
 import com.leiwan.zl.second.SecondActivity;
-import com.leiwan.zl.utils.CameraUtil;
 import com.leiwan.zl.utils.Connector;
-import com.leiwan.zl.utils.CustomDialog;
-import com.leiwan.zl.utils.DialogUtils;
 import com.leiwan.zl.utils.GlideImageLoader;
-import com.leiwan.zl.utils.MMap;
+import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ObservableScrollView;
-import com.leiwan.zl.utils.RetrofitUtil;
 import com.leiwan.zl.utils.SharedPreferencesUtil;
 import com.leiwan.zl.utils.StatusBarUtils;
+import com.leiwan.zl.utils.ToastUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -46,22 +43,12 @@ import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
 
-import org.xutils.common.Callback;
-import org.xutils.http.RequestParams;
-import org.xutils.x;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import rx.Subscriber;
-import rx.Subscription;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by Administrator on 2018/11/14.
@@ -93,7 +80,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     @BindView(R.id.title_view)
     RelativeLayout titleview;
     @BindView(R.id.hengxiangtitle)
-    LinearLayout hengxiangtitle;
+    HorizontalScrollView hengxiangtitle;
     @BindView(R.id.city)
     TextView city;
     @BindView(R.id.zonghe_line)
@@ -112,16 +99,48 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     View juliLine;
     @BindView(R.id.juli)
     RelativeLayout juli;
-    private List<String> list;
+    @BindView(R.id.notice)
+    ImageView notice;
+    @BindView(R.id.menu1)
+    RelativeLayout menu1;
+    @BindView(R.id.zonghe1_text)
+    TextView zonghe1Text;
+    @BindView(R.id.zonghe1_line)
+    View zonghe1Line;
+    @BindView(R.id.zonghe1)
+    RelativeLayout zonghe1;
+    @BindView(R.id.xiaoliang1_text)
+    TextView xiaoliang1Text;
+    @BindView(R.id.xiaoliang1_line)
+    View xiaoliang1Line;
+    @BindView(R.id.xiaoliang1)
+    RelativeLayout xiaoliang1;
+    @BindView(R.id.price1_text)
+    TextView price1Text;
+    @BindView(R.id.price1_line)
+    View price1Line;
+    @BindView(R.id.price1)
+    RelativeLayout price1;
+    @BindView(R.id.juli1_text)
+    TextView juli1Text;
+    @BindView(R.id.juli1_line)
+    View juli1Line;
+    @BindView(R.id.juli1)
+    RelativeLayout juli1;
+
     private int heigh = 380;
     private int heigh1 = 750;
+    private int heigh2 = 770;
     private List<HomeData.DataBean> datalist;
     public AMapLocationClient mLocationClient = null;
     public AMapLocationListener mLocationListener = new MyAMapLocationListener();
     public AMapLocationClientOption mLocationOption = null;
     private Adapter adapter;
     private Bundle bundle;
-    private String token;
+    private String token, lat, lng;
+    private boolean b = true;
+    private String num = "1";
+    private String jiage = "1";
 
     @Override
     protected int setLayout() {
@@ -140,7 +159,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     protected void setData() {
         token = SharedPreferencesUtil.getInstance(getActivity()).getSP("token");
         Log.d("tag", "token------>" + token);
-//        showDialog();
+        showDialog();
 
         ViewTreeObserver observer = indexBanner.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -152,11 +171,6 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
             }
         });
 
-        list = new ArrayList<>();
-        list.add("http://img03.tooopen.com/uploadfile/downs/images/20110714/sy_20110714135215645030.jpg");
-        list.add("http://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/lvpics/w=600/sign=3da54689a11ea8d38a227704a70a30cf/ac6eddc451da81cb378472ff5566d016092431a5.jpg");
-        list.add("http://pic.qiantucdn.com/58pic/22/72/01/57c6578859e1e_1024.jpg");
-        list.add("http://pic9.nipic.com/20100905/2531170_095210291877_2.jpg");
 
         //TODO 文字高亮
         getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -190,11 +204,14 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
             if (aMapLocation != null) {
                 if (aMapLocation.getErrorCode() == 0) {
                     city.setText(aMapLocation.getCity());
-                    Log.d("tag", "-----location----");
-                    String lng = aMapLocation.getLongitude() + "";
-                    String lat = aMapLocation.getLatitude() + "";
+
+                    lng = aMapLocation.getLongitude() + "";
+                    lat = aMapLocation.getLatitude() + "";
+                    SharedPreferencesUtil.getInstance(getActivity()).putSP("lat", lat);
+                    SharedPreferencesUtil.getInstance(getActivity()).putSP("lng", lng);
+
                     getData(lat, lng);
-                    getBanner();
+                    getBanner(lat, lng);
                 }
 
             }
@@ -218,7 +235,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
 
-    @OnClick({R.id.zonghe, R.id.xiaoliang, R.id.price, R.id.juli, R.id.newpeople, R.id.food, R.id.hotel, R.id.lipin, R.id.qinzi, R.id.leyuan, R.id.jingqu, R.id.chuxing})
+    @OnClick({R.id.zonghe1, R.id.xiaoliang1, R.id.price1, R.id.juli1, R.id.notice, R.id.zonghe, R.id.xiaoliang, R.id.price, R.id.juli, R.id.newpeople, R.id.food, R.id.hotel, R.id.lipin, R.id.qinzi, R.id.leyuan, R.id.jingqu, R.id.chuxing})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.newpeople:
@@ -258,24 +275,136 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
                 xiaoliangLine.setVisibility(View.GONE);
                 priceLine.setVisibility(View.GONE);
                 juliLine.setVisibility(View.GONE);
+
+                zonghe1Line.setVisibility(View.VISIBLE);
+                xiaoliang1Line.setVisibility(View.GONE);
+                price1Line.setVisibility(View.GONE);
+                juli1Line.setVisibility(View.GONE);
+
+                getData(lat, lng);
+
                 break;
             case R.id.xiaoliang:
                 zongheLine.setVisibility(View.GONE);
                 xiaoliangLine.setVisibility(View.VISIBLE);
                 priceLine.setVisibility(View.GONE);
                 juliLine.setVisibility(View.GONE);
+                zonghe1Line.setVisibility(View.GONE);
+                xiaoliang1Line.setVisibility(View.VISIBLE);
+                price1Line.setVisibility(View.GONE);
+                juli1Line.setVisibility(View.GONE);
+
+                if (b) {
+                    num = "1";
+                    b = false;
+                } else {
+                    num = "2";
+                    b = true;
+                }
+                getData_num(lat, lng, num);
                 break;
             case R.id.price:
                 zongheLine.setVisibility(View.GONE);
                 xiaoliangLine.setVisibility(View.GONE);
                 priceLine.setVisibility(View.VISIBLE);
                 juliLine.setVisibility(View.GONE);
+
+                zonghe1Line.setVisibility(View.GONE);
+                xiaoliang1Line.setVisibility(View.GONE);
+                price1Line.setVisibility(View.VISIBLE);
+                juli1Line.setVisibility(View.GONE);
+
+                if (b) {
+                    jiage = "1";
+                    b = false;
+                } else {
+                    jiage = "2";
+                    b = true;
+                }
+                getData_sale(lat, lng, jiage);
                 break;
             case R.id.juli:
                 zongheLine.setVisibility(View.GONE);
                 xiaoliangLine.setVisibility(View.GONE);
                 priceLine.setVisibility(View.GONE);
                 juliLine.setVisibility(View.VISIBLE);
+
+                zonghe1Line.setVisibility(View.GONE);
+                xiaoliang1Line.setVisibility(View.GONE);
+                price1Line.setVisibility(View.GONE);
+                juli1Line.setVisibility(View.VISIBLE);
+
+                getData_juli(lat, lng);
+                break;
+            case R.id.zonghe1:
+                zongheLine.setVisibility(View.VISIBLE);
+                xiaoliangLine.setVisibility(View.GONE);
+                priceLine.setVisibility(View.GONE);
+                juliLine.setVisibility(View.GONE);
+
+                zonghe1Line.setVisibility(View.VISIBLE);
+                xiaoliang1Line.setVisibility(View.GONE);
+                price1Line.setVisibility(View.GONE);
+                juli1Line.setVisibility(View.GONE);
+
+                getData(lat, lng);
+                break;
+            case R.id.xiaoliang1:
+                zongheLine.setVisibility(View.GONE);
+                xiaoliangLine.setVisibility(View.VISIBLE);
+                priceLine.setVisibility(View.GONE);
+                juliLine.setVisibility(View.GONE);
+
+                zonghe1Line.setVisibility(View.GONE);
+                xiaoliang1Line.setVisibility(View.VISIBLE);
+                price1Line.setVisibility(View.GONE);
+                juli1Line.setVisibility(View.GONE);
+
+
+                if (b) {
+                    num = "1";
+                    b = false;
+                } else {
+                    num = "2";
+                    b = true;
+                }
+                getData_num(lat, lng, num);
+                break;
+            case R.id.price1:
+                zongheLine.setVisibility(View.GONE);
+                xiaoliangLine.setVisibility(View.GONE);
+                priceLine.setVisibility(View.VISIBLE);
+                juliLine.setVisibility(View.GONE);
+
+                zonghe1Line.setVisibility(View.GONE);
+                xiaoliang1Line.setVisibility(View.GONE);
+                price1Line.setVisibility(View.VISIBLE);
+                juli1Line.setVisibility(View.GONE);
+
+                if (b) {
+                    jiage = "1";
+                    b = false;
+                } else {
+                    jiage = "2";
+                    b = true;
+                }
+                getData_sale(lat, lng, jiage);
+                break;
+            case R.id.juli1:
+                zongheLine.setVisibility(View.GONE);
+                xiaoliangLine.setVisibility(View.GONE);
+                priceLine.setVisibility(View.GONE);
+                juliLine.setVisibility(View.VISIBLE);
+
+                zonghe1Line.setVisibility(View.GONE);
+                xiaoliang1Line.setVisibility(View.GONE);
+                price1Line.setVisibility(View.GONE);
+                juli1Line.setVisibility(View.VISIBLE);
+
+                getData_juli(lat, lng);
+                break;
+            case R.id.notice:
+                toClass(getActivity(), NoticeActivity.class);
                 break;
         }
     }
@@ -302,6 +431,13 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
             hengxiangtitle.setVisibility(View.VISIBLE);
             hengxiangtitle.setBackgroundColor(Color.WHITE);
         }
+        if (y <= heigh2) {
+            menu1.setVisibility(View.GONE);
+        }
+        if (y > heigh2) {
+            menu1.setVisibility(View.VISIBLE);
+            menu1.setBackgroundColor(Color.WHITE);
+        }
     }
 
     @Override
@@ -325,11 +461,6 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
         });
         dialog.setView(v);
         dialog.show();
-//        Window window = dialog.getWindow();
-//        window.setLayout(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-//        WindowManager.LayoutParams layoutParams = window.getAttributes();
-//        layoutParams.alpha = 0.9f;
-//        window.setAttributes(layoutParams);
     }
 
     private void getData(String lat, String lng) {
@@ -337,32 +468,75 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
             @Override
             public void MyResult(String result) {
                 Log.d("tag", "成功" + result);
-                HomeData data = JSON.parseObject(result, HomeData.class);
-                if (data.getCode() == 200) {
-                    datalist = data.getData();
-                    adapter = new Adapter(R.layout.index_list_item, datalist);
-                    indexRecycler.setAdapter(adapter);
-                    adapter.openLoadAnimation();
+                resultItem(result);
+            }
+        });
+    }
 
+    private void getData_sale(String lat, String lng, String price) {
+        Connector.IndexList_sale(getActivity(), token, lat, lng, price, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                resultItem(result);
+            }
+        });
+    }
+
+    private void getData_num(String lat, String lng, String num) {
+        Connector.IndexList_num(getActivity(), token, lat, lng, num, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                resultItem(result);
+            }
+        });
+    }
+
+    private void getData_juli(String lat, String lng) {
+        Connector.IndexList_away(getActivity(), token, lat, lng, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                resultItem(result);
+            }
+        });
+    }
+
+    private void getBanner(String lat, String lng) {
+        Connector.indexBannerList(getActivity(), lat, lng, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("banner", "bannershuju---" + result);
+                BannerBean bannerBean = JSON.parseObject(result, BannerBean.class);
+                if (bannerBean.getCode() == 200) {
+//                    for (int i = 0; i < bannerBean.getData().size(); i++) {
+//                        list.add(bannerBean.getData().get(i).getProduct_compic());
+//                        LogUtil.d("banner",bannerBean.getData().get(i).getProduct_compic());
+//                    }
                     indexBanner.setImageLoader(new GlideImageLoader(1));
-                    indexBanner.setImages(list);
+                    indexBanner.setImages(bannerBean.getData().get(0).getProduct_compic());
                     indexBanner.setBannerAnimation(Transformer.DepthPage);
                     indexBanner.isAutoPlay(true);
                     indexBanner.setDelayTime(3000);
                     indexBanner.setIndicatorGravity(BannerConfig.RIGHT);
                     indexBanner.start();
                 }
-            }
-        });
-    }
-    private void getBanner(){
-        Connector.BannerList(getActivity(), new Connector.MyCallback() {
-            @Override
-            public void MyResult(String result) {
-                Log.d("tag","banner数据"+result);
+
             }
         });
     }
 
-
+    private void resultItem(String result) {
+        HomeData data = JSON.parseObject(result, HomeData.class);
+        if (data.getCode() == 200) {
+            datalist = data.getData();
+            adapter = new Adapter(R.layout.index_list_item, datalist);
+            indexRecycler.setAdapter(adapter);
+            adapter.openLoadAnimation();
+            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    ToastUtil.showShortToast("点击了" + position);
+                }
+            });
+        }
+    }
 }

@@ -11,22 +11,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
+import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.BannerBean;
 import com.leiwan.zl.data.HomeData;
+import com.leiwan.zl.data.IndexFenLeiBean;
 import com.leiwan.zl.notice.NoticeActivity;
 import com.leiwan.zl.second.SecondActivity;
 import com.leiwan.zl.utils.Connector;
@@ -43,6 +45,7 @@ import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -127,6 +130,65 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     View juli1Line;
     @BindView(R.id.juli1)
     RelativeLayout juli1;
+    @BindView(R.id.newpeople_icon)
+    ImageView newpeopleIcon;
+    @BindView(R.id.newpeople_text)
+    TextView newpeopleText;
+    @BindView(R.id.food_icon)
+    ImageView foodIcon;
+    @BindView(R.id.food_text)
+    TextView foodText;
+    @BindView(R.id.hotel_icon)
+    ImageView hotelIcon;
+    @BindView(R.id.hotel_text)
+    TextView hotelText;
+    @BindView(R.id.lipin_icon)
+    ImageView lipinIcon;
+    @BindView(R.id.lipin_text)
+    TextView lipinText;
+    @BindView(R.id.qinzi_icon)
+    ImageView qinziIcon;
+    @BindView(R.id.qinzi_text)
+    TextView qinziText;
+    @BindView(R.id.leyuan_icon)
+    ImageView leyuanIcon;
+    @BindView(R.id.leyuan_text)
+    TextView leyuanText;
+    @BindView(R.id.jingqu_icon)
+    ImageView jingquIcon;
+    @BindView(R.id.jingqu_text)
+    TextView jingquText;
+    @BindView(R.id.chuxing_icon)
+    ImageView chuxingIcon;
+    @BindView(R.id.chuxing_text)
+    TextView chuxingText;
+    @BindView(R.id.zonghe_text)
+    TextView zongheText;
+    @BindView(R.id.xiaoliang_text)
+    TextView xiaoliangText;
+    @BindView(R.id.price_text)
+    TextView priceText;
+    @BindView(R.id.juli_text)
+    TextView juliText;
+    @BindView(R.id.inputsearch)
+    EditText inputsearch;
+    @BindView(R.id.title_newpeople)
+    TextView titleNewpeople;
+    @BindView(R.id.title_food)
+    TextView titleFood;
+    @BindView(R.id.title_hotel)
+    TextView titleHotel;
+    @BindView(R.id.title_lipin)
+    TextView titleLipin;
+    @BindView(R.id.title_qinzi)
+    TextView titleQinzi;
+    @BindView(R.id.title_leyuan)
+    TextView titleLeyuan;
+    @BindView(R.id.title_jingqu)
+    TextView titleJingqu;
+    @BindView(R.id.title_chuxing)
+    TextView titleChuxing;
+    Unbinder unbinder;
 
     private int heigh = 380;
     private int heigh1 = 750;
@@ -141,6 +203,11 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     private boolean b = true;
     private String num = "1";
     private String jiage = "1";
+    private List<String> list;
+    private List<ImageView> imageViewList;
+    private List<TextView> textViewList, textViewList_title;
+    private List<String> titleList;
+    private List<String> idList;
 
     @Override
     protected int setLayout() {
@@ -149,10 +216,43 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
 
     @Override
     protected void setView() {
-
+        list = new ArrayList<>();
         bundle = new Bundle();
         indexRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         indexRecycler.setNestedScrollingEnabled(false);
+
+        imageViewList = new ArrayList<>();
+        imageViewList.add(newpeopleIcon);
+        imageViewList.add(foodIcon);
+        imageViewList.add(hotelIcon);
+        imageViewList.add(lipinIcon);
+        imageViewList.add(qinziIcon);
+        imageViewList.add(leyuanIcon);
+        imageViewList.add(jingquIcon);
+        imageViewList.add(chuxingIcon);
+
+        textViewList = new ArrayList<>();
+        textViewList.add(newpeopleText);
+        textViewList.add(foodText);
+        textViewList.add(hotelText);
+        textViewList.add(lipinText);
+        textViewList.add(qinziText);
+        textViewList.add(leyuanText);
+        textViewList.add(jingquText);
+        textViewList.add(chuxingText);
+
+        textViewList_title = new ArrayList<>();
+        textViewList_title.add(titleNewpeople);
+        textViewList_title.add(titleFood);
+        textViewList_title.add(titleHotel);
+        textViewList_title.add(titleLipin);
+        textViewList_title.add(titleQinzi);
+        textViewList_title.add(titleLeyuan);
+        textViewList_title.add(titleJingqu);
+        textViewList_title.add(titleChuxing);
+
+        titleList = new ArrayList<>();
+        idList = new ArrayList<>();
     }
 
     @Override
@@ -160,7 +260,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
         token = SharedPreferencesUtil.getInstance(getActivity()).getSP("token");
         Log.d("tag", "token------>" + token);
         showDialog();
-
+        getIndexFenlei();
         ViewTreeObserver observer = indexBanner.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -194,7 +294,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
 
     @PermissionDenied(1)
     public void requestContactFailed() {
-        Toast.makeText(getActivity(), "定位权限申请失败", Toast.LENGTH_SHORT).show();
+        ToastUtil.showShortToast("定位权限申请失败");
     }
 
 
@@ -235,39 +335,87 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
 
-    @OnClick({R.id.zonghe1, R.id.xiaoliang1, R.id.price1, R.id.juli1, R.id.notice, R.id.zonghe, R.id.xiaoliang, R.id.price, R.id.juli, R.id.newpeople, R.id.food, R.id.hotel, R.id.lipin, R.id.qinzi, R.id.leyuan, R.id.jingqu, R.id.chuxing})
+    @OnClick({R.id.title_newpeople, R.id.title_food, R.id.title_hotel, R.id.title_lipin, R.id.title_qinzi, R.id.title_leyuan, R.id.title_jingqu, R.id.title_chuxing, R.id.zonghe1, R.id.xiaoliang1, R.id.price1, R.id.juli1, R.id.notice, R.id.zonghe, R.id.xiaoliang, R.id.price, R.id.juli, R.id.newpeople, R.id.food, R.id.hotel, R.id.lipin, R.id.qinzi, R.id.leyuan, R.id.jingqu, R.id.chuxing})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.newpeople:
-                bundle.putString("title", "1");
+                bundle.putString("title", titleList.get(0));
+                bundle.putString("caseID", idList.get(0));
                 toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.food:
-                bundle.putString("title", "2");
+                bundle.putString("title", titleList.get(1));
+                bundle.putString("caseID", idList.get(1));
                 toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.hotel:
-                bundle.putString("title", "3");
+                bundle.putString("title", titleList.get(2));
+                bundle.putString("caseID", idList.get(2));
                 toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.lipin:
-                bundle.putString("title", "4");
+                bundle.putString("title", titleList.get(3));
+                bundle.putString("caseID", idList.get(3));
                 toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.qinzi:
-                bundle.putString("title", "5");
+                bundle.putString("title", titleList.get(4));
+                bundle.putString("caseID", idList.get(4));
                 toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.leyuan:
-                bundle.putString("title", "6");
+                bundle.putString("title", titleList.get(5));
+                bundle.putString("caseID", idList.get(5));
                 toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.jingqu:
-                bundle.putString("title", "7");
+                bundle.putString("title", titleList.get(6));
+                bundle.putString("caseID", idList.get(6));
                 toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.chuxing:
-                bundle.putString("title", "8");
+                bundle.putString("title", titleList.get(7));
+                bundle.putString("caseID", idList.get(7));
+                toClass(getActivity(), SecondActivity.class, bundle);
+                break;
+            case R.id.title_newpeople:
+                bundle.putString("title", titleList.get(0));
+                bundle.putString("caseID", idList.get(0));
+                toClass(getActivity(), SecondActivity.class, bundle);
+                break;
+            case R.id.title_food:
+                bundle.putString("title", titleList.get(1));
+                bundle.putString("caseID", idList.get(1));
+                toClass(getActivity(), SecondActivity.class, bundle);
+                break;
+            case R.id.title_hotel:
+                bundle.putString("title", titleList.get(2));
+                bundle.putString("caseID", idList.get(2));
+                toClass(getActivity(), SecondActivity.class, bundle);
+                break;
+            case R.id.title_lipin:
+                bundle.putString("title", titleList.get(3));
+                bundle.putString("caseID", idList.get(3));
+                toClass(getActivity(), SecondActivity.class, bundle);
+                break;
+            case R.id.title_qinzi:
+                bundle.putString("title", titleList.get(4));
+                bundle.putString("caseID", idList.get(4));
+                toClass(getActivity(), SecondActivity.class, bundle);
+                break;
+            case R.id.title_leyuan:
+                bundle.putString("title", titleList.get(5));
+                bundle.putString("caseID", idList.get(5));
+                toClass(getActivity(), SecondActivity.class, bundle);
+                break;
+            case R.id.title_jingqu:
+                bundle.putString("title", titleList.get(6));
+                bundle.putString("caseID", idList.get(6));
+                toClass(getActivity(), SecondActivity.class, bundle);
+                break;
+            case R.id.title_chuxing:
+                bundle.putString("title", titleList.get(7));
+                bundle.putString("caseID", idList.get(7));
                 toClass(getActivity(), SecondActivity.class, bundle);
                 break;
             case R.id.zonghe:
@@ -464,7 +612,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
     private void getData(String lat, String lng) {
-        Connector.IndexList(getActivity(), token, lat, lng, new Connector.MyCallback() {
+        Connector.IndexList(getActivity(), token, lat, null, lng, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 Log.d("tag", "成功" + result);
@@ -474,7 +622,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
     private void getData_sale(String lat, String lng, String price) {
-        Connector.IndexList_sale(getActivity(), token, lat, lng, price, new Connector.MyCallback() {
+        Connector.IndexList_sale(getActivity(), token, lat, lng, null, price, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 resultItem(result);
@@ -483,7 +631,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
     private void getData_num(String lat, String lng, String num) {
-        Connector.IndexList_num(getActivity(), token, lat, lng, num, new Connector.MyCallback() {
+        Connector.IndexList_num(getActivity(), token, lat, lng, null, num, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 resultItem(result);
@@ -492,7 +640,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
     private void getData_juli(String lat, String lng) {
-        Connector.IndexList_away(getActivity(), token, lat, lng, new Connector.MyCallback() {
+        Connector.IndexList_away(getActivity(), token, lat, lng, null, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 resultItem(result);
@@ -501,18 +649,18 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
     private void getBanner(String lat, String lng) {
-        Connector.indexBannerList(getActivity(), lat, lng, new Connector.MyCallback() {
+        Connector.indexBannerList(getActivity(), lat, lng,null, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("banner", "bannershuju---" + result);
                 BannerBean bannerBean = JSON.parseObject(result, BannerBean.class);
                 if (bannerBean.getCode() == 200) {
-//                    for (int i = 0; i < bannerBean.getData().size(); i++) {
-//                        list.add(bannerBean.getData().get(i).getProduct_compic());
-//                        LogUtil.d("banner",bannerBean.getData().get(i).getProduct_compic());
-//                    }
+                    for (int i = 0; i < bannerBean.getData().size(); i++) {
+                        list.add(bannerBean.getData().get(i).getPic());
+                    }
+
                     indexBanner.setImageLoader(new GlideImageLoader(1));
-                    indexBanner.setImages(bannerBean.getData().get(0).getProduct_compic());
+                    indexBanner.setImages(list);
                     indexBanner.setBannerAnimation(Transformer.DepthPage);
                     indexBanner.isAutoPlay(true);
                     indexBanner.setDelayTime(3000);
@@ -539,4 +687,27 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
             });
         }
     }
+
+    private void getIndexFenlei() {
+        Connector.indexFenlei(getActivity(), new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("indexfenlei", "数据" + result);
+                final IndexFenLeiBean bean = JSON.parseObject(result, IndexFenLeiBean.class);
+                if (bean.getCode() == 200) {
+                    for (int i = 0; i < bean.getData().size(); i++) {
+                        Glide.with(getActivity())
+                                .load(bean.getData().get(i).getCate_icon())
+                                .into(imageViewList.get(i));
+                        textViewList.get(i).setText(bean.getData().get(i).getCate_name());
+                        textViewList_title.get(i).setText(bean.getData().get(i).getCate_name());
+
+                        titleList.add(bean.getData().get(i).getCate_name());
+                        idList.add(bean.getData().get(i).getCate_id() + "");
+                    }
+                }
+            }
+        });
+    }
+
 }

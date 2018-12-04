@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context="com.leiwan.zl.newpeople.NewPeopleDetailsActivity">
+
+    <RelativeLayout
+        style="@style/title"
+        android:background="#fff">
+
+        <ImageView
+            android:id="@+id/back"
+            style="@style/titleback"
+            android:src="@mipmap/back" />
+
+        <TextView
+            android:id="@+id/titlename"
+            style="@style/titlename"
+            android:text="收入明细" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lineview" />
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

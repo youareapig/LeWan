@@ -31,14 +31,14 @@ public class SnapUpCountDownTimerView extends LinearLayout {
     private TextView tv_day_unit;
     private Context context;
 
-    private int hour_decade;
-    private int hour_unit;
-    private int min_decade;
-    private int min_unit;
-    private int sec_decade;
-    private int sec_unit;
-    private int day_decade;
-    private int day_unit;
+    private long hour_decade;
+    private long hour_unit;
+    private long min_decade;
+    private long min_unit;
+    private long sec_decade;
+    private long sec_unit;
+    private long day_decade;
+    private long day_unit;
 
     private Timer timer;
 
@@ -90,9 +90,9 @@ public class SnapUpCountDownTimerView extends LinearLayout {
     }
 
 
-    public void setTime(int day, int hour, int min, int sec) {
+    public void setTime(long day, long hour, long min, long sec) {
 
-        if (day >= 24 || hour >= 60 || min >= 60 || sec >= 60 || hour < 0 || min < 0
+        if (hour >= 60 || min >= 60 || sec >= 60 || hour < 0 || min < 0
                 || sec < 0 || day < 0) {
             throw new RuntimeException("时间格式错误,请检查你的代码");
         }

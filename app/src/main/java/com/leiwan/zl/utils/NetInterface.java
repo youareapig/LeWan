@@ -8,7 +8,7 @@ public class NetInterface {
         return NetInterface.INTERFACE;
     }
 
-    public String indexUrl, bannerUrl;
+    public String indexUrl, bannerUrl, teachUrl, teachListUrl, teachDetails, indexFenlei;
 
     public NetInterface() {
         //拼接，公共部分
@@ -16,5 +16,9 @@ public class NetInterface {
 
         this.indexUrl = mainurl + "api/Product/ProductList";
         this.bannerUrl = mainurl + "api/Banner/HomePageList";
+        this.teachUrl = mainurl + "api/Content/getRookieTutorialCate";
+        this.teachListUrl = mainurl + "Api/Content/getRookieTutorial";
+        this.teachDetails = mainurl + "api/Content/getArticleContent";
+        this.indexFenlei = mainurl + "api/Productcategory/CategoryList";
     }
 }

@@ -5,18 +5,26 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
+import com.leiwan.zl.data.BannerBean;
+import com.leiwan.zl.data.HomeData;
 import com.leiwan.zl.details.DetailsActivity;
+import com.leiwan.zl.utils.Connector;
 import com.leiwan.zl.utils.GlideImageLoader;
+import com.leiwan.zl.utils.LogUtil;
+import com.leiwan.zl.utils.SharedPreferencesUtil;
+import com.leiwan.zl.utils.ToastUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -66,8 +74,14 @@ public class SecondActivity extends BaseActivity {
     RecyclerView recycler;
     @BindView(R.id.refresh)
     PullToRefreshLayout refresh;
-    private List<String> list, imgList;
+    private List<String> bannerList;
     private Adapter adapter;
+    private String caseId;
+    private String token, lat, lng;
+    private List<HomeData.DataBean> datalist;
+    private boolean b = true;
+    private String num = "1";
+    private String jiage = "1";
 
     @Override
     protected int setLayout() {
@@ -82,72 +96,16 @@ public class SecondActivity extends BaseActivity {
 
     @Override
     protected void setData() {
-        Bundle bundle = getIntent().getExtras();
-        String title = bundle.getString("title");
-        switch (title) {
-            case "1":
-                titleText.setText("新人");
-                break;
-            case "2":
-                titleText.setText("美食");
-                break;
-            case "3":
-                titleText.setText("酒店");
-                break;
-            case "4":
-                titleText.setText("礼品");
-                break;
-            case "5":
-                titleText.setText("亲子");
-                break;
-            case "6":
-                titleText.setText("乐园");
-                break;
-            case "7":
-                titleText.setText("景区");
-                break;
-            case "8":
-                titleText.setText("出行");
-                break;
+        Intent intent = getIntent();
+        String title = intent.getStringExtra("title");
+        caseId = intent.getStringExtra("caseID");
+        titleText.setText(title);
+        token = SharedPreferencesUtil.getInstance(this).getSP("token");
+        lat = SharedPreferencesUtil.getInstance(this).getSP("lat");
+        lng = SharedPreferencesUtil.getInstance(this).getSP("lng");
 
-        }
+        bannerList = new ArrayList<>();
 
-        list = new ArrayList<>();
-        list.add("30.25");
-        list.add("30.26");
-        list.add("30.24");
-        list.add("30.20");
-        list.add("40.2");
-        list.add("90.25");
-        adapter = new Adapter(R.layout.index_list_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent=new Intent(view.getContext(), DetailsActivity.class);
-                startActivity(intent);
-
-            }
-        });
-        imgList = new ArrayList<>();
-        imgList.add("http://img03.tooopen.com/uploadfile/downs/images/20110714/sy_20110714135215645030.jpg");
-        imgList.add("http://gss0.baidu.com/-fo3dSag_xI4khGko9WTAnF6hhy/lvpics/w=600/sign=3da54689a11ea8d38a227704a70a30cf/ac6eddc451da81cb378472ff5566d016092431a5.jpg");
-        imgList.add("http://pic.qiantucdn.com/58pic/22/72/01/57c6578859e1e_1024.jpg");
-        imgList.add("http://pic9.nipic.com/20100905/2531170_095210291877_2.jpg");
-        secondBanner.setImageLoader(new GlideImageLoader(2));
-        secondBanner.setImages(imgList);
-        secondBanner.setBannerAnimation(Transformer.DepthPage);
-        secondBanner.isAutoPlay(true);
-        secondBanner.setDelayTime(3000);
-        secondBanner.setIndicatorGravity(BannerConfig.RIGHT);
-        secondBanner.start();
-//        secondBanner.setOnBannerListener(new OnBannerListener() {
-//            @Override
-//            public void OnBannerClick(int position) {
-//
-//            }
-//        });
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
             public void refresh() {
@@ -170,6 +128,8 @@ public class SecondActivity extends BaseActivity {
                 }, 1000);
             }
         });
+        getBanner();
+        getData();
     }
 
 
@@ -184,24 +144,42 @@ public class SecondActivity extends BaseActivity {
                 xiaoliangLine.setVisibility(View.GONE);
                 priceLine.setVisibility(View.GONE);
                 juliLine.setVisibility(View.GONE);
+                getData();
                 break;
             case R.id.xiaoliang:
                 zongheLine.setVisibility(View.GONE);
                 xiaoliangLine.setVisibility(View.VISIBLE);
                 priceLine.setVisibility(View.GONE);
                 juliLine.setVisibility(View.GONE);
+                if (b) {
+                    num = "1";
+                    b = false;
+                } else {
+                    num = "2";
+                    b = true;
+                }
+                getData_num(num);
                 break;
             case R.id.price:
                 zongheLine.setVisibility(View.GONE);
                 xiaoliangLine.setVisibility(View.GONE);
                 priceLine.setVisibility(View.VISIBLE);
                 juliLine.setVisibility(View.GONE);
+                if (b) {
+                    jiage = "1";
+                    b = false;
+                } else {
+                    jiage = "2";
+                    b = true;
+                }
+                getData_sale(jiage);
                 break;
             case R.id.juli:
                 zongheLine.setVisibility(View.GONE);
                 xiaoliangLine.setVisibility(View.GONE);
                 priceLine.setVisibility(View.GONE);
                 juliLine.setVisibility(View.VISIBLE);
+                getData_juli();
                 break;
         }
     }
@@ -210,5 +188,81 @@ public class SecondActivity extends BaseActivity {
     protected void onStop() {
         super.onStop();
         secondBanner.stopAutoPlay();
+    }
+
+    private void getBanner() {
+        Connector.indexBannerList(this, lat, lng, caseId, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("zhenglei", "zhengleibanner---" + result);
+                BannerBean bannerBean = JSON.parseObject(result, BannerBean.class);
+                if (bannerBean.getCode() == 200) {
+                    for (int i = 0; i < bannerBean.getData().size(); i++) {
+                        bannerList.add(bannerBean.getData().get(i).getPic());
+                    }
+
+                    secondBanner.setImageLoader(new GlideImageLoader(2));
+                    secondBanner.setImages(bannerList);
+                    secondBanner.setBannerAnimation(Transformer.DepthPage);
+                    secondBanner.isAutoPlay(true);
+                    secondBanner.setDelayTime(3000);
+                    secondBanner.setIndicatorGravity(BannerConfig.RIGHT);
+                    secondBanner.start();
+                }
+            }
+        });
+    }
+
+    private void getData() {
+        Connector.IndexList(this, token, lat, caseId, lng, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                Log.d("tag", "成功" + result);
+                resultItem(result);
+            }
+        });
+    }
+
+    private void getData_sale(String price) {
+        Connector.IndexList_sale(this, token, lat, lng, caseId, price, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                resultItem(result);
+            }
+        });
+    }
+
+    private void getData_num(String num) {
+        Connector.IndexList_num(this, token, lat, lng, caseId, num, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                resultItem(result);
+            }
+        });
+    }
+
+    private void getData_juli() {
+        Connector.IndexList_away(this, token, lat, lng, caseId, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                resultItem(result);
+            }
+        });
+    }
+
+    private void resultItem(String result) {
+        HomeData data = JSON.parseObject(result, HomeData.class);
+        if (data.getCode() == 200) {
+            datalist = data.getData();
+            adapter = new Adapter(R.layout.index_list_item, datalist);
+            recycler.setAdapter(adapter);
+            adapter.openLoadAnimation();
+            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    ToastUtil.showShortToast("点击了" + position);
+                }
+            });
+        }
     }
 }

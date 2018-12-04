@@ -3,8 +3,13 @@ package com.leiwan.zl.newpeople.fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.alibaba.fastjson.JSON;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
+import com.leiwan.zl.data.TeachListData;
+import com.leiwan.zl.utils.Connector;
+import com.leiwan.zl.utils.LogUtil;
+import com.leiwan.zl.utils.SharedPreferencesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,8 +23,14 @@ import butterknife.BindView;
 public class KeTang extends BaseFragment {
     @BindView(R.id.recycler)
     RecyclerView recycler;
-    private List<String> list;
+    private List<TeachListData.DataBean> list;
     private Adapter adapter;
+    private int pageID;
+    private String lat, lng;
+
+    public KeTang(int pageID) {
+        this.pageID = pageID;
+    }
 
     @Override
     protected int setLayout() {
@@ -33,12 +44,25 @@ public class KeTang extends BaseFragment {
 
     @Override
     protected void setData() {
-        list = new ArrayList<>();
-        list.add("http://tpic2.eastlady.cn/info/201806/28/e98bbb94-29b9-78c3-78e4-92bfc9e9571f.jpg");
-        list.add("http://tva2.sinaimg.cn/crop.0.0.711.400/90eb2137ly1fmpof6iuesj20jr0b4afn.jpg");
-        adapter = new Adapter(R.layout.xinshou_tab_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
+        lat = SharedPreferencesUtil.getInstance(getActivity()).getSP("lat");
+        lng = SharedPreferencesUtil.getInstance(getActivity()).getSP("lng");
+        getData();
+    }
+
+    private void getData() {
+        Connector.TeachList(getActivity(), lat, lng, pageID + "", new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("tag", "课堂" + result);
+                TeachListData data = JSON.parseObject(result, TeachListData.class);
+                if (data.getCode() == 200) {
+                    list = data.getData();
+                    adapter = new Adapter(R.layout.xinshou_tab_item, list);
+                    recycler.setAdapter(adapter);
+                    adapter.openLoadAnimation();
+                }
+            }
+        });
     }
 
 }

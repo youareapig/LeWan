@@ -84,8 +84,17 @@ public class HomeData {
         private String region;
         private int product_totalnum;
         private int now_time;
+        private String distance;
         private List<String> product_compic;
         private List<?> temp_commission;
+
+        public String getDistance() {
+            return distance;
+        }
+
+        public void setDistance(String distance) {
+            this.distance = distance;
+        }
 
         public int getProduct_id() {
             return product_id;

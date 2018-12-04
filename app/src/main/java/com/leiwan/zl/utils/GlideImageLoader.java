@@ -25,7 +25,7 @@ public class GlideImageLoader extends ImageLoader {
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
         switch (isCenter) {
-            //有圆角
+            //圆角
             case 1:
                 Glide.with(context)
                         .load(path)
@@ -38,6 +38,7 @@ public class GlideImageLoader extends ImageLoader {
                 //直角
                 Glide.with(context)
                         .load(path)
+                        .bitmapTransform(new CenterCrop(context))
                         .placeholder(R.mipmap.ic_launcher)
                         .error(R.mipmap.ic_launcher)
                         .into(imageView);

@@ -16,6 +16,7 @@
             android:layout_centerVertical="true" />
 
         <TextView
+            android:id="@+id/item_content"
             android:layout_width="@dimen/dp_200"
             android:layout_height="@dimen/dp_69"
             android:layout_alignParentRight="true"

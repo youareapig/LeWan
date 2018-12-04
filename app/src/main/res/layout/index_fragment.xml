@@ -45,6 +45,7 @@
                         android:src="@mipmap/ic_launcher" />
 
                     <TextView
+                        android:id="@+id/newpeople_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/newpeople_icon"
@@ -69,6 +70,7 @@
                         android:src="@mipmap/ic_launcher" />
 
                     <TextView
+                        android:id="@+id/food_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/food_icon"
@@ -93,6 +95,7 @@
                         android:src="@mipmap/ic_launcher" />
 
                     <TextView
+                        android:id="@+id/hotel_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/hotel_icon"
@@ -117,6 +120,7 @@
                         android:src="@mipmap/ic_launcher" />
 
                     <TextView
+                        android:id="@+id/lipin_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/lipin_icon"
@@ -149,6 +153,7 @@
                         android:src="@mipmap/ic_launcher" />
 
                     <TextView
+                        android:id="@+id/qinzi_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/qinzi_icon"
@@ -173,6 +178,7 @@
                         android:src="@mipmap/ic_launcher" />
 
                     <TextView
+                        android:id="@+id/leyuan_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/leyuan_icon"
@@ -197,6 +203,7 @@
                         android:src="@mipmap/ic_launcher" />
 
                     <TextView
+                        android:id="@+id/jingqu_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/jingqu_icon"
@@ -221,6 +228,7 @@
                         android:src="@mipmap/ic_launcher" />
 
                     <TextView
+                        android:id="@+id/chuxing_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/chuxing_icon"
@@ -341,6 +349,7 @@
                     android:textSize="@dimen/sp_17" />
 
                 <TextView
+                    android:id="@+id/title_newpeople"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/dp_14"
@@ -351,6 +360,7 @@
                     android:textSize="@dimen/sp_17" />
 
                 <TextView
+                    android:id="@+id/title_food"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/dp_14"
@@ -361,6 +371,7 @@
                     android:textSize="@dimen/sp_17" />
 
                 <TextView
+                    android:id="@+id/title_hotel"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/dp_14"
@@ -371,6 +382,7 @@
                     android:textSize="@dimen/sp_17" />
 
                 <TextView
+                    android:id="@+id/title_lipin"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/dp_14"
@@ -381,6 +393,7 @@
                     android:textSize="@dimen/sp_17" />
 
                 <TextView
+                    android:id="@+id/title_qinzi"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/dp_14"
@@ -391,6 +404,7 @@
                     android:textSize="@dimen/sp_17" />
 
                 <TextView
+                    android:id="@+id/title_leyuan"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/dp_14"
@@ -401,6 +415,7 @@
                     android:textSize="@dimen/sp_17" />
 
                 <TextView
+                    android:id="@+id/title_jingqu"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/dp_14"
@@ -411,6 +426,7 @@
                     android:textSize="@dimen/sp_17" />
 
                 <TextView
+                    android:id="@+id/title_chuxing"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginRight="@dimen/dp_11"

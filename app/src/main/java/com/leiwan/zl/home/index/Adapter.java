@@ -19,6 +19,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.leiwan.zl.App;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.HomeData;
+import com.leiwan.zl.utils.DateUtils;
+import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.SnapUpCountDownTimerView;
 
 import java.text.DateFormat;
@@ -53,22 +55,29 @@ public class Adapter extends BaseQuickAdapter<HomeData.DataBean, BaseViewHolder>
         long endtime = item.getProduct_endtime();
         long nowtime = dateToStamp();
         long time = endtime - nowtime;
-        int day = (int) (time / (1000 * 60 * 60 * 24));   //以天数为单位取整
-        int hour = (int) (time / (60 * 60 * 1000) - day * 24);    //以小时为单位取整
-        int min = (int) ((time / (60 * 1000)) - day * 24 * 60 - hour * 60); //以分钟为单位取整
-        int second = (int) (time / 1000 - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);//秒
-        Log.d("tag", "shijian--" + "day:"+day+"  hour:"+hour+"  min:"+min+"  second:"+second);
+        LogUtil.d("endandnow", "end" + endtime + "  now" + nowtime);
+
+
+        long day = (time / (60 * 60 * 24));   //以天数为单位取整
+        long hour = (time / (60 * 60) - day * 24);    //以小时为单位取整
+        long min = ((time / (60)) - day * 24 * 60 - hour * 60); //以分钟为单位取整
+        long second = (time - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);//秒
+        LogUtil.d("zhenglei", "endtime---" + DateUtils.timedate(endtime + ""));
+        Log.d("tag", "shijian--" + "day:" + day + "  hour:" + hour + "  min:" + min + "  second:" + second);
 
 
         helper.setText(R.id.index_list_item_title, item.getProduct_name())
                 .setText(R.id.index_list_item_jiage, "¥" + item.getTemp_price())
-                .setText(R.id.index_list_item_xiaoliang, "已售" + item.getProduct_sold());
+                .setText(R.id.index_list_item_xiaoliang, "已售" + item.getProduct_sold())
+                .setText(R.id.index_list_item_location, item.getRegion())
+                .setText(R.id.index_list_item_juli, item.getDistance() + "KM");
 //                .setText(R.id.index_list_item_youhui, "赚" + item.getTemp_commission());
         ImageView imageView = helper.getView(R.id.index_list_item_image);
         SnapUpCountDownTimerView timerView = helper.getView(R.id.item_timer);
         if (day <= 0 && hour <= 0 && min <= 0 && second <= 0) {
-
+            timerView.setVisibility(View.GONE);
         } else {
+            timerView.setVisibility(View.VISIBLE);
             timerView.setTime(day, hour, min, second);
         }
 
@@ -83,19 +92,11 @@ public class Adapter extends BaseQuickAdapter<HomeData.DataBean, BaseViewHolder>
     }
 
 
-    //当前时间转换成时间戳
+    //当前时间戳
     public long dateToStamp() {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date(System.currentTimeMillis());
-        String s = simpleDateFormat.format(date);
-        try {
-            date = simpleDateFormat.parse(s);
-            long ts = date.getTime();
-            return ts;
-        } catch (Exception e) {
-            return 0;
-        }
-
+        long timeStampSec = System.currentTimeMillis() / 1000;
+        String timestamp = String.format("%010d", timeStampSec);
+        return Long.parseLong(timestamp);
     }
 
 

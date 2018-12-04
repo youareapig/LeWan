@@ -1,5 +1,6 @@
 package com.leiwan.zl.newpeople.fragment;
 
+import android.annotation.SuppressLint;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -19,7 +20,7 @@ import butterknife.BindView;
 /**
  * Created by Administrator on 2018/11/22.
  */
-
+@SuppressLint("ValidFragment")
 public class YongJin extends BaseFragment {
     @BindView(R.id.recycler)
     RecyclerView recycler;
@@ -27,6 +28,8 @@ public class YongJin extends BaseFragment {
     private Adapter adapter;
     private int pageID;
     private String lat, lng;
+
+    public YongJin(){}
     public YongJin(int pageID) {
         this.pageID = pageID;
     }

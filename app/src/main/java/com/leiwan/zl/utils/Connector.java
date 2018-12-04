@@ -99,7 +99,7 @@ public class Connector {
     }
 
     //首页banner列表
-    public static void indexBannerList(Context context, String lat, String lng,String cate, MyCallback myCallback) {
+    public static void indexBannerList(Context context, String lat, String lng, String cate, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().bannerUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -185,6 +185,21 @@ public class Connector {
         params.addBodyParameter("lat", lat);
         params.addBodyParameter("lng", lng);
         params.addBodyParameter("id", id);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+
+    public static void getWXcode(Context context, String code, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().getWXcodeUrl);
+        params.addBodyParameter("appid", App.APP_ID);
+        params.addBodyParameter("secret", App.APP_SECRET);
+        params.addBodyParameter("code", code);
+        params.addBodyParameter("grant_type", "authorization_code");
+        xUtilsPostRequest(context, params, myCallback);
+    }
+    public static void getWXUserInfo(Context context, String access_token,String openid, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().getWXUserInfo);
+        params.addBodyParameter("access_token", access_token);
+        params.addBodyParameter("openid", openid);
         xUtilsPostRequest(context, params, myCallback);
     }
 

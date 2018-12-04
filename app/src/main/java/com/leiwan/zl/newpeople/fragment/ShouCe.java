@@ -1,5 +1,6 @@
 package com.leiwan.zl.newpeople.fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -29,7 +30,7 @@ import butterknife.Unbinder;
 /**
  * Created by Administrator on 2018/11/22.
  */
-
+@SuppressLint("ValidFragment")
 public class ShouCe extends BaseFragment {
     @BindView(R.id.recycler)
     RecyclerView recycler;
@@ -38,6 +39,7 @@ public class ShouCe extends BaseFragment {
     private int pageID;
     private String lat, lng;
 
+    public ShouCe(){}
     public ShouCe(int pageID) {
         this.pageID = pageID;
     }

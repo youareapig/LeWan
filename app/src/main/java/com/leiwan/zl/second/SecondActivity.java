@@ -24,11 +24,9 @@ import com.leiwan.zl.utils.Connector;
 import com.leiwan.zl.utils.GlideImageLoader;
 import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.SharedPreferencesUtil;
-import com.leiwan.zl.utils.ToastUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
-import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +72,8 @@ public class SecondActivity extends BaseActivity {
     RecyclerView recycler;
     @BindView(R.id.refresh)
     PullToRefreshLayout refresh;
+    @BindView(R.id.noData)
+    RelativeLayout noData;
     private List<String> bannerList;
     private Adapter adapter;
     private String caseId;
@@ -251,18 +251,26 @@ public class SecondActivity extends BaseActivity {
     }
 
     private void resultItem(String result) {
-        HomeData data = JSON.parseObject(result, HomeData.class);
+        final HomeData data = JSON.parseObject(result, HomeData.class);
         if (data.getCode() == 200) {
-            datalist = data.getData();
-            adapter = new Adapter(R.layout.index_list_item, datalist);
-            recycler.setAdapter(adapter);
-            adapter.openLoadAnimation();
-            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    ToastUtil.showShortToast("点击了" + position);
-                }
-            });
+            if (data.getData().size() == 0) {
+                noData.setVisibility(View.VISIBLE);
+            } else {
+                noData.setVisibility(View.GONE);
+                datalist = data.getData();
+                adapter = new Adapter(R.layout.index_list_item, datalist);
+                recycler.setAdapter(adapter);
+                adapter.openLoadAnimation();
+                adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                        Intent intent = new Intent(view.getContext(), DetailsActivity.class);
+                        intent.putExtra("id", data.getData().get(position).getProduct_id());
+                        startActivity(intent);
+                    }
+                });
+            }
+
         }
     }
 }

@@ -13,12 +13,6 @@ import android.widget.Toast;
 import com.androidkun.xtablayout.XTabLayout;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
-import com.leiwan.zl.details.fragment.GMXZ;
-import com.leiwan.zl.details.fragment.TSJS;
-import com.leiwan.zl.home.center.TabAdapter;
-import com.leiwan.zl.newpeople.fragment.KeTang;
-import com.leiwan.zl.newpeople.fragment.ShouCe;
-import com.leiwan.zl.newpeople.fragment.YongJin;
 import com.youth.banner.view.BannerViewPager;
 
 import java.util.ArrayList;
@@ -41,8 +35,6 @@ public class DetailsActivity extends BaseActivity {
     BannerViewPager banner;
     @BindView(R.id.details_tab)
     XTabLayout detailsTab;
-    @BindView(R.id.details_viewpager)
-    ViewPager detailsViewpager;
     private ImageView[] ivPoints;//小圆点图片的集合
     private int totalPage; //总的页数
     private int mPageSize = 4; //每页显示的最大的数量
@@ -50,7 +42,6 @@ public class DetailsActivity extends BaseActivity {
     private List<View> viewPagerList;//GridView作为一个View对象添加到ViewPager集合中
 
     private List<String> titleList;
-    private List<Fragment> fragmentList;
     @Override
     protected int setLayout() {
         return R.layout.activity_details;
@@ -61,16 +52,10 @@ public class DetailsActivity extends BaseActivity {
         titleList = new ArrayList<>();
         titleList.add("购买须知");
         titleList.add("特色介绍");
-        fragmentList = new ArrayList<>();
-        fragmentList.add(new GMXZ());
-        fragmentList.add(new TSJS());
 
-        detailsViewpager.setAdapter(new MyTabAdapter(getSupportFragmentManager(), titleList, fragmentList));
-        detailsViewpager.setOffscreenPageLimit(0);
-        detailsTab.setupWithViewPager(detailsViewpager);
+
         detailsTab.getTabAt(0).select();
         detailsTab.getTabAt(1).select();
-        detailsViewpager.setCurrentItem(0);
     }
 
     @Override

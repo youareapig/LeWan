@@ -1,6 +1,7 @@
 package com.leiwan.zl.home.index;
 
 import android.Manifest;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -29,6 +30,7 @@ import com.leiwan.zl.R;
 import com.leiwan.zl.data.BannerBean;
 import com.leiwan.zl.data.HomeData;
 import com.leiwan.zl.data.IndexFenLeiBean;
+import com.leiwan.zl.details.DetailsActivity;
 import com.leiwan.zl.notice.NoticeActivity;
 import com.leiwan.zl.second.SecondActivity;
 import com.leiwan.zl.utils.Connector;
@@ -649,7 +651,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
     private void getBanner(String lat, String lng) {
-        Connector.indexBannerList(getActivity(), lat, lng,null, new Connector.MyCallback() {
+        Connector.indexBannerList(getActivity(), lat, lng, null, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("banner", "bannershuju---" + result);
@@ -673,7 +675,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
     private void resultItem(String result) {
-        HomeData data = JSON.parseObject(result, HomeData.class);
+        final HomeData data = JSON.parseObject(result, HomeData.class);
         if (data.getCode() == 200) {
             datalist = data.getData();
             adapter = new Adapter(R.layout.index_list_item, datalist);
@@ -682,7 +684,9 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
             adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    ToastUtil.showShortToast("点击了" + position);
+                    Intent intent = new Intent(view.getContext(), DetailsActivity.class);
+                    intent.putExtra("id", data.getData().get(position).getProduct_id());
+                    startActivity(intent);
                 }
             });
         }

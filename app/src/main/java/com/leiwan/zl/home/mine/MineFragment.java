@@ -40,6 +40,9 @@ import com.leiwan.zl.shouru.ShouRuActivity;
 import com.leiwan.zl.utils.CameraUtil;
 import com.leiwan.zl.utils.ToastUtil;
 import com.leiwan.zl.yaoqing.YaoqingActivity;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
 
@@ -100,6 +103,8 @@ public class MineFragment extends BaseFragment {
     private final int ACT_CAMERA = 1;
     private final int ACT_CROP = 2;
 
+
+
     @Override
     protected int setLayout() {
         return R.layout.mine_fragment;
@@ -107,6 +112,7 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void setView() {
+
         clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
     }
 

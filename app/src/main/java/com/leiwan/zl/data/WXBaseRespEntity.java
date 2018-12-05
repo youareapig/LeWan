@@ -14,13 +14,13 @@ import java.io.Serializable;
 public class WXBaseRespEntity implements Serializable {
 
     /**
-     * code : 001BRv1w1812Ng0NtIZv1yt61w1BRv1q
+     * code : 081nMRfg0Alduv1w6Kgg0HLOfg0nMRfk
      * country : CN
      * errCode : 0
      * lang : zh_CN
      * state : lewan_wechat_login
      * type : 1
-     * url : wxfca63c8cf5fd3162://oauth?code=001BRv1w1812Ng0NtIZv1yt61w1BRv1q&state=lewan_wechat_login
+     * url : wxfca63c8cf5fd3162://oauth?code=081nMRfg0Alduv1w6Kgg0HLOfg0nMRfk&state=lewan_wechat_login
      */
 
     private String code;

@@ -6,9 +6,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.leiwan.zl.login.LoginActivity">
-<Button
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:text="微信登录"
-    android:onClick="login"/>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="微信登录" />
+
+    <ImageView
+        android:id="@+id/head"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop" />
 </LinearLayout>

@@ -14,12 +14,12 @@ import java.io.Serializable;
 public class WXAccessTokenEntity implements Serializable {
 
     /**
-     * access_token : hSTsG7nq8e0yEFhOZFT-wAdTsjT9jC0AYvGRiqGwwR6Hko99o_mmYR8KO18kMxeDOz33d9tnBhMzu_NLsIha2HqvTm1OGPL1weBdvXZVFFc
+     * access_token : 16_C0W1L2P46h7A1SUmcthguHsXR9Fav-eoH4vELFUHIu-cgln1oMwSm2VcDKGmk5YWnyZ5wx_KVQcNOL-Si9P_Lw
      * expires_in : 7200
-     * refresh_token : AeN69M27vttqCedxoIOSeY6cxvbt1N584HjEOclUXtNWxRaZWgmtfvn2jWIDX4tq5t-7Btlc1UkEyyFhV7HVIMXe-V6RPjoZdF525vLzev8
-     * openid : olmt4wfxS21G4VeeVX16_zUhZezY
+     * refresh_token : 16_V9aYdE_ndNo9vL6_5hKshpa14epHYASnSKr18blou3ZuORmeCdZWZxI9kK0qDl6zyfyqChPzoPX9IkLKQQOoAg
+     * openid : okqnw0uIrHZK0mbDo1x6_vftQNXg
      * scope : snsapi_userinfo
-     * unionid : o5aWQwAa7niCIXhAIRBOwglIJ7UQ
+     * unionid : oVKRq1OBobBU8Qt2dLTuxsI2jkP8
      */
 
     private String access_token;

@@ -685,7 +685,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     Intent intent = new Intent(view.getContext(), DetailsActivity.class);
-                    intent.putExtra("id", data.getData().get(position).getProduct_id());
+                    intent.putExtra("id", data.getData().get(position).getProduct_id()+"");
                     startActivity(intent);
                 }
             });

@@ -38,7 +38,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:label,android:theme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <service android:name="com.amap.api.location.APSService" />
 
@@ -66,19 +72,12 @@
         <activity android:name=".notice.NoticeActivity" />
         <activity android:name=".newpeople.NewPeopleDetailsActivity" />
         <activity android:name=".login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
-            android:taskAffinity="net.sourceforge.simcpux"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait" />
     </application>
 

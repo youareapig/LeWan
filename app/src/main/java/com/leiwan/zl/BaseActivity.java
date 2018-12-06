@@ -20,11 +20,12 @@ import butterknife.Unbinder;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder unbinder;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayout());
-        unbinder= ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setView();
         setData();
@@ -65,6 +66,11 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param clazz
      */
     protected void toClass(Context context, Class<? extends BaseActivity> clazz) {
+        Intent intent = new Intent(context, clazz);
+        context.startActivity(intent);
+    }
+
+    protected void toClassApp(Context context, Class<? extends AppCompatActivity> clazz) {
         Intent intent = new Intent(context, clazz);
         context.startActivity(intent);
     }

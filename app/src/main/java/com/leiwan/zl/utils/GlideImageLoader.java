@@ -30,8 +30,8 @@ public class GlideImageLoader extends ImageLoader {
                 Glide.with(context)
                         .load(path)
                         .bitmapTransform(new CenterCrop(context), new RoundedCornersTransformation(context, 16, 0))
-                        .placeholder(R.mipmap.ic_launcher)
-                        .error(R.mipmap.ic_launcher)
+                        .placeholder(R.mipmap.defult_banner)
+                        .error(R.mipmap.defult_banner)
                         .into(imageView);
                 break;
             case 2:
@@ -39,8 +39,8 @@ public class GlideImageLoader extends ImageLoader {
                 Glide.with(context)
                         .load(path)
                         .bitmapTransform(new CenterCrop(context))
-                        .placeholder(R.mipmap.ic_launcher)
-                        .error(R.mipmap.ic_launcher)
+                        .placeholder(R.mipmap.defult_banner)
+                        .error(R.mipmap.defult_banner)
                         .into(imageView);
                 break;
         }

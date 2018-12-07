@@ -76,7 +76,9 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait" />
-        <activity android:name=".dingdan.DingDanZhiFuActivity"></activity>
+        <activity android:name=".dingdan.DingDanZhiFuActivity">
+
+        </activity>
     </application>
 
 </manifest>

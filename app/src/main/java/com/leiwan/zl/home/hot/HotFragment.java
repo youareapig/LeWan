@@ -40,7 +40,6 @@ public class HotFragment extends BaseFragment {
     PullToRefreshLayout refresh;
     private List<HomeData.DataBean> testList;
     private Adapter adapter;
-    private String token,lat,lng;
     private int page = 1;
     @Override
     protected int setLayout() {
@@ -56,9 +55,6 @@ public class HotFragment extends BaseFragment {
 
     @Override
     protected void setData() {
-        token= SharedPreferencesUtil.getInstance(getActivity()).getSP("token");
-        lat=SharedPreferencesUtil.getInstance(getActivity()).getSP("lat");
-        lng=SharedPreferencesUtil.getInstance(getActivity()).getSP("lng");
         getHotData();
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override

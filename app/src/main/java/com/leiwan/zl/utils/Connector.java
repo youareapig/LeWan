@@ -22,17 +22,11 @@ public class Connector {
     private static final int SUCCESS = 0;//code返回成功；
     private static final int FAILURE = 1000;
     private static final int OTHER = 2000;
-    private static String token, lat;
 
-    public Connector() {
-        token = SharedPreferencesUtil.getInstance(App.content).getSP("token");
 
-        LogUtil.d("test", "token---" + token);
-
-    }
 
     //首页列表(综合排序)
-    public static void IndexList(Context context, String token, String lat, String cateid, String lng, MyCallback myCallback) {
+    public static void IndexList(Context context, String token, String lat, String cateid, String lng,String paged,String paging, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().indexUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -44,6 +38,8 @@ public class Connector {
         params.addBodyParameter("cateid", cateid);
         params.addBodyParameter("lat", lat);
         params.addBodyParameter("lng", lng);
+        params.addBodyParameter("paged", paged);
+        params.addBodyParameter("paging", paging);
         xUtilsPostRequest(context, params, myCallback);
     }
 
@@ -99,7 +95,7 @@ public class Connector {
     }
 
     //首页banner列表
-    public static void indexBannerList(Context context, String lat, String lng, String cate, MyCallback myCallback) {
+    public static void indexBannerList(Context context,String token, String lat, String lng, String cate, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().bannerUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -142,7 +138,7 @@ public class Connector {
     }
 
     //新手教程文章分类
-    public static void TabList(Context context, String lat, String lng, MyCallback myCallback) {
+    public static void TabList(Context context,String token, String lat, String lng, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().teachUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -157,7 +153,7 @@ public class Connector {
     }
 
     //新手教程文章列表
-    public static void TeachList(Context context, String lat, String lng, String cate_id, MyCallback myCallback) {
+    public static void TeachList(Context context, String token,String lat, String lng, String cate_id, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().teachListUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -173,7 +169,7 @@ public class Connector {
     }
 
     //新手教程文章列表
-    public static void TeachDetails(Context context, String lat, String lng, String id, MyCallback myCallback) {
+    public static void TeachDetails(Context context,String token,String lat, String lng, String id, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().teachDetails);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -187,8 +183,9 @@ public class Connector {
         params.addBodyParameter("id", id);
         xUtilsPostRequest(context, params, myCallback);
     }
-    //新手教程文章列表
-    public static void GoodsDetails(Context context, String lat, String lng, String id, MyCallback myCallback) {
+
+    //商品详情
+    public static void GoodsDetails(Context context, String token,String lat, String lng, String id, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().goodsDetailsUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -203,6 +200,31 @@ public class Connector {
         xUtilsPostRequest(context, params, myCallback);
     }
 
+    //权益
+    public static void QuanYi(Context context, String token,MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().quanyiUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+
+    //好友
+    public static void MyFriends(Context context, String type,String token, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().myfriendUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("type", type);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+
     public static void getWXcode(Context context, String code, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().getWXcodeUrl);
         params.addBodyParameter("appid", App.APP_ID);
@@ -211,7 +233,8 @@ public class Connector {
         params.addBodyParameter("grant_type", "authorization_code");
         xUtilsGetRequest(context, params, myCallback);
     }
-    public static void getWXUserInfo(Context context, String access_token,String openid, MyCallback myCallback) {
+
+    public static void getWXUserInfo(Context context, String access_token, String openid, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().getWXUserInfo);
         params.addBodyParameter("access_token", access_token);
         params.addBodyParameter("openid", openid);
@@ -281,6 +304,7 @@ public class Connector {
             }
         });
     }
+
     //调用的请求方式（封装的方法get）
     private static void xUtilsGetRequest(final Context context, final RequestParams params, final MyCallback callback) {
         DialogUtils.getInstance(context).showDialog();

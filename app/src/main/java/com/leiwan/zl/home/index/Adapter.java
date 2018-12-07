@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -62,7 +63,6 @@ public class Adapter extends BaseQuickAdapter<HomeData.DataBean, BaseViewHolder>
         long hour = (time / (60 * 60) - day * 24);    //以小时为单位取整
         long min = ((time / (60)) - day * 24 * 60 - hour * 60); //以分钟为单位取整
         long second = (time - day * 24 * 60 * 60 - hour * 60 * 60 - min * 60);//秒
-        LogUtil.d("zhenglei", "endtime---" + DateUtils.timedate(endtime + ""));
         Log.d("tag", "shijian--" + "day:" + day + "  hour:" + hour + "  min:" + min + "  second:" + second);
 
 
@@ -74,10 +74,11 @@ public class Adapter extends BaseQuickAdapter<HomeData.DataBean, BaseViewHolder>
 //                .setText(R.id.index_list_item_youhui, "赚" + item.getTemp_commission());
         ImageView imageView = helper.getView(R.id.index_list_item_image);
         SnapUpCountDownTimerView timerView = helper.getView(R.id.item_timer);
+        LinearLayout timeLayout=helper.getView(R.id.timeview);
         if (day <= 0 && hour <= 0 && min <= 0 && second <= 0) {
-            timerView.setVisibility(View.GONE);
+            timeLayout.setVisibility(View.GONE);
         } else {
-            timerView.setVisibility(View.VISIBLE);
+            timeLayout.setVisibility(View.VISIBLE);
             timerView.setTime(day, hour, min, second);
         }
 

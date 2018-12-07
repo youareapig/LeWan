@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.leiwan.zl.utils.SharedPreferencesUtil;
+
 import org.greenrobot.eventbus.EventBus;
 
 import butterknife.ButterKnife;
@@ -24,12 +26,15 @@ import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
     private Unbinder unbinder;
-
+    public String token,lat,lng;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(setLayout(), null);
         unbinder = ButterKnife.bind(this, view);
+        token = SharedPreferencesUtil.getInstance(getActivity()).getSP("token");
+        lat = SharedPreferencesUtil.getInstance(getActivity()).getSP("lat");
+        lng = SharedPreferencesUtil.getInstance(getActivity()).getSP("lng");
         return view;
     }
 

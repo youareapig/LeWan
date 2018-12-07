@@ -75,14 +75,14 @@ public class SecondActivity extends BaseActivity {
     @BindView(R.id.noData)
     RelativeLayout noData;
     private List<String> bannerList;
-    private Adapter adapter;
+    private com.leiwan.zl.home.index.Adapter adapter;
     private String caseId;
-    private String token, lat, lng;
     private List<HomeData.DataBean> datalist;
     private boolean b = true;
     private String num = "1";
     private String jiage = "1";
-
+    private int page=1;
+    private int pagenum=1;
     @Override
     protected int setLayout() {
         return R.layout.activity_second;
@@ -100,9 +100,6 @@ public class SecondActivity extends BaseActivity {
         String title = intent.getStringExtra("title");
         caseId = intent.getStringExtra("caseID");
         titleText.setText(title);
-        token = SharedPreferencesUtil.getInstance(this).getSP("token");
-        lat = SharedPreferencesUtil.getInstance(this).getSP("lat");
-        lng = SharedPreferencesUtil.getInstance(this).getSP("lng");
 
         bannerList = new ArrayList<>();
 
@@ -123,6 +120,7 @@ public class SecondActivity extends BaseActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
+                        page++;
                         refresh.finishLoadMore();
                     }
                 }, 1000);
@@ -191,7 +189,7 @@ public class SecondActivity extends BaseActivity {
     }
 
     private void getBanner() {
-        Connector.indexBannerList(this, lat, lng, caseId, new Connector.MyCallback() {
+        Connector.indexBannerList(this, token,lat, lng, caseId, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("zhenglei", "zhengleibanner---" + result);
@@ -214,7 +212,7 @@ public class SecondActivity extends BaseActivity {
     }
 
     private void getData() {
-        Connector.IndexList(this, token, lat, caseId, lng, new Connector.MyCallback() {
+        Connector.IndexList(this, token, lat, caseId, lng,"","", new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 Log.d("tag", "成功" + result);
@@ -258,7 +256,7 @@ public class SecondActivity extends BaseActivity {
             } else {
                 noData.setVisibility(View.GONE);
                 datalist = data.getData();
-                adapter = new Adapter(R.layout.index_list_item, datalist);
+                adapter = new com.leiwan.zl.home.index.Adapter(R.layout.index_list_item, datalist);
                 recycler.setAdapter(adapter);
                 adapter.openLoadAnimation();
                 adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

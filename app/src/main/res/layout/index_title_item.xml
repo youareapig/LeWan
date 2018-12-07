@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/dp_52">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp_52"
+        android:layout_marginLeft="@dimen/dp_11"
+        android:gravity="center"
+        android:text="首页"
+        android:textColor="#999"
+        android:textSize="@dimen/sp_17" />
+</LinearLayout>

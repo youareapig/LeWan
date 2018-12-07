@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -23,7 +24,6 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
@@ -62,30 +62,13 @@ import butterknife.Unbinder;
 public class IndexFragment extends BaseFragment implements ObservableScrollView.ScrollViewListener {
     @BindView(R.id.index_banner)
     Banner indexBanner;
-    @BindView(R.id.newpeople)
-    RelativeLayout newpeople;
-    @BindView(R.id.food)
-    RelativeLayout food;
-    @BindView(R.id.hotel)
-    RelativeLayout hotel;
-    @BindView(R.id.lipin)
-    RelativeLayout lipin;
-    @BindView(R.id.qinzi)
-    RelativeLayout qinzi;
-    @BindView(R.id.leyuan)
-    RelativeLayout leyuan;
-    @BindView(R.id.jingqu)
-    RelativeLayout jingqu;
-    @BindView(R.id.chuxing)
-    RelativeLayout chuxing;
+
     @BindView(R.id.index_recycler)
     RecyclerView indexRecycler;
     @BindView(R.id.obscrollview)
     ObservableScrollView obscrollview;
     @BindView(R.id.title_view)
     RelativeLayout titleview;
-    @BindView(R.id.hengxiangtitle)
-    HorizontalScrollView hengxiangtitle;
     @BindView(R.id.city)
     TextView city;
     @BindView(R.id.zonghe_line)
@@ -132,38 +115,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     View juli1Line;
     @BindView(R.id.juli1)
     RelativeLayout juli1;
-    @BindView(R.id.newpeople_icon)
-    ImageView newpeopleIcon;
-    @BindView(R.id.newpeople_text)
-    TextView newpeopleText;
-    @BindView(R.id.food_icon)
-    ImageView foodIcon;
-    @BindView(R.id.food_text)
-    TextView foodText;
-    @BindView(R.id.hotel_icon)
-    ImageView hotelIcon;
-    @BindView(R.id.hotel_text)
-    TextView hotelText;
-    @BindView(R.id.lipin_icon)
-    ImageView lipinIcon;
-    @BindView(R.id.lipin_text)
-    TextView lipinText;
-    @BindView(R.id.qinzi_icon)
-    ImageView qinziIcon;
-    @BindView(R.id.qinzi_text)
-    TextView qinziText;
-    @BindView(R.id.leyuan_icon)
-    ImageView leyuanIcon;
-    @BindView(R.id.leyuan_text)
-    TextView leyuanText;
-    @BindView(R.id.jingqu_icon)
-    ImageView jingquIcon;
-    @BindView(R.id.jingqu_text)
-    TextView jingquText;
-    @BindView(R.id.chuxing_icon)
-    ImageView chuxingIcon;
-    @BindView(R.id.chuxing_text)
-    TextView chuxingText;
+
     @BindView(R.id.zonghe_text)
     TextView zongheText;
     @BindView(R.id.xiaoliang_text)
@@ -174,42 +126,27 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     TextView juliText;
     @BindView(R.id.inputsearch)
     EditText inputsearch;
-    @BindView(R.id.title_newpeople)
-    TextView titleNewpeople;
-    @BindView(R.id.title_food)
-    TextView titleFood;
-    @BindView(R.id.title_hotel)
-    TextView titleHotel;
-    @BindView(R.id.title_lipin)
-    TextView titleLipin;
-    @BindView(R.id.title_qinzi)
-    TextView titleQinzi;
-    @BindView(R.id.title_leyuan)
-    TextView titleLeyuan;
-    @BindView(R.id.title_jingqu)
-    TextView titleJingqu;
-    @BindView(R.id.title_chuxing)
-    TextView titleChuxing;
-    Unbinder unbinder;
+    @BindView(R.id.fenlei_recycler)
+    RecyclerView fenleiRecycler;
+    @BindView(R.id.recycler_title)
+    RecyclerView recyclerTitle;
+
 
     private int heigh = 380;
     private int heigh1 = 750;
-    private int heigh2 = 770;
+    private int heigh2 = 870;
     private List<HomeData.DataBean> datalist;
     public AMapLocationClient mLocationClient = null;
     public AMapLocationListener mLocationListener = new MyAMapLocationListener();
     public AMapLocationClientOption mLocationOption = null;
     private Adapter adapter;
-    private Bundle bundle;
-    private String token, lat, lng;
+    private Adapter_fenlei adapter_fenlei;
+    private Adapter_fenlei_title adapter_fenlei_title;
+    private String mlat, mlng;
     private boolean b = true;
     private String num = "1";
     private String jiage = "1";
     private List<String> list;
-    private List<ImageView> imageViewList;
-    private List<TextView> textViewList, textViewList_title;
-    private List<String> titleList;
-    private List<String> idList;
 
     @Override
     protected int setLayout() {
@@ -219,48 +156,15 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     @Override
     protected void setView() {
         list = new ArrayList<>();
-        bundle = new Bundle();
         indexRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         indexRecycler.setNestedScrollingEnabled(false);
+        fenleiRecycler.setLayoutManager(new GridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false));
+        recyclerTitle.setLayoutManager(new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false));
 
-        imageViewList = new ArrayList<>();
-        imageViewList.add(newpeopleIcon);
-        imageViewList.add(foodIcon);
-        imageViewList.add(hotelIcon);
-        imageViewList.add(lipinIcon);
-        imageViewList.add(qinziIcon);
-        imageViewList.add(leyuanIcon);
-        imageViewList.add(jingquIcon);
-        imageViewList.add(chuxingIcon);
-
-        textViewList = new ArrayList<>();
-        textViewList.add(newpeopleText);
-        textViewList.add(foodText);
-        textViewList.add(hotelText);
-        textViewList.add(lipinText);
-        textViewList.add(qinziText);
-        textViewList.add(leyuanText);
-        textViewList.add(jingquText);
-        textViewList.add(chuxingText);
-
-        textViewList_title = new ArrayList<>();
-        textViewList_title.add(titleNewpeople);
-        textViewList_title.add(titleFood);
-        textViewList_title.add(titleHotel);
-        textViewList_title.add(titleLipin);
-        textViewList_title.add(titleQinzi);
-        textViewList_title.add(titleLeyuan);
-        textViewList_title.add(titleJingqu);
-        textViewList_title.add(titleChuxing);
-
-        titleList = new ArrayList<>();
-        idList = new ArrayList<>();
     }
 
     @Override
     protected void setData() {
-        token = SharedPreferencesUtil.getInstance(getActivity()).getSP("token");
-        Log.d("tag", "token------>" + token);
         showDialog();
         getIndexFenlei();
         ViewTreeObserver observer = indexBanner.getViewTreeObserver();
@@ -307,13 +211,13 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
                 if (aMapLocation.getErrorCode() == 0) {
                     city.setText(aMapLocation.getCity());
 
-                    lng = aMapLocation.getLongitude() + "";
-                    lat = aMapLocation.getLatitude() + "";
-                    SharedPreferencesUtil.getInstance(getActivity()).putSP("lat", lat);
-                    SharedPreferencesUtil.getInstance(getActivity()).putSP("lng", lng);
+                    mlng = aMapLocation.getLongitude() + "";
+                    mlat = aMapLocation.getLatitude() + "";
+                    SharedPreferencesUtil.getInstance(getActivity()).putSP("lat", mlat);
+                    SharedPreferencesUtil.getInstance(getActivity()).putSP("lng", mlng);
 
-                    getData(lat, lng);
-                    getBanner(lat, lng);
+                    getData(mlat, mlng);
+                    getBanner(mlat, mlng);
                 }
 
             }
@@ -337,89 +241,10 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
 
-    @OnClick({R.id.title_newpeople, R.id.title_food, R.id.title_hotel, R.id.title_lipin, R.id.title_qinzi, R.id.title_leyuan, R.id.title_jingqu, R.id.title_chuxing, R.id.zonghe1, R.id.xiaoliang1, R.id.price1, R.id.juli1, R.id.notice, R.id.zonghe, R.id.xiaoliang, R.id.price, R.id.juli, R.id.newpeople, R.id.food, R.id.hotel, R.id.lipin, R.id.qinzi, R.id.leyuan, R.id.jingqu, R.id.chuxing})
+    @OnClick({R.id.zonghe1, R.id.xiaoliang1, R.id.price1, R.id.juli1, R.id.notice, R.id.zonghe, R.id.xiaoliang, R.id.price, R.id.juli})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.newpeople:
-                bundle.putString("title", titleList.get(0));
-                bundle.putString("caseID", idList.get(0));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.food:
-                bundle.putString("title", titleList.get(1));
-                bundle.putString("caseID", idList.get(1));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.hotel:
-                bundle.putString("title", titleList.get(2));
-                bundle.putString("caseID", idList.get(2));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.lipin:
-                bundle.putString("title", titleList.get(3));
-                bundle.putString("caseID", idList.get(3));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.qinzi:
-                bundle.putString("title", titleList.get(4));
-                bundle.putString("caseID", idList.get(4));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.leyuan:
-                bundle.putString("title", titleList.get(5));
-                bundle.putString("caseID", idList.get(5));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.jingqu:
-                bundle.putString("title", titleList.get(6));
-                bundle.putString("caseID", idList.get(6));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.chuxing:
-                bundle.putString("title", titleList.get(7));
-                bundle.putString("caseID", idList.get(7));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.title_newpeople:
-                bundle.putString("title", titleList.get(0));
-                bundle.putString("caseID", idList.get(0));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.title_food:
-                bundle.putString("title", titleList.get(1));
-                bundle.putString("caseID", idList.get(1));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.title_hotel:
-                bundle.putString("title", titleList.get(2));
-                bundle.putString("caseID", idList.get(2));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.title_lipin:
-                bundle.putString("title", titleList.get(3));
-                bundle.putString("caseID", idList.get(3));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.title_qinzi:
-                bundle.putString("title", titleList.get(4));
-                bundle.putString("caseID", idList.get(4));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.title_leyuan:
-                bundle.putString("title", titleList.get(5));
-                bundle.putString("caseID", idList.get(5));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.title_jingqu:
-                bundle.putString("title", titleList.get(6));
-                bundle.putString("caseID", idList.get(6));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
-            case R.id.title_chuxing:
-                bundle.putString("title", titleList.get(7));
-                bundle.putString("caseID", idList.get(7));
-                toClass(getActivity(), SecondActivity.class, bundle);
-                break;
+
             case R.id.zonghe:
                 zongheLine.setVisibility(View.VISIBLE);
                 xiaoliangLine.setVisibility(View.GONE);
@@ -573,13 +398,13 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
         if (y <= heigh1) {
 //            float scale = (float) y / 350;
 //            float alpha = (255 * scale);
-            hengxiangtitle.setVisibility(View.GONE);
+            recyclerTitle.setVisibility(View.GONE);
 //            hengxiangtitle.setAlpha(alpha);
 //            hengxiangtitle.setBackgroundColor(Color.argb((int) alpha, 255, 255, 255));
         }
         if (y > heigh1) {
-            hengxiangtitle.setVisibility(View.VISIBLE);
-            hengxiangtitle.setBackgroundColor(Color.WHITE);
+            recyclerTitle.setVisibility(View.VISIBLE);
+            recyclerTitle.setBackgroundColor(Color.WHITE);
         }
         if (y <= heigh2) {
             menu1.setVisibility(View.GONE);
@@ -614,7 +439,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
     private void getData(String lat, String lng) {
-        Connector.IndexList(getActivity(), token, lat, null, lng, new Connector.MyCallback() {
+        Connector.IndexList(getActivity(), token, lat, null, lng, "","",new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 Log.d("tag", "成功" + result);
@@ -651,7 +476,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
     private void getBanner(String lat, String lng) {
-        Connector.indexBannerList(getActivity(), lat, lng, null, new Connector.MyCallback() {
+        Connector.indexBannerList(getActivity(), token, lat, lng, null, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("banner", "bannershuju---" + result);
@@ -661,7 +486,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
                         list.add(bannerBean.getData().get(i).getPic());
                     }
 
-                    indexBanner.setImageLoader(new GlideImageLoader(1));
+                    indexBanner.setImageLoader(new GlideImageLoader(2));
                     indexBanner.setImages(list);
                     indexBanner.setBannerAnimation(Transformer.DepthPage);
                     indexBanner.isAutoPlay(true);
@@ -685,7 +510,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                     Intent intent = new Intent(view.getContext(), DetailsActivity.class);
-                    intent.putExtra("id", data.getData().get(position).getProduct_id()+"");
+                    intent.putExtra("id", data.getData().get(position).getProduct_id() + "");
                     startActivity(intent);
                 }
             });
@@ -699,16 +524,29 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
                 LogUtil.d("indexfenlei", "数据" + result);
                 final IndexFenLeiBean bean = JSON.parseObject(result, IndexFenLeiBean.class);
                 if (bean.getCode() == 200) {
-                    for (int i = 0; i < bean.getData().size(); i++) {
-                        Glide.with(getActivity())
-                                .load(bean.getData().get(i).getCate_icon())
-                                .into(imageViewList.get(i));
-                        textViewList.get(i).setText(bean.getData().get(i).getCate_name());
-                        textViewList_title.get(i).setText(bean.getData().get(i).getCate_name());
-
-                        titleList.add(bean.getData().get(i).getCate_name());
-                        idList.add(bean.getData().get(i).getCate_id() + "");
-                    }
+                    adapter_fenlei = new Adapter_fenlei(R.layout.index_fenlei_item, bean.getData());
+                    adapter_fenlei_title = new Adapter_fenlei_title(R.layout.index_title_item, bean.getData());
+                    fenleiRecycler.setAdapter(adapter_fenlei);
+                    recyclerTitle.setAdapter(adapter_fenlei_title);
+                    adapter_fenlei.openLoadAnimation();
+                    adapter_fenlei.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            Intent intent=new Intent(view.getContext(), SecondActivity.class);
+                            intent.putExtra("caseID",bean.getData().get(position).getCate_id()+"");
+                            intent.putExtra("title",bean.getData().get(position).getCate_name());
+                            startActivity(intent);
+                        }
+                    });
+                    adapter_fenlei_title.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            Intent intent=new Intent(view.getContext(), SecondActivity.class);
+                            intent.putExtra("caseID",bean.getData().get(position).getCate_id()+"");
+                            intent.putExtra("title",bean.getData().get(position).getCate_name());
+                            startActivity(intent);
+                        }
+                    });
                 }
             }
         });

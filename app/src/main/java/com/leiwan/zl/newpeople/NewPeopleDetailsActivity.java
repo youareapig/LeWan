@@ -34,7 +34,6 @@ public class NewPeopleDetailsActivity extends BaseActivity {
     WebView webview;
     private WebSettings webSettings;
     private String id;
-    private String lat, lng;
     @Override
     protected int setLayout() {
         return R.layout.activity_new_people_details;
@@ -47,8 +46,6 @@ public class NewPeopleDetailsActivity extends BaseActivity {
 
     @Override
     protected void setData() {
-        lat = SharedPreferencesUtil.getInstance(this).getSP("lat");
-        lng = SharedPreferencesUtil.getInstance(this).getSP("lng");
         Intent intent=getIntent();
         id=intent.getStringExtra("id");
         getData();
@@ -76,7 +73,7 @@ public class NewPeopleDetailsActivity extends BaseActivity {
         finish();
     }
     private void getData(){
-        Connector.TeachDetails(this, lat, lng, id, new Connector.MyCallback() {
+        Connector.TeachDetails(this,token, lat, lng, id, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("tag","新手详情"+result);

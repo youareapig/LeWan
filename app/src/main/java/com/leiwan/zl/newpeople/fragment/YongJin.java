@@ -27,7 +27,6 @@ public class YongJin extends BaseFragment {
     private List<TeachListData.DataBean> list;
     private Adapter adapter;
     private int pageID;
-    private String lat, lng;
 
     public YongJin(){}
     public YongJin(int pageID) {
@@ -46,12 +45,10 @@ public class YongJin extends BaseFragment {
 
     @Override
     protected void setData() {
-        lat = SharedPreferencesUtil.getInstance(getActivity()).getSP("lat");
-        lng = SharedPreferencesUtil.getInstance(getActivity()).getSP("lng");
         getData();
     }
     private void getData() {
-        Connector.TeachList(getActivity(), lat, lng, pageID + "", new Connector.MyCallback() {
+        Connector.TeachList(getActivity(),token, lat, lng, pageID + "", new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("tag", "佣金" + result);

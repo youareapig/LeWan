@@ -113,7 +113,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     private int mPageSize = 4; //每页显示的最大的数量
     private List<View> viewPagerList;//GridView作为一个View对象添加到ViewPager集合中
     private WebSettings webSettings1, webSettings2;
-    private String lat, lng, id;
+    private String  id;
     private int heigh;
     private List<GoodsDetailsData.DataBean.HotpushBean> hotList;
 
@@ -138,8 +138,6 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
 
     @Override
     protected void setData() {
-        lat = SharedPreferencesUtil.getInstance(this).getSP("lat");
-        lng = SharedPreferencesUtil.getInstance(this).getSP("lng");
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
         LogUtil.d("tag", "id------" + id);
@@ -150,7 +148,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     }
 
     private void getData() {
-        Connector.GoodsDetails(this, lat, lng, id, new Connector.MyCallback() {
+        Connector.GoodsDetails(this,token, lat, lng, id, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("tag", "商品详情" + result);

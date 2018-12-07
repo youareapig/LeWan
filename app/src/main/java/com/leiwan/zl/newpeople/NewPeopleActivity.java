@@ -39,7 +39,6 @@ public class NewPeopleActivity extends BaseActivity {
     ViewPager xinshouViewpager;
     private List<String> titleList;
     private List<Fragment> fragmentList;
-    private String lat, lng, token;
 
     @Override
     protected int setLayout() {
@@ -54,8 +53,6 @@ public class NewPeopleActivity extends BaseActivity {
 
     @Override
     protected void setData() {
-        lat = SharedPreferencesUtil.getInstance(this).getSP("lat");
-        lng = SharedPreferencesUtil.getInstance(this).getSP("lng");
         getList();
     }
 
@@ -66,7 +63,7 @@ public class NewPeopleActivity extends BaseActivity {
     }
 
     private void getList() {
-        Connector.TabList(this, lat, lng, new Connector.MyCallback() {
+        Connector.TabList(this,token, lat, lng, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("tag", "新手" + result);

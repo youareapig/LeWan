@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.leiwan.zl.utils.SharedPreferencesUtil;
+
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
@@ -20,12 +22,16 @@ import butterknife.Unbinder;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder unbinder;
+    public String token,lat,lng;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayout());
         unbinder = ButterKnife.bind(this);
+        token = SharedPreferencesUtil.getInstance(this).getSP("token");
+        lat = SharedPreferencesUtil.getInstance(this).getSP("lat");
+        lng = SharedPreferencesUtil.getInstance(this).getSP("lng");
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         setView();
         setData();

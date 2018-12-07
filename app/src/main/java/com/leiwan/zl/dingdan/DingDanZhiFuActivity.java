@@ -6,10 +6,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
+import com.leiwan.zl.utils.ToastUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,8 +58,21 @@ public class DingDanZhiFuActivity extends BaseActivity {
     LinearLayout dingdan;
     @BindView(R.id.pay)
     TextView pay;
+    @BindView(R.id.bottom_view)
+    LinearLayout bottomView;
+    @BindView(R.id.page1)
+    LinearLayout page1;
+    @BindView(R.id.pop_date)
+    TextView popDate;
+    @BindView(R.id.pop_number)
+    TextView popNumber;
+    @BindView(R.id.include_view)
+    RelativeLayout includeView;
+    @BindView(R.id.icon)
+    ImageView icon;
     private int num = 1;
     private double totleprice, totleyuanjia, danprice, danyuanjia;
+    private boolean isshow = true;
 
     @Override
     protected int setLayout() {
@@ -66,7 +81,7 @@ public class DingDanZhiFuActivity extends BaseActivity {
 
     @Override
     protected void setView() {
-
+        page1.setOnClickListener(null);
     }
 
     @Override
@@ -106,15 +121,29 @@ public class DingDanZhiFuActivity extends BaseActivity {
                 zongyuanjia.setText(xiaoshu(totleyuanjia));
                 break;
             case R.id.dingdan:
+                if (isshow) {
+                    includeView.setVisibility(View.VISIBLE);
+                    isshow = false;
+                    popDate.setText(time.getText().toString());
+                    popNumber.setText("¥" + price.getText() + "x" + goodsnum.getText() + "份");
+                    icon.setImageResource(R.mipmap.down);
+                } else {
+                    includeView.setVisibility(View.GONE);
+                    icon.setImageResource(R.mipmap.up);
+                    isshow = true;
+                }
                 break;
             case R.id.pay:
+                ToastUtil.showShortToast("支付");
                 break;
         }
     }
+
 
     private String xiaoshu(double d) {
         DecimalFormat format = new DecimalFormat("0.00");
         String mynum = format.format(d);
         return mynum;
     }
+
 }

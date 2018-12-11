@@ -9,6 +9,8 @@ import android.widget.RelativeLayout;
 
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
+import com.leiwan.zl.utils.Connector;
+import com.leiwan.zl.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,9 +53,17 @@ public class IDBankActivity extends BaseActivity {
         adapter = new Adapter(R.layout.bank_list_item, list);
         recycler.setAdapter(adapter);
         adapter.openLoadAnimation();
-
+        getData();
     }
 
+    private void getData() {
+        Connector.BankList(this, token, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("tag", "bank----" + result);
+            }
+        });
+    }
 
     @OnClick({R.id.back, R.id.addbank})
     public void onViewClicked(View v) {

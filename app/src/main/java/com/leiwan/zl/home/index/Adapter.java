@@ -70,8 +70,8 @@ public class Adapter extends BaseQuickAdapter<HomeData.DataBean, BaseViewHolder>
                 .setText(R.id.index_list_item_jiage, "¥" + item.getTemp_price())
                 .setText(R.id.index_list_item_xiaoliang, "已售" + item.getProduct_sold())
                 .setText(R.id.index_list_item_location, item.getRegion())
-                .setText(R.id.index_list_item_juli, item.getDistance() + "KM");
-//                .setText(R.id.index_list_item_youhui, "赚" + item.getTemp_commission());
+                .setText(R.id.index_list_item_juli, item.getDistance() + "KM")
+                .setText(R.id.index_list_item_youhui, "赚" + item.getTemp_commission().getFenxiang());
         ImageView imageView = helper.getView(R.id.index_list_item_image);
         SnapUpCountDownTimerView timerView = helper.getView(R.id.item_timer);
         LinearLayout timeLayout=helper.getView(R.id.timeview);

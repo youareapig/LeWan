@@ -18,15 +18,18 @@
 
         <TextView
             android:id="@+id/name"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/dp_100"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
-            android:text="李大军"
+            android:text="李大李军"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textColor="#333"
             android:textSize="@dimen/sp_19" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:id="@+id/type"
+            android:layout_width="@dimen/dp_56"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_10"
             android:text="超级会员"
@@ -34,9 +37,10 @@
             android:textSize="@dimen/sp_12" />
 
         <TextView
+            android:id="@+id/num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_72"
+            android:layout_marginLeft="@dimen/dp_46"
             android:text="已购1358单"
             android:textColor="#999"
             android:textSize="@dimen/sp_12" />

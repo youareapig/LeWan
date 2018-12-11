@@ -16,6 +16,7 @@
             android:src="@mipmap/back" />
 
         <TextView
+            android:id="@+id/titlename"
             style="@style/titlename"
             android:text="直属好友" />
 
@@ -29,6 +30,40 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_86">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_53"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp_23">
+
+            <ImageView
+                android:id="@+id/myhead"
+                android:layout_width="@dimen/dp_53"
+                android:layout_height="@dimen/dp_53"
+                android:src="@mipmap/ic_launcher" />
+
+            <TextView
+                android:id="@+id/myname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_toRightOf="@+id/myhead"
+                android:text="刘熙"
+                android:textColor="#333"
+                android:textSize="@dimen/sp_19" />
+
+            <TextView
+                android:id="@+id/mytype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="@dimen/dp_12"
+                android:layout_toRightOf="@+id/myhead"
+                android:text="运营达人"
+                android:textColor="#999"
+                android:textSize="@dimen/sp_12" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/friend_num"
@@ -61,15 +96,42 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_6"
-        android:background="#ECEFFC" />
+        android:background="@drawable/jianbian" />
 
-    <android.support.v4.widget.NestedScrollView
+
+    <com.jwenfeng.library.pulltorefresh.PullToRefreshLayout
+        android:id="@+id/refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </android.support.v4.widget.NestedScrollView>
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/dixian"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_30"
+                    android:background="@color/lineview"
+                    android:gravity="center"
+                    android:text="---我是有底线的---"
+                    android:textColor="#999"
+                    android:visibility="gone"
+                    android:textSize="@dimen/sp_8" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+    </com.jwenfeng.library.pulltorefresh.PullToRefreshLayout>
+
+
 </LinearLayout>

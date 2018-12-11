@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
+import com.leiwan.zl.utils.Connector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +39,13 @@ public class YWC extends BaseFragment {
         adapter = new Adapter(R.layout.dingdan_item, list);
         recycler.setAdapter(adapter);
         adapter.openLoadAnimation();
+        getData();
     }
-
+    private void getData() {
+        Connector.Order(getActivity(), token, "4",new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+            }
+        });
+    }
 }

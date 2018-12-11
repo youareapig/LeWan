@@ -40,9 +40,6 @@ import com.leiwan.zl.shouru.ShouRuActivity;
 import com.leiwan.zl.utils.CameraUtil;
 import com.leiwan.zl.utils.ToastUtil;
 import com.leiwan.zl.yaoqing.YaoqingActivity;
-import com.tencent.mm.opensdk.modelmsg.SendAuth;
-import com.tencent.mm.opensdk.openapi.IWXAPI;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
 
@@ -94,6 +91,10 @@ public class MineFragment extends BaseFragment {
     TextView vipShouru;
     @BindView(R.id.myfriend)
     RelativeLayout myfriend;
+    @BindView(R.id.kehu)
+    RelativeLayout kehu;
+    @BindView(R.id.myallfriend)
+    RelativeLayout myallfriend;
 
     private Uri pictureUri = null;
     private String filePath = Environment.getExternalStorageDirectory() + File.separator + "myself" + File.separator;
@@ -102,8 +103,7 @@ public class MineFragment extends BaseFragment {
     private final int ACT_GALLERY = 0;
     private final int ACT_CAMERA = 1;
     private final int ACT_CROP = 2;
-
-
+    private Bundle bundle;
 
     @Override
     protected int setLayout() {
@@ -114,6 +114,7 @@ public class MineFragment extends BaseFragment {
     protected void setView() {
 
         clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
+        bundle = new Bundle();
     }
 
     @Override
@@ -137,7 +138,7 @@ public class MineFragment extends BaseFragment {
     }
 
 
-    @OnClick({R.id.myfriend, R.id.vip_shouru, R.id.vip_daren, R.id.copy, R.id.vip_quanyi, R.id.userhead, R.id.view_yaoqing, R.id.view_jiaocheng, R.id.view_yinhangka, R.id.view_youhui, R.id.view_dingdan, R.id.view_dizhi, R.id.view_shiming, R.id.view_lianxi})
+    @OnClick({R.id.kehu, R.id.myallfriend, R.id.myfriend, R.id.vip_shouru, R.id.vip_daren, R.id.copy, R.id.vip_quanyi, R.id.userhead, R.id.view_yaoqing, R.id.view_jiaocheng, R.id.view_yinhangka, R.id.view_youhui, R.id.view_dingdan, R.id.view_dizhi, R.id.view_shiming, R.id.view_lianxi})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.view_yaoqing:
@@ -179,7 +180,19 @@ public class MineFragment extends BaseFragment {
                 toClass(getActivity(), DaRenActivity.class);
                 break;
             case R.id.myfriend:
-                toClass(getActivity(), FriendActivity.class);
+                bundle.putString("friendtype", "3");
+                bundle.putString("friendtitle","直属好友");
+                toClass(getActivity(), FriendActivity.class, bundle);
+                break;
+            case R.id.kehu:
+                bundle.putString("friendtype", "2");
+                bundle.putString("friendtitle","我的客户");
+                toClass(getActivity(), FriendActivity.class, bundle);
+                break;
+            case R.id.myallfriend:
+                bundle.putString("friendtype", "1");
+                bundle.putString("friendtitle","全部好友");
+                toClass(getActivity(), FriendActivity.class, bundle);
                 break;
             case R.id.userhead:
                 final AlertDialog builder = new AlertDialog.Builder(getActivity()).create();

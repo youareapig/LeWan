@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
+import com.leiwan.zl.utils.Connector;
+import com.leiwan.zl.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +43,16 @@ public class All extends BaseFragment {
         adapter = new Adapter(R.layout.dingdan_item, list);
         recycler.setAdapter(adapter);
         adapter.openLoadAnimation();
+        getData();
+    }
+
+    private void getData() {
+        Connector.Order(getActivity(), token, "1",new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("tag","全部订单---"+result);
+            }
+        });
     }
 
 }

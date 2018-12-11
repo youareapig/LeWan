@@ -439,10 +439,10 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
     private void getData(String lat, String lng) {
-        Connector.IndexList(getActivity(), token, lat, null, lng, "","",new Connector.MyCallback() {
+        Connector.IndexList(getActivity(), token, lat, null, lng, null,null,new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
-                Log.d("tag", "成功" + result);
+                LogUtil.d("tag", "成功" + result);
                 resultItem(result);
             }
         });

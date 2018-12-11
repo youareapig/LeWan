@@ -196,6 +196,7 @@
                             android:orientation="horizontal">
 
                             <RelativeLayout
+                                android:id="@+id/kehu"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1">
@@ -275,6 +276,7 @@
                                 android:background="#cccccc" />
 
                             <RelativeLayout
+                                android:id="@+id/myallfriend"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1">

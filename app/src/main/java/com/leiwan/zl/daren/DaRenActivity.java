@@ -12,6 +12,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.leiwan.zl.App;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
+import com.leiwan.zl.utils.Connector;
+import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ToastUtil;
 
 import java.util.ArrayList;
@@ -58,8 +60,17 @@ public class DaRenActivity extends BaseActivity {
             }
         });
         adapter.openLoadAnimation();
+        getData();
     }
 
+    private void getData() {
+        Connector.DaRenService(this, token, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("tag", "daren---" + result);
+            }
+        });
+    }
 
     @OnClick(R.id.back)
     public void onViewClicked() {

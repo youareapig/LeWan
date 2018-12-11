@@ -70,7 +70,9 @@
         <activity android:name=".details.DetailsActivity" />
         <activity android:name=".notice.NoticeActivity" />
         <activity android:name=".newpeople.NewPeopleDetailsActivity" />
-        <activity android:name=".login.LoginActivity"></activity>
+        <activity android:name=".login.LoginActivity">
+
+        </activity>
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

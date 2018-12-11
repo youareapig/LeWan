@@ -17,16 +17,8 @@ public class Connector {
     //**************下面是xUtils3的请求使用，post方式***********************
 
 
-    //下面四个根据自己接口文档实际情况替换值
-    private static final String CODE_PARAMS = "code"; //返回码参数;
-    private static final int SUCCESS = 0;//code返回成功；
-    private static final int FAILURE = 1000;
-    private static final int OTHER = 2000;
-
-
-
     //首页列表(综合排序)
-    public static void IndexList(Context context, String token, String lat, String cateid, String lng,String paged,String paging, MyCallback myCallback) {
+    public static void IndexList(Context context, String token, String lat, String cateid, String lng, String paged, String paging, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().indexUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -95,7 +87,7 @@ public class Connector {
     }
 
     //首页banner列表
-    public static void indexBannerList(Context context,String token, String lat, String lng, String cate, MyCallback myCallback) {
+    public static void indexBannerList(Context context, String token, String lat, String lng, String cate, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().bannerUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -138,7 +130,7 @@ public class Connector {
     }
 
     //新手教程文章分类
-    public static void TabList(Context context,String token, String lat, String lng, MyCallback myCallback) {
+    public static void TabList(Context context, String token, String lat, String lng, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().teachUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -153,7 +145,7 @@ public class Connector {
     }
 
     //新手教程文章列表
-    public static void TeachList(Context context, String token,String lat, String lng, String cate_id, MyCallback myCallback) {
+    public static void TeachList(Context context, String token, String lat, String lng, String cate_id, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().teachListUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -169,7 +161,7 @@ public class Connector {
     }
 
     //新手教程文章列表
-    public static void TeachDetails(Context context,String token,String lat, String lng, String id, MyCallback myCallback) {
+    public static void TeachDetails(Context context, String token, String lat, String lng, String id, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().teachDetails);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -185,7 +177,7 @@ public class Connector {
     }
 
     //商品详情
-    public static void GoodsDetails(Context context, String token,String lat, String lng, String id, MyCallback myCallback) {
+    public static void GoodsDetails(Context context, String token, String lat, String lng, String id, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().goodsDetailsUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -201,7 +193,7 @@ public class Connector {
     }
 
     //权益
-    public static void QuanYi(Context context, String token,MyCallback myCallback) {
+    public static void QuanYi(Context context, String token, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().quanyiUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -213,8 +205,22 @@ public class Connector {
     }
 
     //好友
-    public static void MyFriends(Context context, String type,String token, MyCallback myCallback) {
+    public static void MyFriends(Context context, String type, String token, String page, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().myfriendUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("type", type);
+        params.addBodyParameter("page", page);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+
+    //订单   1全部 2待付款 3已付款 4已完成 5退款
+    public static void Order(Context context, String token,String type, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().orderUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
         params.addHeader("sign", null);
@@ -224,7 +230,28 @@ public class Connector {
         params.addBodyParameter("type", type);
         xUtilsPostRequest(context, params, myCallback);
     }
-
+    //达人后台列表
+    public static void DaRenService(Context context, String token, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().darenServiceUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+    //银行列表
+    public static void BankList(Context context, String token, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().bankUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        xUtilsPostRequest(context, params, myCallback);
+    }
     public static void getWXcode(Context context, String code, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().getWXcodeUrl);
         params.addBodyParameter("appid", App.APP_ID);
@@ -239,6 +266,24 @@ public class Connector {
         params.addBodyParameter("access_token", access_token);
         params.addBodyParameter("openid", openid);
         xUtilsGetRequest(context, params, myCallback);
+    }
+    public static void WXreFreshToken(Context context, String refresh_token, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().refreshtokenUrl);
+        params.addBodyParameter("appid", App.APP_ID);
+        params.addBodyParameter("grant_type", "refresh_token");
+        params.addBodyParameter("refresh_token", refresh_token);
+        xUtilsGetRequest(context, params, myCallback);
+    }
+
+    public static void WeChatLogin(Context context,String json, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().wechatUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("wechat", json);
+        xUtilsPostRequest(context, params, myCallback);
     }
 
     //调用的请求方式（封装的方法）
@@ -276,25 +321,7 @@ public class Connector {
             public void onFinished() {
                 DialogUtils.getInstance(context).dissmissDialog();
                 callback.MyResult(result);
-/*                Log.i("完成。。。33。。", result);
-                if (!hasError&&result!=null){
-                    JSONObject jsonObject=null;
-                    try {
-                        jsonObject=new JSONObject(result);
-                        //错误的写法，optInt方法走完：非空会返回真正的code，如果为空会返回0；但是0在这里面可能会有表示意义（比如表示请求成功code=0）,所以建议使用getInt；
-// int code=jsonObject.optInt("code");//这里是请求结果返回码的key（替换过自己的返回码参数）
-                        int code=jsonObject.getInt(CODE_PARAMS);//这里是请求结果返回码的key（替换过自己的返回码参数）
-                        if (code==SUCCESS){
-                            callback.MyResult(result);
-                        }else if (code==FAILURE){
-//                            ToastUtils.showToastShort(x.app(),"失败");
-                        }else if (code==OTHER){
-//                            ToastUtils.showToastShort(x.app(),"其他");
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }*/
+
             }
 
             @Override
@@ -307,7 +334,6 @@ public class Connector {
 
     //调用的请求方式（封装的方法get）
     private static void xUtilsGetRequest(final Context context, final RequestParams params, final MyCallback callback) {
-        DialogUtils.getInstance(context).showDialog();
         x.http().get(params, new Callback.CacheCallback<String>() {
 
             private boolean hasError = false;
@@ -330,7 +356,6 @@ public class Connector {
 
             @Override
             public void onCancelled(CancelledException cex) {
-//                ToastUtils.showToastShort(x.app(),"cancelled");
             }
 
             /**
@@ -338,27 +363,7 @@ public class Connector {
              */
             @Override
             public void onFinished() {
-                DialogUtils.getInstance(context).dissmissDialog();
                 callback.MyResult(result);
-/*                Log.i("完成。。。33。。", result);
-                if (!hasError&&result!=null){
-                    JSONObject jsonObject=null;
-                    try {
-                        jsonObject=new JSONObject(result);
-                        //错误的写法，optInt方法走完：非空会返回真正的code，如果为空会返回0；但是0在这里面可能会有表示意义（比如表示请求成功code=0）,所以建议使用getInt；
-// int code=jsonObject.optInt("code");//这里是请求结果返回码的key（替换过自己的返回码参数）
-                        int code=jsonObject.getInt(CODE_PARAMS);//这里是请求结果返回码的key（替换过自己的返回码参数）
-                        if (code==SUCCESS){
-                            callback.MyResult(result);
-                        }else if (code==FAILURE){
-//                            ToastUtils.showToastShort(x.app(),"失败");
-                        }else if (code==OTHER){
-//                            ToastUtils.showToastShort(x.app(),"其他");
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }*/
             }
 
             @Override

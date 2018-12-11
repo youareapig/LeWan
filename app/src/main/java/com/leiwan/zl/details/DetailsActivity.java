@@ -163,8 +163,8 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                     banner.setDelayTime(3000);
                     banner.setIndicatorGravity(BannerConfig.RIGHT);
                     banner.start();
-                    //goodsPrice.setText("¥"+detailsData.getData().getPrice().get(0));
-                    //goodsPrice1.setText("¥"+detailsData.getData().getPrice().get(0).getPrice_market());
+                    goodsPrice.setText("¥"+detailsData.getData().getPrice().get(0).getPrice_sale());
+                    goodsPrice1.setText("¥"+detailsData.getData().getPrice().get(0).getPrice_market());
                     goodsName.setText(detailsData.getData().getDetails().getProduct_name());
                     goodsContent.setText(detailsData.getData().getDetails().getProduct_info());
                     goodsAddress.setText(detailsData.getData().getDetails().getMerchant_address());

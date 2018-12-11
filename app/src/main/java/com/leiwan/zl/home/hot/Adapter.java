@@ -55,33 +55,23 @@ public class Adapter extends BaseQuickAdapter<HomeData.DataBean, BaseViewHolder>
         imageRight = helper.getView(R.id.item_image_right);
 
         Glide.with(App.content)
-                .load(item.getProduct_compic().get(0))
+                .load(item.getProduct_pic())
                 .bitmapTransform(new CenterCrop(App.content), new RoundedCornersTransformation(App.content, 10, 0))
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(imageLift);
         Glide.with(App.content)
-                .load(item.getProduct_compic().get(1))
+                .load(item.getProduct_compic())
                 .bitmapTransform(new CenterCrop(App.content), new RoundedCornersTransformation(App.content, 10, 0))
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(imageRight);
 
-        try {
-            String time=item.getProduct_addtime()+"";
+        helper.setText(R.id.item_name, item.getProduct_name())
+                .setText(R.id.share_item_jiage, "¥" + item.getTemp_price())
+                .setText(R.id.item_fenxiang, "分享赚" + item.getTemp_commission().getFenxiang())
+                .setText(R.id.item_date, DateUtils.timedate(item.getProduct_addtime() + ""));
 
-            org.json.JSONObject jsonObject = new org.json.JSONObject(item.getTemp_commission().get(0) + "");
-            LogUtil.d("fengxiang", "fenx----" + jsonObject.getString("fenxiang"));
-            LogUtil.d("fengxiang", "zigou----" + jsonObject.getString("zigou"));
-            String fenxiang = jsonObject.getString("fenxiang");
-            String zigou = jsonObject.getString("zigou");
-            helper.setText(R.id.item_name, item.getProduct_name())
-                    .setText(R.id.share_item_jiage, "¥" + item.getTemp_price())
-                    .setText(R.id.item_fenxiang, "分享赚"+fenxiang)
-                    .setText(R.id.item_date, DateUtils.timedate(time));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
     }
 

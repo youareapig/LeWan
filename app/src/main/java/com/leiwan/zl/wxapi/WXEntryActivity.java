@@ -19,7 +19,7 @@ import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
 public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler {
-
+    private String access_token, openid, refresh_token, unionid, userHead, nickname, country, province, city;
 
     @Override
     protected int setLayout() {
@@ -65,6 +65,19 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
         LogUtil.d("onReq" + "baseReq" + baseReq);
     }
 
+    /**
+     * 40001 invalid credential 不合法的调用凭证
+     * 40014 invalid access_token 不合法的access_token
+     * 40029 invalid code 不合法或已过期的code
+     * 40030 invalid refresh_token 不合法的refresh_token
+     * <p>
+     * 42001 access_token expired access_token超时
+     * 42002 refresh_token expired refresh_token超时
+     * 42003 code expired code超时
+     * <p>
+     * 50001 api unauthorized 接口未授权
+     */
+
     @Override
     public void onResp(BaseResp baseResp) {
         LogUtil.d("zhenglei" + "baseResp------------" + JSON.toJSONString(baseResp));
@@ -74,13 +87,23 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
             case BaseResp.ErrCode.ERR_OK:
                 if (tokenEntity.getErrCode() == 0) {
                     //用户同意授权
+                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("wxcode", tokenEntity.getCode() + "");
+
                     Connector.getWXcode(this, tokenEntity.getCode(), new Connector.MyCallback() {
                         @Override
                         public void MyResult(String result) {
                             LogUtil.d("result", "result---" + result);
                             WXAccessTokenEntity entity = JSON.parseObject(result, WXAccessTokenEntity.class);
-                            String access_token = entity.getAccess_token();
-                            String openid = entity.getOpenid();
+
+                            access_token = entity.getAccess_token();
+                            openid = entity.getOpenid();
+                            refresh_token = entity.getRefresh_token();
+                            unionid = entity.getUnionid();
+
+                            SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("access_token", access_token);
+                            SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("openid", openid);
+                            SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("refresh_token", refresh_token);
+                            SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("unionid", unionid);
 
                             Connector.getWXUserInfo(WXEntryActivity.this, access_token, openid, new Connector.MyCallback() {
                                 @Override
@@ -88,11 +111,17 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                                     //resutl为用户信息
                                     LogUtil.d("result", "userinfo---" + result);
                                     WXUserInfo info = JSON.parseObject(result, WXUserInfo.class);
-                                    String userHead = info.getHeadimgurl();
-                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("userhead", userHead);
-//                                    Intent intent = getIntent();
-//                                    intent.putExtra("userhead", userHead);
-//                                    WXEntryActivity.this.setResult(0, intent);
+                                    userHead = info.getHeadimgurl();
+                                    nickname = info.getNickname();
+                                    country = info.getCountry();
+                                    province = info.getProvince();
+                                    city = info.getCity();
+
+//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("userhead", userHead);
+//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("nickname", nickname);
+//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("country", country);
+//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("province", province);
+//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("city", city);
                                     finish();
                                 }
                             });

@@ -11,7 +11,7 @@ public class HomeData {
     /**
      * code : 200
      * message : 获取成功
-     * data : [{"product_id":6,"product_pic":"http://cs.lewan6.ren/uploads/20181128/5aa95c1fc91e6275236fc44e2490bfd3.jpg","product_compic":["http://cs.lewan6.ren/uploads/20181128/7b736fcafe1a44b3188dadcd8c9040b1.jpg","http://cs.lewan6.ren/uploads/20181128/cce683f5dee2d23d326f13f9f113986a.jpg","http://cs.lewan6.ren/uploads/20181128/ebdbb042c9cb8bcea46909b8822618bb.jpg"],"product_name":"览虫书吧感恩回馈！素食四合院19.9元抢购原价192元2-3人下午茶和甜点套餐！","temp_price":"99.00","temp_commission":[],"product_sold":0,"product_returnall":0,"product_timelimit":1,"product_numlimit":1,"product_starttime":1543507200,"product_endtime":1544544000,"sold_out":0,"share_desc":"1折19.9元抢成都zui具文艺范\u201c览虫书吧\u201d下午茶/甜点经典套餐； 心灵栖息地，轻松览世界，致敬读书人！集书籍、咖啡、甜品、经典茶饮、素食、会议、雅集等服务","product_uptime":1543388229,"product_addtime":1543387612,"merchant_name":"测试商家1","region":"成都市","product_totalnum":1000,"now_time":1543393294},{"product_id":2,"product_pic":"http://cs.lewan6.ren/uploads/20181127/848514333a1e64d2409151a320d336a9.jpg","product_compic":["http://cs.lewan6.ren/uploads/20181127/0a819a834272edda0ab18e73eeb7e31a.jpg","http://cs.lewan6.ren/uploads/20181127/358f21ecf1080946b76793bb4b71dbea.jpg","http://cs.lewan6.ren/uploads/20181127/39d044c41e28e1907a013f1a76318fe0.jpg"],"product_name":"一把骨老火锅","temp_price":"0.20","temp_commission":[],"product_sold":0,"product_returnall":0,"product_timelimit":1,"product_numlimit":0,"product_starttime":1543248000,"product_endtime":1545840000,"sold_out":0,"share_desc":"清淡、浓汤、麻辣类型皆有","product_uptime":1543375347,"product_addtime":1543288848,"merchant_name":"测试商家1","region":"成都市","product_totalnum":100,"now_time":1543393294}]
+     * data : [{"product_id":12,"product_pic":"http://oss.lewan6.ren/uploads/20181203/819960b500849c026cac1c697130a395.png","product_compic":"http://oss.lewan6.ren/uploads/20181203/4ddda04da052c4dd7906ab1ce42e86bb.png","product_name":"128.8元抢购最高原价480元的中药太空薰蒸/背部疏缓spa/子宫卵巢保养/乳房保养/ 套餐(四选一)","temp_price":"28.80","temp_commission":{"zigou":"20.00","fenxiang":"0"},"product_sold":7,"product_returnall":0,"product_timelimit":1,"product_numlimit":1,"product_starttime":1544112000,"product_endtime":1545148800,"sold_out":0,"share_desc":"28.8元抢购最高原价480元的中药太空薰蒸/背部疏缓spa/子宫卵巢保养/乳房保养/ 套餐(四选一)","product_uptime":1544174737,"product_addtime":1543470137,"merchant_name":"成都天使儿童医院（云佑健康）","region":"成都市","distance":5,"product_totalnum":500,"now_time":1544405817},{"product_id":5,"product_pic":"http://oss.lewan6.ren/uploads/20181129/b7f035df1774df780309c13250f6eea9.jpg","product_compic":"http://oss.lewan6.ren/uploads/20181129/ebbc88281068ed723206aabd85f28b20.jpg","product_name":"288元=2大2小高级房/双床房（含无限次泡温泉、自助早餐、菜品代金券等），周末节假日可用，有效期至2019年6月","temp_price":"288.00","temp_commission":{"zigou":"65.00","fenxiang":"0"},"product_sold":99,"product_returnall":0,"product_timelimit":1,"product_numlimit":2,"product_starttime":1543248000,"product_endtime":1544198400,"sold_out":0,"share_desc":"288元=2大2小高级房/双床房（含自助早餐、无限次泡温泉、菜品代金券等），周末节假日可用，有效期至19年6月","product_uptime":1544067029,"product_addtime":1543384759,"merchant_name":"峨眉山温泉源头大酒店","region":"成都市","distance":133,"product_totalnum":517,"now_time":1544405817},{"product_id":11,"product_pic":"http://oss.lewan6.ren/uploads/20181204/e3446920b5cce4581e569348182e8e9b.png","product_compic":"http://oss.lewan6.ren/uploads/20181204/1960afdb86b69a0078cd335930dc88d0.png","product_name":"【金沙】免预约！9.9元抢购218元/307元拾拾石板大凉山黑猪烤肉\u201c尖叫\u201d套餐资格！周末节假日/午晚餐通用","temp_price":"9.90","temp_commission":{"zigou":"6.00","fenxiang":"0"},"product_sold":176,"product_returnall":0,"product_timelimit":1,"product_numlimit":1,"product_starttime":1543852800,"product_endtime":1544803200,"sold_out":0,"share_desc":"【金沙】免预约！9.9元抢购218元/307元拾拾石板大凉山黑猪烤肉\u201c尖叫\u201d套餐资格！周末节假日/午晚餐通用","product_uptime":1544058034,"product_addtime":1543469981,"merchant_name":"拾拾黑猪烤肉","region":"成都市","distance":10,"product_totalnum":550,"now_time":1544405817},{"product_id":6,"product_pic":"http://oss.lewan6.ren/uploads/20181205/6cf5a38eeef88caf3b055a406cee2dc5.png","product_compic":"http://oss.lewan6.ren/uploads/20181205/a08339fb1059ccc22652d682457e4ebe.png","product_name":"【东湖公园】免预约！19.9元抢2-3人下午茶和甜点套餐，原价192元！周末节假日通用","temp_price":"19.90","temp_commission":{"zigou":"15.00","fenxiang":"0"},"product_sold":498,"product_returnall":0,"product_timelimit":1,"product_numlimit":1,"product_starttime":1543939200,"product_endtime":1544976000,"sold_out":0,"share_desc":"【东湖公园】免预约！19.9元抢2-3人下午茶和甜点套餐，原价192元！周末节假日通用","product_uptime":1543995958,"product_addtime":1543387612,"merchant_name":"览虫书吧","region":"成都市","distance":1,"product_totalnum":1000,"now_time":1544405817},{"product_id":18,"product_pic":"http://oss.lewan6.ren/uploads/20181201/e931cbf553a47ab43103848ec7c0486c.png","product_compic":"http://oss.lewan6.ren/uploads/20181201/3d7db9c52e8af48d908b72a0b1fc2d28.png","product_name":"【锦江区】免预约，9.9元抢播州门黔菜馆贵州酸汤鱼2-3人套餐，红沙鱼+锅底1份+大白菜1份+豌豆尖1份+豆腐1份，午晚餐通用，有效期至明年3月底","temp_price":"9.90","temp_commission":{"zigou":"6.00","fenxiang":"0"},"product_sold":475,"product_returnall":0,"product_timelimit":1,"product_numlimit":1,"product_starttime":1543766400,"product_endtime":1544716800,"sold_out":0,"share_desc":"【锦江区】免预约，9.9元抢播州门黔菜馆贵州酸汤鱼2-3人套餐，红沙鱼+锅底1份+大白菜1份+豌豆尖1份+豆腐1份，午晚餐通用，有效期至明年3月底","product_uptime":1543988459,"product_addtime":1543660739,"merchant_name":"播州门黔菜馆","region":"成都市","distance":2,"product_totalnum":571,"now_time":1544405817},{"product_id":10,"product_pic":"http://oss.lewan6.ren/uploads/20181129/7afc3a99257b958853890239b943f31e.jpg","product_compic":"http://oss.lewan6.ren/uploads/20181129/12d405db1ee533404fd84291c3233fe0.jpg","product_name":"【高新区】19.9元抢506元套餐含10荤6素+68瓶青岛啤酒+100元代金券，周末节假日通用免预约，至19年6月有效","temp_price":"19.90","temp_commission":{"zigou":"14.00","fenxiang":"0"},"product_sold":1547,"product_returnall":0,"product_timelimit":1,"product_numlimit":1,"product_starttime":1543248000,"product_endtime":1544457600,"sold_out":0,"share_desc":"【高新区】19.9元抢506元套餐含10荤6素+68瓶青岛啤酒+100元代金券，周末节假日通用免预约，至19年6月有效","product_uptime":1543979392,"product_addtime":1543469703,"merchant_name":"洪门里火锅","region":"成都市","distance":7,"product_totalnum":2200,"now_time":1544405817},{"product_id":8,"product_pic":"http://oss.lewan6.ren/uploads/20181129/5e3ffdb82e0c2e2443b02a9a492f32eb.jpg","product_compic":"http://oss.lewan6.ren/uploads/20181129/6e33f4eae78707ed4c3018701bdc1c68.png","product_name":"【锦江区】19.9元抢爱车巴汽车服务=3次标准洗车+1次发动机机舱清洗+20项安全检测+雨刮精，6个月有效期","temp_price":"19.90","temp_commission":{"zigou":"14.00","fenxiang":"0"},"product_sold":632,"product_returnall":0,"product_timelimit":1,"product_numlimit":1,"product_starttime":1543507200,"product_endtime":1544371200,"sold_out":0,"share_desc":"【锦江区】19.9元抢购爱车巴汽车服务=3次标准洗车+1次发动机机舱清洗+20项安全检测+雨刮精，6个月有效期","product_uptime":1544059985,"product_addtime":1543392287,"merchant_name":"爱车巴","region":"成都市","distance":4,"product_totalnum":1000,"now_time":1544405817},{"product_id":9,"product_pic":"http://oss.lewan6.ren/uploads/20181129/f71fbe9d3b67911b3e33559584936861.jpg","product_compic":"http://oss.lewan6.ren/uploads/20181129/583bee3005a64fafcca4ac5ec4d64e2b.png","product_name":"爆品再爆！198元抢18-19年成都亲子年票，60+乐园和景区场馆通玩：浩海立方、天堂岛、339熊猫塔、国色天乡、水果侠、亚特兰蒂斯......","temp_price":"198.00","temp_commission":{"zigou":"20.00","fenxiang":"0"},"product_sold":42,"product_returnall":0,"product_timelimit":1,"product_numlimit":2,"product_starttime":1543420800,"product_endtime":1544803200,"sold_out":0,"share_desc":"爆品再爆！198元抢18-19年成都亲子年票，60+乐园和景区场馆通玩：浩海立方、天堂岛、339熊猫塔、国色天乡、水果侠、亚特兰蒂斯......","product_uptime":1543825394,"product_addtime":1543469165,"merchant_name":"亲子年票","region":"成都市","distance":6,"product_totalnum":1015,"now_time":1544405817}]
      */
 
     private int code;
@@ -44,32 +44,35 @@ public class HomeData {
 
     public static class DataBean {
         /**
-         * product_id : 6
-         * product_pic : http://cs.lewan6.ren/uploads/20181128/5aa95c1fc91e6275236fc44e2490bfd3.jpg
-         * product_compic : ["http://cs.lewan6.ren/uploads/20181128/7b736fcafe1a44b3188dadcd8c9040b1.jpg","http://cs.lewan6.ren/uploads/20181128/cce683f5dee2d23d326f13f9f113986a.jpg","http://cs.lewan6.ren/uploads/20181128/ebdbb042c9cb8bcea46909b8822618bb.jpg"]
-         * product_name : 览虫书吧感恩回馈！素食四合院19.9元抢购原价192元2-3人下午茶和甜点套餐！
-         * temp_price : 99.00
-         * temp_commission : []
-         * product_sold : 0
+         * product_id : 12
+         * product_pic : http://oss.lewan6.ren/uploads/20181203/819960b500849c026cac1c697130a395.png
+         * product_compic : http://oss.lewan6.ren/uploads/20181203/4ddda04da052c4dd7906ab1ce42e86bb.png
+         * product_name : 128.8元抢购最高原价480元的中药太空薰蒸/背部疏缓spa/子宫卵巢保养/乳房保养/ 套餐(四选一)
+         * temp_price : 28.80
+         * temp_commission : {"zigou":"20.00","fenxiang":"0"}
+         * product_sold : 7
          * product_returnall : 0
          * product_timelimit : 1
          * product_numlimit : 1
-         * product_starttime : 1543507200
-         * product_endtime : 1544544000
+         * product_starttime : 1544112000
+         * product_endtime : 1545148800
          * sold_out : 0
-         * share_desc : 1折19.9元抢成都zui具文艺范“览虫书吧”下午茶/甜点经典套餐； 心灵栖息地，轻松览世界，致敬读书人！集书籍、咖啡、甜品、经典茶饮、素食、会议、雅集等服务
-         * product_uptime : 1543388229
-         * product_addtime : 1543387612
-         * merchant_name : 测试商家1
+         * share_desc : 28.8元抢购最高原价480元的中药太空薰蒸/背部疏缓spa/子宫卵巢保养/乳房保养/ 套餐(四选一)
+         * product_uptime : 1544174737
+         * product_addtime : 1543470137
+         * merchant_name : 成都天使儿童医院（云佑健康）
          * region : 成都市
-         * product_totalnum : 1000
-         * now_time : 1543393294
+         * distance : 5
+         * product_totalnum : 500
+         * now_time : 1544405817
          */
 
         private int product_id;
         private String product_pic;
+        private String product_compic;
         private String product_name;
         private String temp_price;
+        private TempCommissionBean temp_commission;
         private int product_sold;
         private int product_returnall;
         private int product_timelimit;
@@ -82,19 +85,9 @@ public class HomeData {
         private int product_addtime;
         private String merchant_name;
         private String region;
+        private int distance;
         private int product_totalnum;
         private int now_time;
-        private String distance;
-        private List<String> product_compic;
-        private List<?> temp_commission;
-
-        public String getDistance() {
-            return distance;
-        }
-
-        public void setDistance(String distance) {
-            this.distance = distance;
-        }
 
         public int getProduct_id() {
             return product_id;
@@ -112,6 +105,14 @@ public class HomeData {
             this.product_pic = product_pic;
         }
 
+        public String getProduct_compic() {
+            return product_compic;
+        }
+
+        public void setProduct_compic(String product_compic) {
+            this.product_compic = product_compic;
+        }
+
         public String getProduct_name() {
             return product_name;
         }
@@ -126,6 +127,14 @@ public class HomeData {
 
         public void setTemp_price(String temp_price) {
             this.temp_price = temp_price;
+        }
+
+        public TempCommissionBean getTemp_commission() {
+            return temp_commission;
+        }
+
+        public void setTemp_commission(TempCommissionBean temp_commission) {
+            this.temp_commission = temp_commission;
         }
 
         public int getProduct_sold() {
@@ -224,6 +233,14 @@ public class HomeData {
             this.region = region;
         }
 
+        public int getDistance() {
+            return distance;
+        }
+
+        public void setDistance(int distance) {
+            this.distance = distance;
+        }
+
         public int getProduct_totalnum() {
             return product_totalnum;
         }
@@ -240,20 +257,30 @@ public class HomeData {
             this.now_time = now_time;
         }
 
-        public List<String> getProduct_compic() {
-            return product_compic;
-        }
+        public static class TempCommissionBean {
+            /**
+             * zigou : 20.00
+             * fenxiang : 0
+             */
 
-        public void setProduct_compic(List<String> product_compic) {
-            this.product_compic = product_compic;
-        }
+            private String zigou;
+            private String fenxiang;
 
-        public List<?> getTemp_commission() {
-            return temp_commission;
-        }
+            public String getZigou() {
+                return zigou;
+            }
 
-        public void setTemp_commission(List<?> temp_commission) {
-            this.temp_commission = temp_commission;
+            public void setZigou(String zigou) {
+                this.zigou = zigou;
+            }
+
+            public String getFenxiang() {
+                return fenxiang;
+            }
+
+            public void setFenxiang(String fenxiang) {
+                this.fenxiang = fenxiang;
+            }
         }
     }
 }

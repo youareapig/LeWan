@@ -1,6 +1,7 @@
 package com.leiwan.zl.details;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.leiwan.zl.BaseActivity;
@@ -24,13 +24,13 @@ import com.leiwan.zl.MainActivity;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.GoodsDetailsData;
 import com.leiwan.zl.dingdan.DingDanZhiFuActivity;
-import com.leiwan.zl.home.index.IndexFragment;
-import com.leiwan.zl.second.SecondActivity;
 import com.leiwan.zl.utils.Connector;
+import com.leiwan.zl.utils.DateUtils;
 import com.leiwan.zl.utils.GlideImageLoader;
 import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ObservableScrollView;
-import com.leiwan.zl.utils.SharedPreferencesUtil;
+import com.leiwan.zl.utils.TimeOverView;
+import com.leiwan.zl.utils.WXSharedUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -108,12 +108,14 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     TextView shared;
     @BindView(R.id.shopping)
     TextView shopping;
+    @BindView(R.id.timeover)
+    TimeOverView timeover;
     private ImageView[] ivPoints;//小圆点图片的集合
     private int totalPage; //总的页数
     private int mPageSize = 4; //每页显示的最大的数量
     private List<View> viewPagerList;//GridView作为一个View对象添加到ViewPager集合中
     private WebSettings webSettings1, webSettings2;
-    private String  id;
+    private String id;
     private int heigh;
     private List<GoodsDetailsData.DataBean.HotpushBean> hotList;
 
@@ -148,7 +150,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     }
 
     private void getData() {
-        Connector.GoodsDetails(this,token, lat, lng, id, new Connector.MyCallback() {
+        Connector.GoodsDetails(this, token, lat, lng, id, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("tag", "商品详情" + result);
@@ -163,15 +165,20 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                     banner.setDelayTime(3000);
                     banner.setIndicatorGravity(BannerConfig.RIGHT);
                     banner.start();
-                    goodsPrice.setText("¥"+detailsData.getData().getPrice().get(0).getPrice_sale());
-                    goodsPrice1.setText("¥"+detailsData.getData().getPrice().get(0).getPrice_market());
+
+                    goodsPrice.setText("¥" + detailsData.getData().getPrice().get(0).getPrice_sale());
+                    goodsPrice1.setText("¥" + detailsData.getData().getPrice().get(0).getPrice_market());
                     goodsName.setText(detailsData.getData().getDetails().getProduct_name());
                     goodsContent.setText(detailsData.getData().getDetails().getProduct_info());
                     goodsAddress.setText(detailsData.getData().getDetails().getMerchant_address());
 
+                    //倒计时
+                    long endetime = detailsData.getData().getDetails().getProduct_endtime();
+                    initTimeOver(endetime);
+                    //富文本
                     goodsUseinfo.loadDataWithBaseURL(null, getNewContent(detailsData.getData().getDetails().getProduct_description()), "text/html", "utf-8", null);
                     goodsDescription.loadDataWithBaseURL(null, getNewContent(detailsData.getData().getDetails().getProduct_useinfo()), "text/html", "utf-8", null);
-
+                    //推荐
                     hotList = detailsData.getData().getHotpush();
                     initHot();
                 }
@@ -179,6 +186,21 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
         });
     }
 
+    private void initTimeOver(long endtime) {
+        long[] arr = DateUtils.timeOver(endtime);
+        long day = arr[0];
+        long hour = arr[1];
+        long min = arr[2];
+        long second = arr[3];
+        if (day <= 0 && hour <= 0 && min <= 0 && second <= 0) {
+            timeover.setVisibility(View.GONE);
+        } else {
+            timeover.setVisibility(View.VISIBLE);
+            timeover.setTime(day, hour, min, second);
+            timeover.start();
+        }
+
+    }
 
     private void initWeb() {
         webSettings1 = goodsDescription.getSettings();
@@ -307,6 +329,30 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                 toClassApp(this, MainActivity.class);
                 break;
             case R.id.shared:
+                //TODO 分享链接
+                WXSharedUtils.getImage("http://file2.zhituad.com/thumb/201102/15/201102150839088669kNhyE.jpg", new WXSharedUtils.HttpCallBackListener() {
+                    @Override
+                    public void onFinish(final Bitmap bitmap) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                WXSharedUtils.Shared_Web("https://blog.csdn.net/qq_42618969/article/details/81030941", "csdn", "微信分享", 2, bitmap);
+                            }
+                        });
+                    }
+                });
+                //TODO 分享图片
+//                WXSharedUtils.getImage("http://file2.zhituad.com/thumb/201102/15/201102150839088669kNhyE.jpg", new WXSharedUtils.HttpCallBackListener() {
+//                    @Override
+//                    public void onFinish(final Bitmap bitmap) {
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                WXSharedUtils.Shared_Image(2, bitmap);
+//                            }
+//                        });
+//                    }
+//                });
                 break;
             case R.id.shopping:
                 toClass(this, DingDanZhiFuActivity.class);

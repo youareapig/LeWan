@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -25,6 +26,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
+import com.leiwan.zl.App;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
 import com.leiwan.zl.address.AddressIndexActivity;
@@ -38,8 +40,13 @@ import com.leiwan.zl.quanyi.QuanYiActivity;
 import com.leiwan.zl.shiming.RenZhengActivity;
 import com.leiwan.zl.shouru.ShouRuActivity;
 import com.leiwan.zl.utils.CameraUtil;
+import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ToastUtil;
+import com.leiwan.zl.utils.WXSharedUtils;
 import com.leiwan.zl.yaoqing.YaoqingActivity;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
 
@@ -151,6 +158,8 @@ public class MineFragment extends BaseFragment {
                 toClass(getActivity(), IDBankActivity.class);
                 break;
             case R.id.view_youhui:
+
+
                 break;
             case R.id.view_dingdan:
                 toClass(getActivity(), DingDanActivity.class);
@@ -181,17 +190,17 @@ public class MineFragment extends BaseFragment {
                 break;
             case R.id.myfriend:
                 bundle.putString("friendtype", "3");
-                bundle.putString("friendtitle","直属好友");
+                bundle.putString("friendtitle", "直属好友");
                 toClass(getActivity(), FriendActivity.class, bundle);
                 break;
             case R.id.kehu:
                 bundle.putString("friendtype", "2");
-                bundle.putString("friendtitle","我的客户");
+                bundle.putString("friendtitle", "我的客户");
                 toClass(getActivity(), FriendActivity.class, bundle);
                 break;
             case R.id.myallfriend:
                 bundle.putString("friendtype", "1");
-                bundle.putString("friendtitle","全部好友");
+                bundle.putString("friendtitle", "全部好友");
                 toClass(getActivity(), FriendActivity.class, bundle);
                 break;
             case R.id.userhead:

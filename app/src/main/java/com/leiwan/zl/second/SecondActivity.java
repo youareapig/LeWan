@@ -182,11 +182,6 @@ public class SecondActivity extends BaseActivity {
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        secondBanner.stopAutoPlay();
-    }
 
     private void getBanner() {
         Connector.indexBannerList(this, token,lat, lng, caseId, new Connector.MyCallback() {

@@ -420,7 +420,6 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
         super.onStop();
         Log.d("tag", "停止定位");
         mLocationClient.stopLocation();
-        indexBanner.stopAutoPlay();
     }
 
     private void showDialog() {

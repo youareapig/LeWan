@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -21,12 +20,12 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.leiwan.zl.App;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
 import com.leiwan.zl.address.AddressIndexActivity;
@@ -40,13 +39,8 @@ import com.leiwan.zl.quanyi.QuanYiActivity;
 import com.leiwan.zl.shiming.RenZhengActivity;
 import com.leiwan.zl.shouru.ShouRuActivity;
 import com.leiwan.zl.utils.CameraUtil;
-import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ToastUtil;
-import com.leiwan.zl.utils.WXSharedUtils;
 import com.leiwan.zl.yaoqing.YaoqingActivity;
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
-import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionGrant;
 
@@ -102,6 +96,22 @@ public class MineFragment extends BaseFragment {
     RelativeLayout kehu;
     @BindView(R.id.myallfriend)
     RelativeLayout myallfriend;
+    @BindView(R.id.username)
+    TextView username;
+    @BindView(R.id.userview)
+    LinearLayout userview;
+    @BindView(R.id.vip_name)
+    TextView vipName;
+    @BindView(R.id.kehunum)
+    TextView kehunum;
+    @BindView(R.id.hayounum)
+    TextView hayounum;
+    @BindView(R.id.allfriendnum)
+    TextView allfriendnum;
+    @BindView(R.id.vipview)
+    LinearLayout vipview;
+    @BindView(R.id.yaoqingtext)
+    TextView yaoqingtext;
 
     private Uri pictureUri = null;
     private String filePath = Environment.getExternalStorageDirectory() + File.separator + "myself" + File.separator;
@@ -111,6 +121,7 @@ public class MineFragment extends BaseFragment {
     private final int ACT_CAMERA = 1;
     private final int ACT_CROP = 2;
     private Bundle bundle;
+    private int usertype = 1;
 
     @Override
     protected int setLayout() {
@@ -122,6 +133,22 @@ public class MineFragment extends BaseFragment {
 
         clipboardManager = (ClipboardManager) getActivity().getSystemService(Context.CLIPBOARD_SERVICE);
         bundle = new Bundle();
+
+        if (usertype == 1) {
+            //普通会员用户
+            userview.setVisibility(View.VISIBLE);
+            vipview.setVisibility(View.GONE);
+            yaoqingtext.setText("输入邀请码");
+            viewYinhangka.setVisibility(View.GONE);
+            viewShiming.setVisibility(View.GONE);
+        } else if (usertype == 2) {
+            //超级会员用户
+            userview.setVisibility(View.GONE);
+            vipview.setVisibility(View.VISIBLE);
+            yaoqingtext.setText("邀请好友");
+            viewYinhangka.setVisibility(View.VISIBLE);
+            viewShiming.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -149,7 +176,11 @@ public class MineFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.view_yaoqing:
-                toClass(getActivity(), YaoqingActivity.class);
+                if (usertype == 1) {
+
+                } else {
+                    toClass(getActivity(), YaoqingActivity.class);
+                }
                 break;
             case R.id.view_jiaocheng:
                 toClass(getActivity(), NewPeopleActivity.class);

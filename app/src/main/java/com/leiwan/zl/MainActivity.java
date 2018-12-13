@@ -2,18 +2,13 @@ package com.leiwan.zl;
 
 
 import android.content.Context;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -21,23 +16,20 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.leiwan.zl.R;
 import com.leiwan.zl.home.center.CenterFragment;
 import com.leiwan.zl.home.hot.HotFragment;
 import com.leiwan.zl.home.index.IndexFragment;
 import com.leiwan.zl.home.mine.MineFragment;
+import com.leiwan.zl.login.LoginActivity;
 import com.leiwan.zl.utils.SharedPreferencesUtil;
-import com.leiwan.zl.utils.StatusBarUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @BindView(R.id.container)
     LinearLayout container;
@@ -70,14 +62,15 @@ public class MainActivity extends AppCompatActivity {
     private int currentIndex = 0;
     private FragmentManager fragmentManager;
     private static final String CURRENT_FRAGMENT = "STATE_FRAGMENT_SHOW";
-    private Unbinder unbinder;
+
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        unbinder = ButterKnife.bind(this);
-        //TODO 测试token
+    protected int setLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void setView() {
         SharedPreferencesUtil.getInstance(this).putSP("token", "cca9bc22459d4a254a89a24fb084bfcc");
 
         fragment = new Fragment();
@@ -99,6 +92,11 @@ public class MainActivity extends AppCompatActivity {
 
             showFragment();
         }
+    }
+
+    @Override
+    protected void setData() {
+
     }
 
     @Override
@@ -179,27 +177,27 @@ public class MainActivity extends AppCompatActivity {
                 mineIcon.setImageResource(R.mipmap.wode1);
                 break;
             case R.id.mine_view:
-                currentIndex = 3;
-                showFragment();
-                indexName.setTextColor(getResources().getColor(R.color.weixuanzhong));
-                hotName.setTextColor(getResources().getColor(R.color.weixuanzhong));
-                centerName.setTextColor(getResources().getColor(R.color.weixuanzhong));
-                mineName.setTextColor(getResources().getColor(R.color.xuanzhong));
+                if (isLogin == 0) {
+                    Intent intent = new Intent(this, LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    currentIndex = 3;
+                    showFragment();
+                    indexName.setTextColor(getResources().getColor(R.color.weixuanzhong));
+                    hotName.setTextColor(getResources().getColor(R.color.weixuanzhong));
+                    centerName.setTextColor(getResources().getColor(R.color.weixuanzhong));
+                    mineName.setTextColor(getResources().getColor(R.color.xuanzhong));
 
-                indexIcon.setImageResource(R.mipmap.index1);
-                hotIcon.setImageResource(R.mipmap.hot1);
-                centerIcon.setImageResource(R.mipmap.time1);
-                mineIcon.setImageResource(R.mipmap.wode);
+                    indexIcon.setImageResource(R.mipmap.index1);
+                    hotIcon.setImageResource(R.mipmap.hot1);
+                    centerIcon.setImageResource(R.mipmap.time1);
+                    mineIcon.setImageResource(R.mipmap.wode);
+                }
+
                 break;
         }
     }
 
-    @Override
-    protected void onDestroy() {
-        unbinder.unbind();
-        super.onDestroy();
-
-    }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {

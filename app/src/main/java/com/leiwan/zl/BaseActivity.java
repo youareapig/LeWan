@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.leiwan.zl.utils.SharedPreferencesUtil;
 
 import butterknife.ButterKnife;
@@ -22,17 +23,28 @@ import butterknife.Unbinder;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder unbinder;
-    public String token,lat,lng;
+    public String token, lat, lng,access_token, openid, refresh_token, unionid;
+    public int isLogin;
+    public Bundle savedInstanceState;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayout());
+        this.savedInstanceState = savedInstanceState;
         unbinder = ButterKnife.bind(this);
         token = SharedPreferencesUtil.getInstance(this).getSP("token");
         lat = SharedPreferencesUtil.getInstance(this).getSP("lat");
         lng = SharedPreferencesUtil.getInstance(this).getSP("lng");
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        //1表示登录，0表示未登录
+        isLogin = SharedPreferencesUtil.getInstance(this).getSP("loginTag", 0);
+
+        access_token = SharedPreferencesUtil.getInstance(this).getSP("access_token");
+        openid = SharedPreferencesUtil.getInstance(this).getSP("openid");
+        refresh_token = SharedPreferencesUtil.getInstance(this).getSP("refresh_token");
+        unionid = SharedPreferencesUtil.getInstance(this).getSP("unionid");
+
+        ImmersionBar.with(this).statusBarColor(R.color.bar).fitsSystemWindows(true).statusBarDarkFont(true).init();
         setView();
         setData();
     }

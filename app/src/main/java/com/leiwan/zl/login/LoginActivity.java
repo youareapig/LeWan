@@ -1,13 +1,12 @@
 package com.leiwan.zl.login;
 
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.bumptech.glide.Glide;
+import com.gyf.barlibrary.ImmersionBar;
 import com.leiwan.zl.App;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
@@ -17,23 +16,24 @@ import com.leiwan.zl.data.WXData;
 import com.leiwan.zl.data.WXUserInfo;
 import com.leiwan.zl.utils.Connector;
 import com.leiwan.zl.utils.LogUtil;
-import com.leiwan.zl.utils.SharedPreferencesUtil;
 import com.leiwan.zl.utils.ToastUtil;
-import com.leiwan.zl.wxapi.WXEntryActivity;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class LoginActivity extends BaseActivity {
 
 
-    @BindView(R.id.head)
-    ImageView head;
-    @BindView(R.id.login)
-    Button login;
-    private String access_token, openid, refresh_token, unionid, headimgurl, nickname, country, province, city;
+    @BindView(R.id.wechat_login)
+    RelativeLayout wechatLogin;
+    @BindView(R.id.other_login)
+    LinearLayout otherLogin;
+    @BindView(R.id.fuwu)
+    TextView fuwu;
+    @BindView(R.id.yinsi)
+    TextView yinsi;
+    private String headimgurl, nickname, country, province, city;
 
     @Override
     protected int setLayout() {
@@ -42,7 +42,8 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void setView() {
-
+        ImmersionBar.with(this)
+                .transparentBar().fullScreen(true).fitsSystemWindows(false).statusBarDarkFont(false).init();
     }
 
     @Override
@@ -54,29 +55,10 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        access_token = SharedPreferencesUtil.getInstance(this).getSP("access_token");
-        openid = SharedPreferencesUtil.getInstance(this).getSP("openid");
-        refresh_token = SharedPreferencesUtil.getInstance(this).getSP("refresh_token");
-        unionid = SharedPreferencesUtil.getInstance(this).getSP("unionid");
 
         isToken();
     }
 
-
-    @OnClick(R.id.login)
-    public void onViewClicked() {
-        if (App.mWxApi != null && App.mWxApi.isWXAppInstalled()) {
-            SendAuth.Req req = new SendAuth.Req();
-            req.scope = "snsapi_userinfo";
-            req.state = "lewan_wechat_login";
-            App.mWxApi.sendReq(req);
-
-        } else {
-            ToastUtil.showShortToast("用户未安装微信");
-        }
-
-
-    }
 
     private void isToken() {
         //TODO 刷新微信token
@@ -97,7 +79,7 @@ public class LoginActivity extends BaseActivity {
                         country = info.getCountry();
                         province = info.getProvince();
                         city = info.getCity();
-                        Glide.with(LoginActivity.this).load(headimgurl).into(head);
+//                        Glide.with(LoginActivity.this).load(headimgurl).into(head);
 
                         Connector.WeChatLogin(LoginActivity.this, toJson(), new Connector.MyCallback() {
                             @Override
@@ -131,5 +113,29 @@ public class LoginActivity extends BaseActivity {
         wxData.setCity(city);
         String jsonString = JSON.toJSONString(wxData);
         return jsonString;
+    }
+
+
+    @OnClick({R.id.wechat_login, R.id.other_login, R.id.fuwu, R.id.yinsi})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.wechat_login:
+                if (App.mWxApi != null && App.mWxApi.isWXAppInstalled()) {
+                    SendAuth.Req req = new SendAuth.Req();
+                    req.scope = "snsapi_userinfo";
+                    req.state = "lewan_wechat_login";
+                    App.mWxApi.sendReq(req);
+
+                } else {
+                    ToastUtil.showShortToast("用户未安装微信");
+                }
+                break;
+            case R.id.other_login:
+                break;
+            case R.id.fuwu:
+                break;
+            case R.id.yinsi:
+                break;
+        }
     }
 }

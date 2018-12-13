@@ -6,7 +6,6 @@
         <item name="colorPrimary">@color/bar</item>
         <item name="colorPrimaryDark">@color/bar</item>
         <item name="colorAccent">@color/weixuanzhong</item>
-        <item name="android:fitsSystemWindows">true</item>
     </style>
 
     <style name="title">

@@ -326,7 +326,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                 scroll.scrollTo(0, goodsDescription.getTop() - menu1.getHeight());
                 break;
             case R.id.index:
-                toClassApp(this, MainActivity.class);
+                toClass(this, MainActivity.class);
                 break;
             case R.id.shared:
                 //TODO 分享链接

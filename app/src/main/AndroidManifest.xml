@@ -39,11 +39,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:label,android:theme">
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service android:name="com.amap.api.location.APSService" />
@@ -72,7 +68,11 @@
         <activity android:name=".notice.NoticeActivity" />
         <activity android:name=".newpeople.NewPeopleDetailsActivity" />
         <activity android:name=".login.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".wxapi.WXEntryActivity"

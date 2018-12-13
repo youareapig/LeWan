@@ -3,7 +3,6 @@ package com.leiwan.zl.home.index;
 import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,10 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.EditText;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,6 +22,7 @@ import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.gyf.barlibrary.ImmersionBar;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.BannerBean;
@@ -38,7 +36,6 @@ import com.leiwan.zl.utils.GlideImageLoader;
 import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ObservableScrollView;
 import com.leiwan.zl.utils.SharedPreferencesUtil;
-import com.leiwan.zl.utils.StatusBarUtils;
 import com.leiwan.zl.utils.ToastUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -51,9 +48,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2018/11/14.
@@ -177,11 +172,6 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
             }
         });
 
-
-        //TODO 文字高亮
-        getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-        //TODO 设置状态栏颜色
-        StatusBarUtils.setStatusBarColor(getActivity(), R.color.bar);
         MPermissions.requestPermissions(IndexFragment.this, 1, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION);
     }
 
@@ -388,11 +378,11 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
         if (y <= heigh) {
             titleview.setBackgroundColor(Color.WHITE);
-            StatusBarUtils.setStatusBarColor(getActivity(), R.color.bar);
+            ImmersionBar.with(getActivity()).statusBarColor(R.color.bar).fitsSystemWindows(true).statusBarDarkFont(true).init();
         }
         if (y > heigh) {
             titleview.setBackgroundColor(getResources().getColor(R.color.bar1));
-            StatusBarUtils.setStatusBarColor(getActivity(), R.color.bar1);
+            ImmersionBar.with(getActivity()).statusBarColor(R.color.bar1).fitsSystemWindows(true).statusBarDarkFont(true).init();
 
         }
         if (y <= heigh1) {
@@ -438,7 +428,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     }
 
     private void getData(String lat, String lng) {
-        Connector.IndexList(getActivity(), token, lat, null, lng, null,null,new Connector.MyCallback() {
+        Connector.IndexList(getActivity(), token, lat, null, lng, null, null, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("tag", "成功" + result);
@@ -531,18 +521,18 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
                     adapter_fenlei.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            Intent intent=new Intent(view.getContext(), SecondActivity.class);
-                            intent.putExtra("caseID",bean.getData().get(position).getCate_id()+"");
-                            intent.putExtra("title",bean.getData().get(position).getCate_name());
+                            Intent intent = new Intent(view.getContext(), SecondActivity.class);
+                            intent.putExtra("caseID", bean.getData().get(position).getCate_id() + "");
+                            intent.putExtra("title", bean.getData().get(position).getCate_name());
                             startActivity(intent);
                         }
                     });
                     adapter_fenlei_title.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            Intent intent=new Intent(view.getContext(), SecondActivity.class);
-                            intent.putExtra("caseID",bean.getData().get(position).getCate_id()+"");
-                            intent.putExtra("title",bean.getData().get(position).getCate_name());
+                            Intent intent = new Intent(view.getContext(), SecondActivity.class);
+                            intent.putExtra("caseID", bean.getData().get(position).getCate_id() + "");
+                            intent.putExtra("title", bean.getData().get(position).getCate_name());
                             startActivity(intent);
                         }
                     });

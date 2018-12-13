@@ -252,6 +252,7 @@ public class Connector {
         params.addBodyParameter("token", token);
         xUtilsPostRequest(context, params, myCallback);
     }
+
     public static void getWXcode(Context context, String code, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().getWXcodeUrl);
         params.addBodyParameter("appid", App.APP_ID);

@@ -26,12 +26,20 @@ import butterknife.Unbinder;
 
 public abstract class BaseFragment extends Fragment {
     private Unbinder unbinder;
-    public String token,lat,lng;
+    public String token, lat, lng, access_token, openid, refresh_token, unionid;
+    public int isLogin;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(setLayout(), null);
         unbinder = ButterKnife.bind(this, view);
+
+        access_token = SharedPreferencesUtil.getInstance(getActivity()).getSP("access_token");
+        openid = SharedPreferencesUtil.getInstance(getActivity()).getSP("openid");
+        refresh_token = SharedPreferencesUtil.getInstance(getActivity()).getSP("refresh_token");
+        unionid = SharedPreferencesUtil.getInstance(getActivity()).getSP("unionid");
+        isLogin = SharedPreferencesUtil.getInstance(getActivity()).getSP("loginTag", 0);
+
         token = SharedPreferencesUtil.getInstance(getActivity()).getSP("token");
         lat = SharedPreferencesUtil.getInstance(getActivity()).getSP("lat");
         lng = SharedPreferencesUtil.getInstance(getActivity()).getSP("lng");

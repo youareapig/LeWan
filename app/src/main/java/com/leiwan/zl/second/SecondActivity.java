@@ -17,6 +17,7 @@ import com.jwenfeng.library.pulltorefresh.BaseRefreshListener;
 import com.jwenfeng.library.pulltorefresh.PullToRefreshLayout;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
+import com.leiwan.zl.WebActivity;
 import com.leiwan.zl.data.BannerBean;
 import com.leiwan.zl.data.HomeData;
 import com.leiwan.zl.details.DetailsActivity;
@@ -27,6 +28,7 @@ import com.leiwan.zl.utils.SharedPreferencesUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,14 +77,16 @@ public class SecondActivity extends BaseActivity {
     @BindView(R.id.noData)
     RelativeLayout noData;
     private List<String> bannerList;
+    private List<BannerBean.DataBean> bannerbeanList;
     private com.leiwan.zl.home.index.Adapter adapter;
     private String caseId;
     private List<HomeData.DataBean> datalist;
     private boolean b = true;
     private String num = "1";
     private String jiage = "1";
-    private int page=1;
-    private int pagenum=1;
+    private int page = 1;
+    private int pagenum = 1;
+
     @Override
     protected int setLayout() {
         return R.layout.activity_second;
@@ -102,6 +106,7 @@ public class SecondActivity extends BaseActivity {
         titleText.setText(title);
 
         bannerList = new ArrayList<>();
+        bannerbeanList = new ArrayList<>();
 
         refresh.setRefreshListener(new BaseRefreshListener() {
             @Override
@@ -184,7 +189,7 @@ public class SecondActivity extends BaseActivity {
 
 
     private void getBanner() {
-        Connector.indexBannerList(this, token,lat, lng, caseId, new Connector.MyCallback() {
+        Connector.indexBannerList(this, token, lat, lng, caseId, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("zhenglei", "zhengleibanner---" + result);
@@ -194,6 +199,7 @@ public class SecondActivity extends BaseActivity {
                         bannerList.add(bannerBean.getData().get(i).getPic());
                     }
 
+                    bannerbeanList.addAll(bannerBean.getData());
                     secondBanner.setImageLoader(new GlideImageLoader(2));
                     secondBanner.setImages(bannerList);
                     secondBanner.setBannerAnimation(Transformer.DepthPage);
@@ -201,13 +207,32 @@ public class SecondActivity extends BaseActivity {
                     secondBanner.setDelayTime(3000);
                     secondBanner.setIndicatorGravity(BannerConfig.RIGHT);
                     secondBanner.start();
+                    secondBanner.setOnBannerListener(new OnBannerListener() {
+                        @Override
+                        public void OnBannerClick(int position) {
+                            if (bannerbeanList.get(position).getJump() == 1) {
+                                //可以跳转
+                                if (bannerbeanList.get(position).getPosition() == 1) {
+                                    //跳转商品详情
+                                    Intent intent = new Intent(SecondActivity.this, DetailsActivity.class);
+                                    intent.putExtra("id", bannerbeanList.get(position).getPr_id() + "");
+                                    startActivity(intent);
+                                } else if (bannerbeanList.get(position).getPosition() == 2) {
+                                    //跳转webview
+                                    Intent intent = new Intent(SecondActivity.this, WebActivity.class);
+                                    intent.putExtra("weburl", bannerbeanList.get(position).getRoute());
+                                    startActivity(intent);
+                                }
+                            }
+                        }
+                    });
                 }
             }
         });
     }
 
     private void getData() {
-        Connector.IndexList(this, token, lat, caseId, lng,"","", new Connector.MyCallback() {
+        Connector.IndexList(this, token, lat, caseId, lng, "", "", new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 Log.d("tag", "成功" + result);
@@ -258,7 +283,7 @@ public class SecondActivity extends BaseActivity {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                         Intent intent = new Intent(view.getContext(), DetailsActivity.class);
-                        intent.putExtra("id", data.getData().get(position).getProduct_id()+"");
+                        intent.putExtra("id", data.getData().get(position).getProduct_id() + "");
                         startActivity(intent);
                     }
                 });

@@ -110,6 +110,10 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     TextView shopping;
     @BindView(R.id.timeover)
     TimeOverView timeover;
+    @BindView(R.id.kucun)
+    TextView kuCun;
+    @BindView(R.id.yishou)
+    TextView yiShou;
     private ImageView[] ivPoints;//小圆点图片的集合
     private int totalPage; //总的页数
     private int mPageSize = 4; //每页显示的最大的数量
@@ -158,7 +162,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                 if (detailsData.getCode() == 200) {
                     //Banner
                     List<String> bannerList = detailsData.getData().getDetails().getProduct_carousel();
-                    banner.setImageLoader(new GlideImageLoader(1));
+                    banner.setImageLoader(new GlideImageLoader(2));
                     banner.setImages(bannerList);
                     banner.setBannerAnimation(Transformer.DepthPage);
                     banner.isAutoPlay(false);
@@ -168,9 +172,15 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
 
                     goodsPrice.setText("¥" + detailsData.getData().getPrice().get(0).getPrice_sale());
                     goodsPrice1.setText("¥" + detailsData.getData().getPrice().get(0).getPrice_market());
+                    goodsYongjin.setText("¥"+detailsData.getData().getPrice().get(0).getPrice_commission().getZigou());
+                    goodsPrice.setTypeface(typeface);
+                    goodsPrice1.setTypeface(typeface);
+                    goodsYongjin.setTypeface(typeface);
+
                     goodsName.setText(detailsData.getData().getDetails().getProduct_name());
                     goodsContent.setText(detailsData.getData().getDetails().getProduct_info());
                     goodsAddress.setText(detailsData.getData().getDetails().getMerchant_address());
+                    kuCun.setText("库存："+detailsData.getData().getPrice().get(0).getProduct_totalnum());
 
                     //倒计时
                     long endetime = detailsData.getData().getDetails().getProduct_endtime();

@@ -14,7 +14,6 @@
             android:id="@+id/back"
             style="@style/titleback"
             android:src="@mipmap/back" />
-
         <TextView
             android:id="@+id/titleText"
             style="@style/titlename"

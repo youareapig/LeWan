@@ -60,7 +60,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_34"
-                        android:background="#F76E1E"
+                        android:background="@drawable/jianbian6"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/dp_12"
@@ -183,40 +183,103 @@
                             android:textSize="@dimen/sp_17" />
                     </LinearLayout>
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dp_11"
+                        android:paddingLeft="@dimen/dp_12"
+                        android:paddingRight="@dimen/dp_12">
+
+                        <TextView
+                            android:id="@+id/kucun"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="库存：100"
+                            android:textColor="#333"
+                            android:textSize="@dimen/sp_12" />
+
+                        <TextView
+                            android:id="@+id/yishou"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="已售数量：53"
+                            android:textColor="#333"
+                            android:textSize="@dimen/sp_12" />
+                    </RelativeLayout>
+
+
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_4"
-                        android:layout_marginTop="@dimen/dp_11"
+                        android:layout_height="@dimen/dp_1"
+                        android:layout_marginTop="@dimen/dp_19"
                         android:background="@color/lineview" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_60"
+                        android:layout_height="@dimen/dp_40"
                         android:paddingLeft="@dimen/dp_12"
                         android:paddingRight="@dimen/dp_12">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="@dimen/dp_6"
-                            android:text="商家地址"
+                            android:layout_centerVertical="true"
+                            android:text="规格"
                             android:textColor="#999"
+                            android:textSize="@dimen/sp_12" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp_39"
+                            android:text="三人～四人豪华套餐"
+                            android:textColor="#333"
+                            android:textSize="@dimen/sp_13" />
+
+                        <ImageView
+                            android:layout_width="@dimen/dp_20"
+                            android:layout_height="@dimen/dp_20"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:src="@drawable/sandian" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/lineview" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_40"
+                        android:paddingLeft="@dimen/dp_12"
+                        android:paddingRight="@dimen/dp_12">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="@dimen/dp_6"
+                            android:text="商家"
+                            android:textColor="#333"
                             android:textSize="@dimen/sp_15" />
 
                         <ImageView
-                            android:layout_width="@dimen/dp_18"
-                            android:layout_height="@dimen/dp_22"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginBottom="@dimen/dp_6"
+                            android:layout_width="@dimen/dp_9"
+                            android:layout_height="@dimen/dp_11"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp_36"
                             android:src="@mipmap/dingwei1" />
 
                         <TextView
                             android:id="@+id/goods_address"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_marginBottom="@dimen/dp_10"
-                            android:layout_marginLeft="@dimen/dp_24"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp_57"
                             android:text="四川省成都市青羊区宽窄巷子66号"
                             android:textColor="#999"
                             android:textSize="@dimen/sp_14" />
@@ -232,8 +295,7 @@
 
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_4"
-                        android:layout_marginTop="@dimen/dp_11"
+                        android:layout_height="@dimen/dp_1"
                         android:background="@color/lineview" />
                 </LinearLayout>
 

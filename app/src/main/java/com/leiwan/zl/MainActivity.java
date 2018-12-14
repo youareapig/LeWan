@@ -16,11 +16,14 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
 import com.leiwan.zl.home.center.CenterFragment;
 import com.leiwan.zl.home.hot.HotFragment;
 import com.leiwan.zl.home.index.IndexFragment;
 import com.leiwan.zl.home.mine.MineFragment;
 import com.leiwan.zl.login.LoginActivity;
+import com.leiwan.zl.utils.Connector;
+import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.SharedPreferencesUtil;
 
 import java.util.ArrayList;
@@ -71,8 +74,21 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void setView() {
-        SharedPreferencesUtil.getInstance(this).putSP("token", "cca9bc22459d4a254a89a24fb084bfcc");
+        isRefresh();
 
+        Intent intent = getIntent();
+        currentIndex = intent.getIntExtra("indextag", 0);
+        if (currentIndex == 3) {
+            indexName.setTextColor(getResources().getColor(R.color.weixuanzhong));
+            hotName.setTextColor(getResources().getColor(R.color.weixuanzhong));
+            centerName.setTextColor(getResources().getColor(R.color.weixuanzhong));
+            mineName.setTextColor(getResources().getColor(R.color.xuanzhong));
+
+            indexIcon.setImageResource(R.mipmap.index1);
+            hotIcon.setImageResource(R.mipmap.hot1);
+            centerIcon.setImageResource(R.mipmap.time1);
+            mineIcon.setImageResource(R.mipmap.wode);
+        }
         fragment = new Fragment();
         fragmentList = new ArrayList<>();
         fragmentManager = getSupportFragmentManager();
@@ -138,6 +154,7 @@ public class MainActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.index_view:
+                ImmersionBar.with(this).statusBarColor(R.color.bar1).fitsSystemWindows(true).statusBarDarkFont(true).init();
                 currentIndex = 0;
                 showFragment();
                 indexName.setTextColor(getResources().getColor(R.color.xuanzhong));
@@ -151,6 +168,7 @@ public class MainActivity extends BaseActivity {
                 mineIcon.setImageResource(R.mipmap.wode1);
                 break;
             case R.id.hot_view:
+                ImmersionBar.with(this).statusBarColor(R.color.bar).fitsSystemWindows(true).statusBarDarkFont(true).init();
                 currentIndex = 1;
                 showFragment();
                 indexName.setTextColor(getResources().getColor(R.color.weixuanzhong));
@@ -164,6 +182,7 @@ public class MainActivity extends BaseActivity {
                 mineIcon.setImageResource(R.mipmap.wode1);
                 break;
             case R.id.center_view:
+                ImmersionBar.with(this).statusBarColor(R.color.bar).fitsSystemWindows(true).statusBarDarkFont(true).init();
                 currentIndex = 2;
                 showFragment();
                 indexName.setTextColor(getResources().getColor(R.color.weixuanzhong));
@@ -177,9 +196,10 @@ public class MainActivity extends BaseActivity {
                 mineIcon.setImageResource(R.mipmap.wode1);
                 break;
             case R.id.mine_view:
+                ImmersionBar.with(this).statusBarColor(R.color.bar).fitsSystemWindows(true).statusBarDarkFont(true).init();
                 if (isLogin == 0) {
-                    Intent intent = new Intent(this, LoginActivity.class);
-                    startActivity(intent);
+                    //如果没登录跳转到登录界面
+                    toClass(this, LoginActivity.class);
                 } else {
                     currentIndex = 3;
                     showFragment();
@@ -232,5 +252,21 @@ public class MainActivity extends BaseActivity {
         }
         return false;
     }
+
+    //判断微信token是否超时
+    private void isRefresh() {
+        Connector.WXreFreshToken(this, refresh_token, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                if (result.indexOf("errcode") >= 1) {
+                    //把本地的登录状态抹掉,重新登录
+                    LogUtil.d("tag", "退出登录状态");
+                    SharedPreferencesUtil.getInstance(MainActivity.this).putSP("loginTag", 0);
+                }
+            }
+        });
+
+    }
+
 
 }

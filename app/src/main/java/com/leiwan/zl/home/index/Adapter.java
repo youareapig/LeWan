@@ -21,6 +21,7 @@ import com.leiwan.zl.App;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.HomeData;
 import com.leiwan.zl.utils.DateUtils;
+import com.leiwan.zl.utils.FontStyle;
 import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.SnapUpCountDownTimerView;
 
@@ -63,10 +64,13 @@ public class Adapter extends BaseQuickAdapter<HomeData.DataBean, BaseViewHolder>
 
         helper.setText(R.id.index_list_item_title, item.getProduct_name())
                 .setText(R.id.index_list_item_jiage, "¥" + item.getTemp_price())
+                .setTypeface(R.id.index_list_item_jiage, FontStyle.getFont(App.content))
                 .setText(R.id.index_list_item_xiaoliang, "已售" + item.getProduct_sold())
+                .setTypeface(R.id.index_list_item_xiaoliang, FontStyle.getFont(App.content))
                 .setText(R.id.index_list_item_location, item.getRegion())
                 .setText(R.id.index_list_item_juli, item.getDistance() + "KM")
-                .setText(R.id.index_list_item_youhui, "赚" + item.getTemp_commission().getFenxiang());
+                .setText(R.id.index_list_item_youhui, "返" + item.getTemp_commission().getZigou())
+                .setTypeface(R.id.index_list_item_youhui, FontStyle.getFont(App.content));
         ImageView imageView = helper.getView(R.id.index_list_item_image);
         SnapUpCountDownTimerView timerView = helper.getView(R.id.item_timer);
         LinearLayout timeLayout = helper.getView(R.id.timeview);

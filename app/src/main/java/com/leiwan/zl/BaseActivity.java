@@ -2,6 +2,8 @@ package com.leiwan.zl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewCompat;
@@ -23,9 +25,10 @@ import butterknife.Unbinder;
 
 public abstract class BaseActivity extends AppCompatActivity {
     private Unbinder unbinder;
-    public String token, lat, lng,access_token, openid, refresh_token, unionid;
+    public String token, lat, lng, access_token, openid, refresh_token, unionid;
     public int isLogin;
     public Bundle savedInstanceState;
+    public Typeface typeface;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         setContentView(setLayout());
         this.savedInstanceState = savedInstanceState;
         unbinder = ButterKnife.bind(this);
+        AssetManager assetManager = getAssets();
+        typeface = Typeface.createFromAsset(assetManager, "fonts/dina.ttf");
+
         token = SharedPreferencesUtil.getInstance(this).getSP("token");
         lat = SharedPreferencesUtil.getInstance(this).getSP("lat");
         lng = SharedPreferencesUtil.getInstance(this).getSP("lng");

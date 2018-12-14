@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.alibaba.fastjson.JSON;
 import com.leiwan.zl.App;
 import com.leiwan.zl.BaseActivity;
+import com.leiwan.zl.MainActivity;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.WXAccessTokenEntity;
 import com.leiwan.zl.data.WXBaseRespEntity;
@@ -88,6 +89,8 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                 if (tokenEntity.getErrCode() == 0) {
                     //用户同意授权
                     SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("wxcode", tokenEntity.getCode() + "");
+                    //同意授权后存入登录状态1
+                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("loginTag", 1);
 
                     Connector.getWXcode(this, tokenEntity.getCode(), new Connector.MyCallback() {
                         @Override
@@ -122,7 +125,10 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
 //                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("country", country);
 //                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("province", province);
 //                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("city", city);
-                                    finish();
+                                    Intent intent = new Intent(WXEntryActivity.this, MainActivity.class);
+                                    intent.putExtra("indextag", 3);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
                                 }
                             });
                         }

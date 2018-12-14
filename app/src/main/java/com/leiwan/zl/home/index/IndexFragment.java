@@ -25,6 +25,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
+import com.leiwan.zl.WebActivity;
 import com.leiwan.zl.data.BannerBean;
 import com.leiwan.zl.data.HomeData;
 import com.leiwan.zl.data.IndexFenLeiBean;
@@ -40,6 +41,7 @@ import com.leiwan.zl.utils.ToastUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
+import com.youth.banner.listener.OnBannerListener;
 import com.zhy.m.permission.MPermissions;
 import com.zhy.m.permission.PermissionDenied;
 import com.zhy.m.permission.PermissionGrant;
@@ -125,11 +127,11 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     RecyclerView fenleiRecycler;
     @BindView(R.id.recycler_title)
     RecyclerView recyclerTitle;
+    @BindView(R.id.recycler_title_view)
+    RelativeLayout recyclerTitleView;
 
-
-    private int heigh = 380;
-    private int heigh1 = 750;
-    private int heigh2 = 870;
+    private int heigh1 = 1055;
+    private int heigh2 = 1085;
     private List<HomeData.DataBean> datalist;
     public AMapLocationClient mLocationClient = null;
     public AMapLocationListener mLocationListener = new MyAMapLocationListener();
@@ -142,6 +144,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
     private String num = "1";
     private String jiage = "1";
     private List<String> list;
+    private List<BannerBean.DataBean> bannerList;
 
     @Override
     protected int setLayout() {
@@ -150,7 +153,10 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
 
     @Override
     protected void setView() {
+        ImmersionBar.with(getActivity()).statusBarColor(R.color.bar1).fitsSystemWindows(true).statusBarDarkFont(true).init();
         list = new ArrayList<>();
+        bannerList = new ArrayList<>();
+
         indexRecycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
         indexRecycler.setNestedScrollingEnabled(false);
         fenleiRecycler.setLayoutManager(new GridLayoutManager(getActivity(), 4, GridLayoutManager.VERTICAL, false));
@@ -376,32 +382,18 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
 
     @Override
     public void onScrollChanged(ObservableScrollView scrollView, int x, int y, int oldx, int oldy) {
-        if (y <= heigh) {
-            titleview.setBackgroundColor(Color.WHITE);
-            ImmersionBar.with(getActivity()).statusBarColor(R.color.bar).fitsSystemWindows(true).statusBarDarkFont(true).init();
-        }
-        if (y > heigh) {
-            titleview.setBackgroundColor(getResources().getColor(R.color.bar1));
-            ImmersionBar.with(getActivity()).statusBarColor(R.color.bar1).fitsSystemWindows(true).statusBarDarkFont(true).init();
 
-        }
         if (y <= heigh1) {
-//            float scale = (float) y / 350;
-//            float alpha = (255 * scale);
-            recyclerTitle.setVisibility(View.GONE);
-//            hengxiangtitle.setAlpha(alpha);
-//            hengxiangtitle.setBackgroundColor(Color.argb((int) alpha, 255, 255, 255));
+            recyclerTitleView.setVisibility(View.GONE);
         }
         if (y > heigh1) {
-            recyclerTitle.setVisibility(View.VISIBLE);
-            recyclerTitle.setBackgroundColor(Color.WHITE);
+            recyclerTitleView.setVisibility(View.VISIBLE);
         }
         if (y <= heigh2) {
             menu1.setVisibility(View.GONE);
         }
         if (y > heigh2) {
             menu1.setVisibility(View.VISIBLE);
-            menu1.setBackgroundColor(Color.WHITE);
         }
     }
 
@@ -473,6 +465,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
                 if (bannerBean.getCode() == 200) {
                     for (int i = 0; i < bannerBean.getData().size(); i++) {
                         list.add(bannerBean.getData().get(i).getPic());
+                        bannerList.add(bannerBean.getData().get(i));
                     }
 
                     indexBanner.setImageLoader(new GlideImageLoader(2));
@@ -482,6 +475,29 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
                     indexBanner.setDelayTime(3000);
                     indexBanner.setIndicatorGravity(BannerConfig.RIGHT);
                     indexBanner.start();
+
+                    indexBanner.setOnBannerListener(new OnBannerListener() {
+                        @Override
+                        public void OnBannerClick(int position) {
+
+                            if (bannerList.get(position).getJump() == 1) {
+                                //可以跳转
+                                if (bannerList.get(position).getPosition() == 1) {
+                                    //跳转商品详情
+                                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                                    intent.putExtra("id", bannerList.get(position).getPr_id()+"");
+                                    startActivity(intent);
+                                } else if (bannerList.get(position).getPosition() == 2) {
+                                    //跳转webview
+                                    Intent intent = new Intent(getActivity(), WebActivity.class);
+                                    intent.putExtra("weburl", bannerList.get(position).getRoute());
+                                    startActivity(intent);
+                                }
+                            }
+                        }
+                    });
+
+
                 }
 
             }

@@ -28,7 +28,6 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
-
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -39,7 +38,11 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:label,android:theme">
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <service android:name="com.amap.api.location.APSService" />
@@ -67,21 +70,16 @@
         <activity android:name=".details.DetailsActivity" />
         <activity android:name=".notice.NoticeActivity" />
         <activity android:name=".newpeople.NewPeopleDetailsActivity" />
-        <activity android:name=".login.LoginActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".login.LoginActivity"></activity>
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:exported="true"
             android:screenOrientation="portrait" />
-        <activity android:name=".dingdan.DingDanZhiFuActivity">
-
-        </activity>
+        <activity android:name=".dingdan.DingDanZhiFuActivity" />
+        <activity android:name=".regist.PhoneActivity" />
+        <activity android:name=".regist.RegistActivity" />
+        <activity android:name=".WebActivity"></activity>
     </application>
 
 </manifest>

@@ -2,6 +2,8 @@ package com.leiwan.zl;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -28,11 +30,14 @@ public abstract class BaseFragment extends Fragment {
     private Unbinder unbinder;
     public String token, lat, lng, access_token, openid, refresh_token, unionid;
     public int isLogin;
+    public Typeface typeface;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(setLayout(), null);
         unbinder = ButterKnife.bind(this, view);
+        AssetManager assetManager = getActivity().getAssets();
+        typeface = Typeface.createFromAsset(assetManager, "fonts/dina.ttf");
 
         access_token = SharedPreferencesUtil.getInstance(getActivity()).getSP("access_token");
         openid = SharedPreferencesUtil.getInstance(getActivity()).getSP("openid");

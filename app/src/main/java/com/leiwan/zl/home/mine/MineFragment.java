@@ -42,6 +42,7 @@ import com.leiwan.zl.lianxi.LianXiActivity;
 import com.leiwan.zl.login.LoginActivity;
 import com.leiwan.zl.newpeople.NewPeopleActivity;
 import com.leiwan.zl.quanyi.QuanYiActivity;
+import com.leiwan.zl.regist.JoinVIPActivity;
 import com.leiwan.zl.shiming.RenZhengActivity;
 import com.leiwan.zl.shouru.ShouRuActivity;
 import com.leiwan.zl.utils.CameraUtil;
@@ -166,8 +167,20 @@ public class MineFragment extends BaseFragment {
         //TODO 创建文件夹
         CameraUtil.createDir(filePath);
 
+        Glide.with(getActivity())
+                .load(SharedPreferencesUtil.getInstance(getActivity()).getSP("userhead"))
+                .placeholder(R.mipmap.yuan)
+                .error(R.mipmap.yuan)
+                .bitmapTransform(new CenterCrop(getActivity()), new CropCircleTransformation(getActivity()))
+                .into(viphead);
 
-        isToken();
+        Glide.with(getActivity())
+                .load(SharedPreferencesUtil.getInstance(getActivity()).getSP("userhead"))
+                .placeholder(R.mipmap.yuan)
+                .error(R.mipmap.yuan)
+                .bitmapTransform(new CenterCrop(getActivity()), new CropCircleTransformation(getActivity()))
+                .into(userhead);
+        username.setText(SharedPreferencesUtil.getInstance(getActivity()).getSP("nickname"));
     }
 
 
@@ -177,6 +190,7 @@ public class MineFragment extends BaseFragment {
             case R.id.view_yaoqing:
                 if (usertype == 1) {
                     //填写邀请码
+                    toClass(getActivity(), JoinVIPActivity.class);
                 } else {
                     toClass(getActivity(), YaoqingActivity.class);
                 }
@@ -355,77 +369,7 @@ public class MineFragment extends BaseFragment {
 
     }
 
-    private void isToken() {
-        //TODO 刷新微信token
-        Connector.WXreFreshToken(getActivity(), refresh_token, new Connector.MyCallback() {
-            @Override
-            public void MyResult(String result) {
-                LogUtil.d("tag", "isToken---" + result);
-                if (result.indexOf("errcode") >= 1) {
 
-                }
-                //需要判断微信返回是否有错误码，如果没有，表示refresh_token有效，反之无效；再判断错误码进行操作（通常都是表示refresh_token超时，需要重新授权）
-                RefreshTokenData data = JSON.parseObject(result, RefreshTokenData.class);
-                //TODO 获取刷新后的用户信息
-                Connector.getWXUserInfo(getActivity(), data.getAccess_token(), openid, new Connector.MyCallback() {
-                    @Override
-                    public void MyResult(String result) {
-                        LogUtil.d("shuaxin", "shuaxin---" + result);
-                        WXUserInfo info = JSON.parseObject(result, WXUserInfo.class);
-                        userHead = info.getHeadimgurl();
-                        nickname = info.getNickname();
-                        country = info.getCountry();
-                        province = info.getProvince();
-                        city = info.getCity();
-
-                        Connector.WeChatLogin(getActivity(), toJson(), new Connector.MyCallback() {
-                            @Override
-                            public void MyResult(String result) {
-                                //TODO 将用户信息上传到服务器
-                                LogUtil.d("login", "login----" + result);
-                                LoginData data = JSON.parseObject(result, LoginData.class);
-                                if (data.getCode() == 200) {
-                                    //存入服务器返回的token
-                                    SharedPreferencesUtil.getInstance(getActivity()).putSP("token", data.getData().getToken() + "");
-                                    Glide.with(getActivity())
-                                            .load(data.getData().getAvatar())
-                                            .placeholder(R.mipmap.yuan)
-                                            .error(R.mipmap.yuan)
-                                            .bitmapTransform(new CenterCrop(getActivity()), new CropCircleTransformation(getActivity()))
-                                            .into(viphead);
-
-                                    Glide.with(getActivity())
-                                            .load(data.getData().getAvatar())
-                                            .placeholder(R.mipmap.yuan)
-                                            .error(R.mipmap.yuan)
-                                            .bitmapTransform(new CenterCrop(getActivity()), new CropCircleTransformation(getActivity()))
-                                            .into(userhead);
-                                    username.setText(data.getData().getNickname());
-                                }
-                            }
-                        });
-
-                    }
-                });
-            }
-        });
-    }
-
-    //对象转json
-    private String toJson() {
-        WXData wxData = new WXData();
-        wxData.setAccess_token(access_token);
-        wxData.setOpenid(openid);
-        wxData.setRefresh_token(refresh_token);
-        wxData.setUnionid(unionid);
-        wxData.setHeadimgurl(userHead);
-        wxData.setNickname(nickname);
-        wxData.setCountry(country);
-        wxData.setProvince(province);
-        wxData.setCity(city);
-        String jsonString = JSON.toJSONString(wxData);
-        return jsonString;
-    }
 
 
 }

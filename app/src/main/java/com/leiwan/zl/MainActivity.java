@@ -74,7 +74,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void setView() {
-        isRefresh();
 
         Intent intent = getIntent();
         currentIndex = intent.getIntExtra("indextag", 0);
@@ -197,10 +196,6 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.mine_view:
                 ImmersionBar.with(this).statusBarColor(R.color.bar).fitsSystemWindows(true).statusBarDarkFont(true).init();
-                if (isLogin == 0) {
-                    //如果没登录跳转到登录界面
-                    toClass(this, LoginActivity.class);
-                } else {
                     currentIndex = 3;
                     showFragment();
                     indexName.setTextColor(getResources().getColor(R.color.weixuanzhong));
@@ -212,7 +207,6 @@ public class MainActivity extends BaseActivity {
                     hotIcon.setImageResource(R.mipmap.hot1);
                     centerIcon.setImageResource(R.mipmap.time1);
                     mineIcon.setImageResource(R.mipmap.wode);
-                }
 
                 break;
         }
@@ -253,20 +247,7 @@ public class MainActivity extends BaseActivity {
         return false;
     }
 
-    //判断微信token是否超时
-    private void isRefresh() {
-        Connector.WXreFreshToken(this, refresh_token, new Connector.MyCallback() {
-            @Override
-            public void MyResult(String result) {
-                if (result.indexOf("errcode") >= 1) {
-                    //把本地的登录状态抹掉,重新登录
-                    LogUtil.d("tag", "退出登录状态");
-                    SharedPreferencesUtil.getInstance(MainActivity.this).putSP("loginTag", 0);
-                }
-            }
-        });
 
-    }
 
 
 }

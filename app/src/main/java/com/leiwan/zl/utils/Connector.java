@@ -16,6 +16,7 @@ public class Connector {
 
     //**************下面是xUtils3的请求使用，post方式***********************
 
+    private static CustomDialog customDialog;
 
     //首页列表(综合排序)
     public static void IndexList(Context context, String token, String lat, String cateid, String lng, String paged, String paging, MyCallback myCallback) {
@@ -219,7 +220,7 @@ public class Connector {
     }
 
     //订单   1全部 2待付款 3已付款 4已完成 5退款
-    public static void Order(Context context, String token,String type, MyCallback myCallback) {
+    public static void Order(Context context, String token, String type, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().orderUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -230,6 +231,7 @@ public class Connector {
         params.addBodyParameter("type", type);
         xUtilsPostRequest(context, params, myCallback);
     }
+
     //达人后台列表
     public static void DaRenService(Context context, String token, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().darenServiceUrl);
@@ -241,6 +243,7 @@ public class Connector {
         params.addBodyParameter("token", token);
         xUtilsPostRequest(context, params, myCallback);
     }
+
     //银行列表
     public static void BankList(Context context, String token, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().bankUrl);
@@ -250,6 +253,34 @@ public class Connector {
         params.addHeader("product", "app");
         params.addHeader("platform", "android");
         params.addBodyParameter("token", token);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+
+    //注册成为超级会员
+    public static void SuperVip(Context context, String token, String recode, String mobile, String provingcode, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().supervipUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("recode", recode);
+        params.addBodyParameter("mobile", mobile);
+        params.addBodyParameter("provingcode", provingcode);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+
+    //发送短信
+    public static void SendMessage(Context context, String mobile, String type, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().sendmessageUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("mobile", mobile);
+        params.addBodyParameter("type", type);
         xUtilsPostRequest(context, params, myCallback);
     }
 
@@ -268,6 +299,7 @@ public class Connector {
         params.addBodyParameter("openid", openid);
         xUtilsGetRequest(context, params, myCallback);
     }
+
     public static void WXreFreshToken(Context context, String refresh_token, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().refreshtokenUrl);
         params.addBodyParameter("appid", App.APP_ID);
@@ -276,7 +308,7 @@ public class Connector {
         xUtilsGetRequest(context, params, myCallback);
     }
 
-    public static void WeChatLogin(Context context,String json, MyCallback myCallback) {
+    public static void WeChatLogin(Context context, String json, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().wechatUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -289,7 +321,9 @@ public class Connector {
 
     //调用的请求方式（封装的方法）
     private static void xUtilsPostRequest(final Context context, final RequestParams params, final MyCallback callback) {
-        DialogUtils.getInstance(context).showDialog();
+
+//        customDialog = new CustomDialog(context, "正在加载...");
+//        customDialog.show();
         x.http().post(params, new Callback.CacheCallback<String>() {
 
             private boolean hasError = false;
@@ -320,7 +354,7 @@ public class Connector {
              */
             @Override
             public void onFinished() {
-                DialogUtils.getInstance(context).dissmissDialog();
+//                customDialog.dismiss();
                 callback.MyResult(result);
 
             }

@@ -8,8 +8,11 @@ public class NetInterface {
         return NetInterface.INTERFACE;
     }
 
-    public String indexUrl, bannerUrl, teachUrl, teachListUrl, teachDetails, indexFenlei, goodsDetailsUrl, quanyiUrl, myfriendUrl, orderUrl, darenServiceUrl, bankUrl, wechatUrl;
-    public String getWXcodeUrl, getWXUserInfo, refreshtokenUrl;
+    public String indexUrl, bannerUrl, teachUrl, teachListUrl,
+            teachDetails, indexFenlei, goodsDetailsUrl,
+            quanyiUrl, myfriendUrl, orderUrl, darenServiceUrl,
+            bankUrl, wechatUrl, supervipUrl;
+    public String getWXcodeUrl, getWXUserInfo, refreshtokenUrl,sendmessageUrl;
 
     public NetInterface() {
         //拼接，公共部分
@@ -31,6 +34,8 @@ public class NetInterface {
         this.darenServiceUrl = mainurl + "api/User/OrderDaren";
         this.bankUrl = mainurl + "api/Userbank/UserBankAll";
         this.wechatUrl = mainurl + "api/Wechat/WechatThirdParty";
+        this.supervipUrl = mainurl + "api/User/UserRegister";
+        this.sendmessageUrl=mainurl+"Api/Sys/sendSms";
 
         this.getWXcodeUrl = getWXcodeUrl;
         this.getWXUserInfo = getWXUserInfo;

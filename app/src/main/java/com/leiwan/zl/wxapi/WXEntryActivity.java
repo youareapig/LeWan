@@ -10,6 +10,7 @@ import com.leiwan.zl.R;
 import com.leiwan.zl.data.WXAccessTokenEntity;
 import com.leiwan.zl.data.WXBaseRespEntity;
 import com.leiwan.zl.data.WXUserInfo;
+import com.leiwan.zl.login.LoginActivity;
 import com.leiwan.zl.utils.Connector;
 import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.SharedPreferencesUtil;
@@ -120,15 +121,16 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                                     province = info.getProvince();
                                     city = info.getCity();
 
-//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("userhead", userHead);
-//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("nickname", nickname);
-//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("country", country);
-//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("province", province);
-//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("city", city);
-                                    Intent intent = new Intent(WXEntryActivity.this, MainActivity.class);
-                                    intent.putExtra("indextag", 3);
+                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("userhead", userHead);
+                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("nickname", nickname);
+                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("country", country);
+                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("province", province);
+                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("city", city);
+
+                                    Intent intent=new Intent(WXEntryActivity.this, LoginActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
+                                    finish();
                                 }
                             });
                         }

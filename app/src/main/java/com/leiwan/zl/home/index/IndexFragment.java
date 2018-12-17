@@ -423,7 +423,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
         Connector.IndexList(getActivity(), token, lat, null, lng, null, null, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
-                LogUtil.d("tag", "成功" + result);
+                LogUtil.d("index", "成功----" + result);
                 resultItem(result);
             }
         });
@@ -460,7 +460,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
         Connector.indexBannerList(getActivity(), token, lat, lng, null, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
-                LogUtil.d("banner", "bannershuju---" + result);
+                LogUtil.d("index", "bannershuju---" + result);
                 BannerBean bannerBean = JSON.parseObject(result, BannerBean.class);
                 if (bannerBean.getCode() == 200) {
                     for (int i = 0; i < bannerBean.getData().size(); i++) {
@@ -526,7 +526,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
         Connector.indexFenlei(getActivity(), new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
-                LogUtil.d("indexfenlei", "数据" + result);
+                LogUtil.d("index", "分类" + result);
                 final IndexFenLeiBean bean = JSON.parseObject(result, IndexFenLeiBean.class);
                 if (bean.getCode() == 200) {
                     adapter_fenlei = new Adapter_fenlei(R.layout.index_fenlei_item, bean.getData());

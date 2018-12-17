@@ -1,5 +1,7 @@
 package com.leiwan.zl.login;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -9,6 +11,7 @@ import com.alibaba.fastjson.JSON;
 import com.gyf.barlibrary.ImmersionBar;
 import com.leiwan.zl.App;
 import com.leiwan.zl.BaseActivity;
+import com.leiwan.zl.MainActivity;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.LoginData;
 import com.leiwan.zl.data.RefreshTokenData;
@@ -18,7 +21,9 @@ import com.leiwan.zl.regist.PhoneActivity;
 import com.leiwan.zl.regist.RegistActivity;
 import com.leiwan.zl.utils.Connector;
 import com.leiwan.zl.utils.LogUtil;
+import com.leiwan.zl.utils.SharedPreferencesUtil;
 import com.leiwan.zl.utils.ToastUtil;
+import com.leiwan.zl.wxapi.WXEntryActivity;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 
 import butterknife.BindView;
@@ -62,15 +67,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void setData() {
-
-    }
-
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        isToken();
+            isToken();
     }
 
 
@@ -80,34 +77,45 @@ public class LoginActivity extends BaseActivity {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("tag", "isToken---" + result);
-                //需要判断微信返回是否有错误码，如果没有，表示refresh_token有效，反之无效；再判断错误码进行操作（通常都是表示refresh_token超时，需要重新授权）
-                RefreshTokenData data = JSON.parseObject(result, RefreshTokenData.class);
-                //TODO 获取刷新后的用户信息
-                Connector.getWXUserInfo(LoginActivity.this, data.getAccess_token(), openid, new Connector.MyCallback() {
-                    @Override
-                    public void MyResult(String result) {
-                        LogUtil.d("shuaxin", "shuaxin---" + result);
-                        WXUserInfo info = JSON.parseObject(result, WXUserInfo.class);
-                        headimgurl = info.getHeadimgurl();
-                        nickname = info.getNickname();
-                        country = info.getCountry();
-                        province = info.getProvince();
-                        city = info.getCity();
+                if (result.indexOf("errcode") >= 1) {
+                    //把本地的登录状态抹掉,重新登录
+                    LogUtil.d("tag", "退出登录状态");
+                } else {
+                    //需要判断微信返回是否有错误码，如果没有，表示refresh_token有效，反之无效；再判断错误码进行操作（通常都是表示refresh_token超时，需要重新授权）
+                    RefreshTokenData data = JSON.parseObject(result, RefreshTokenData.class);
+                    //TODO 获取刷新后的用户信息
+                    Connector.getWXUserInfo(LoginActivity.this, data.getAccess_token(), openid, new Connector.MyCallback() {
+                        @Override
+                        public void MyResult(String result) {
+                            LogUtil.d("shuaxin", "shuaxin---" + result);
+                            WXUserInfo info = JSON.parseObject(result, WXUserInfo.class);
+                            headimgurl = info.getHeadimgurl();
+                            nickname = info.getNickname();
+                            country = info.getCountry();
+                            province = info.getProvince();
+                            city = info.getCity();
 
-                        Connector.WeChatLogin(LoginActivity.this, toJson(), new Connector.MyCallback() {
-                            @Override
-                            public void MyResult(String result) {
-                                //TODO 将用户信息上传到服务器
-                                LogUtil.d("login", "login----" + result);
-                                LoginData data = JSON.parseObject(result, LoginData.class);
-                                if (data.getCode() == 200) {
-
+                            Connector.WeChatLogin(LoginActivity.this, toJson(), new Connector.MyCallback() {
+                                @Override
+                                public void MyResult(String result) {
+                                    //TODO 将用户信息上传到服务器
+                                    LogUtil.d("login", "login----" + result);
+                                    LoginData data = JSON.parseObject(result, LoginData.class);
+                                    if (data.getCode() == 200) {
+                                        SharedPreferencesUtil.getInstance(LoginActivity.this).putSP("token", data.getData().getToken() + "");
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                        startActivity(intent);
+                                        finish();
+                                    }
                                 }
-                            }
-                        });
+                            });
 
-                    }
-                });
+                        }
+                    });
+                }
+
+
             }
         });
     }

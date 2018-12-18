@@ -74,7 +74,11 @@ public class SplashActivity extends BaseActivity {
                                     LogUtil.d("login", "login----" + result);
                                     LoginData data = JSON.parseObject(result, LoginData.class);
                                     if (data.getCode() == 200) {
+                                        //保存用户等级，便于佣金的展示
+                                        SharedPreferencesUtil.getInstance(SplashActivity.this).putSP("level", data.getData().getLevel());
+                                        //保存用户token
                                         SharedPreferencesUtil.getInstance(SplashActivity.this).putSP("token", data.getData().getToken() + "");
+
                                         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(intent);

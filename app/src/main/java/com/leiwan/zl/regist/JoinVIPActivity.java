@@ -1,6 +1,7 @@
 package com.leiwan.zl.regist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.leiwan.zl.BaseActivity;
+import com.leiwan.zl.MainActivity;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.SendMessageData;
 import com.leiwan.zl.utils.Connector;
@@ -115,6 +117,13 @@ public class JoinVIPActivity extends BaseActivity {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("tag", "注册成功" + result);
+                SendMessageData data = JSON.parseObject(result, SendMessageData.class);
+                if (data.getCode() == 200) {
+                    Intent intent = new Intent(JoinVIPActivity.this, MainActivity.class);
+                    intent.putExtra("indextag", 3);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }

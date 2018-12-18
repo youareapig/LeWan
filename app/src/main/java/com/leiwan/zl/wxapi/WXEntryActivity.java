@@ -121,11 +121,11 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
                                     province = info.getProvince();
                                     city = info.getCity();
 
-                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("userhead", userHead);
-                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("nickname", nickname);
-                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("country", country);
-                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("province", province);
-                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("city", city);
+//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("userhead", userHead);
+//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("nickname", nickname);
+//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("country", country);
+//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("province", province);
+//                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("city", city);
 
                                     Intent intent=new Intent(WXEntryActivity.this, LoginActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

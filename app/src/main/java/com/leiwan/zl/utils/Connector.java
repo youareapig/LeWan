@@ -284,6 +284,40 @@ public class Connector {
         xUtilsPostRequest(context, params, myCallback);
     }
 
+    //获取个人信息
+    public static void UserInfo(Context context, String token,MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().userInfoUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+    //获取好友数量
+    public static void FriendNum(Context context, String token,MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().friendsnumUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+    //获取我的钱包
+    public static void MyMoney(Context context, String token,MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().mymoneyUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+
     public static void getWXcode(Context context, String code, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().getWXcodeUrl);
         params.addBodyParameter("appid", App.APP_ID);

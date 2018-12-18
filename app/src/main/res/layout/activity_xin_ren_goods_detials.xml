@@ -17,7 +17,7 @@
 
         <TextView
             style="@style/titlename"
-            android:text="美食" />
+            android:text="新人" />
 
         <View
             android:layout_width="match_parent"
@@ -60,7 +60,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_34"
-                        android:background="@drawable/jianbian6"
+                        android:background="@drawable/jianbian7"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/dp_12"
@@ -98,15 +98,12 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="@dimen/dp_20"
-                            android:text="该商品距离结束："
+                            android:layout_marginLeft="@dimen/dp_60"
+                            android:text="限首次注册会员免费使用"
                             android:textColor="#fff"
                             android:textSize="@dimen/sp_12" />
 
-                        <com.leiwan.zl.utils.TimeOverView
-                            android:id="@+id/timeover"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+
                     </LinearLayout>
 
                     <TextView
@@ -141,37 +138,33 @@
                         android:paddingRight="@dimen/dp_12">
 
                         <TextView
-                            android:id="@+id/goods_tag1"
-                            android:layout_width="wrap_content"
+                            android:layout_width="@dimen/dp_52"
                             android:layout_height="@dimen/dp_18"
                             android:layout_gravity="center_vertical"
                             android:background="@drawable/line9"
                             android:gravity="center"
-                            android:paddingLeft="@dimen/dp_5"
-                            android:paddingRight="@dimen/dp_5"
                             android:text="限量抢购"
+                            android:textColor="#F7AE31"
+                            android:textSize="@dimen/sp_11" />
+
+                        <TextView
+                            android:id="@+id/goods_tag1"
+                            android:layout_width="@dimen/dp_52"
+                            android:layout_height="@dimen/dp_18"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="@dimen/dp_8"
+                            android:background="@drawable/line9"
+                            android:gravity="center"
+                            android:text="家庭聚餐"
                             android:textColor="#F7AE31"
                             android:textSize="@dimen/sp_11" />
 
                         <TextView
                             android:id="@+id/goods_tag2"
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/dp_18"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="@dimen/dp_8"
-                            android:background="@drawable/line9"
-                            android:gravity="center"
-                            android:paddingLeft="@dimen/dp_5"
-                            android:paddingRight="@dimen/dp_5"
-                            android:text="家庭聚餐"
-                            android:textColor="#F7AE31"
-                            android:textSize="@dimen/sp_11" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="@dimen/dp_90"
+                            android:layout_marginLeft="@dimen/dp_134"
                             android:text="佣金："
                             android:textColor="#999999"
                             android:textSize="@dimen/sp_12" />
@@ -220,7 +213,6 @@
                         android:background="@color/lineview" />
 
                     <RelativeLayout
-                        android:id="@+id/guige_view"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_40"
                         android:paddingLeft="@dimen/dp_12"
@@ -235,7 +227,6 @@
                             android:textSize="@dimen/sp_12" />
 
                         <TextView
-                            android:id="@+id/guigetype"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -493,15 +484,6 @@
                 android:layout_height="@dimen/dp_1"
                 android:layout_alignParentBottom="true"
                 android:background="@color/lineview" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/include_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone">
-
-            <include layout="@layout/goodsguige" />
         </RelativeLayout>
     </FrameLayout>
 

@@ -38,6 +38,7 @@ import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ObservableScrollView;
 import com.leiwan.zl.utils.SharedPreferencesUtil;
 import com.leiwan.zl.utils.ToastUtil;
+import com.leiwan.zl.xinren.XinRenGoodsListActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -485,7 +486,7 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
                                 if (bannerList.get(position).getPosition() == 1) {
                                     //跳转商品详情
                                     Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                                    intent.putExtra("id", bannerList.get(position).getPr_id()+"");
+                                    intent.putExtra("id", bannerList.get(position).getPr_id() + "");
                                     startActivity(intent);
                                 } else if (bannerList.get(position).getPosition() == 2) {
                                     //跳转webview
@@ -537,19 +538,33 @@ public class IndexFragment extends BaseFragment implements ObservableScrollView.
                     adapter_fenlei.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            Intent intent = new Intent(view.getContext(), SecondActivity.class);
-                            intent.putExtra("caseID", bean.getData().get(position).getCate_id() + "");
-                            intent.putExtra("title", bean.getData().get(position).getCate_name());
-                            startActivity(intent);
+                            //点击新人跳转到另外一个界面
+                            if (bean.getData().get(position).getCate_name().equals("新人")) {
+                                Intent intent = new Intent(view.getContext(), XinRenGoodsListActivity.class);
+                                intent.putExtra("caseID", bean.getData().get(position).getCate_id() + "");
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent(view.getContext(), SecondActivity.class);
+                                intent.putExtra("caseID", bean.getData().get(position).getCate_id() + "");
+                                intent.putExtra("title", bean.getData().get(position).getCate_name());
+                                startActivity(intent);
+                            }
+
                         }
                     });
                     adapter_fenlei_title.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            Intent intent = new Intent(view.getContext(), SecondActivity.class);
-                            intent.putExtra("caseID", bean.getData().get(position).getCate_id() + "");
-                            intent.putExtra("title", bean.getData().get(position).getCate_name());
-                            startActivity(intent);
+                            if (bean.getData().get(position).getCate_name().equals("新人")) {
+                                Intent intent = new Intent(view.getContext(), XinRenGoodsListActivity.class);
+                                intent.putExtra("caseID", bean.getData().get(position).getCate_id() + "");
+                                startActivity(intent);
+                            } else {
+                                Intent intent = new Intent(view.getContext(), SecondActivity.class);
+                                intent.putExtra("caseID", bean.getData().get(position).getCate_id() + "");
+                                intent.putExtra("title", bean.getData().get(position).getCate_name());
+                                startActivity(intent);
+                            }
                         }
                     });
                 }

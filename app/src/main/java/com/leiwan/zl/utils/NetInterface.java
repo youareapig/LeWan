@@ -11,8 +11,9 @@ public class NetInterface {
     public String indexUrl, bannerUrl, teachUrl, teachListUrl,
             teachDetails, indexFenlei, goodsDetailsUrl,
             quanyiUrl, myfriendUrl, orderUrl, darenServiceUrl,
-            bankUrl, wechatUrl, supervipUrl;
-    public String getWXcodeUrl, getWXUserInfo, refreshtokenUrl,sendmessageUrl;
+            bankUrl, wechatUrl, supervipUrl, sendmessageUrl, userInfoUrl, friendsnumUrl,
+            mymoneyUrl;
+    public String getWXcodeUrl, getWXUserInfo, refreshtokenUrl;
 
     public NetInterface() {
         //拼接，公共部分
@@ -35,7 +36,10 @@ public class NetInterface {
         this.bankUrl = mainurl + "api/Userbank/UserBankAll";
         this.wechatUrl = mainurl + "api/Wechat/WechatThirdParty";
         this.supervipUrl = mainurl + "api/User/UserRegister";
-        this.sendmessageUrl=mainurl+"Api/Sys/sendSms";
+        this.sendmessageUrl = mainurl + "Api/Sys/sendSms";
+        this.userInfoUrl = mainurl + "api/User/UserPersonal";
+        this.friendsnumUrl = mainurl + "api/User/UserFriends";
+        this.mymoneyUrl = mainurl + "api/User/UserWallet";
 
         this.getWXcodeUrl = getWXcodeUrl;
         this.getWXUserInfo = getWXUserInfo;

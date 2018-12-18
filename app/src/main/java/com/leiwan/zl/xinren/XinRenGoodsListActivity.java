@@ -1,4 +1,4 @@
-package com.leiwan.zl.second;
+package com.leiwan.zl.xinren;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,15 +25,14 @@ import com.leiwan.zl.data.BannerBean;
 import com.leiwan.zl.data.HomeData;
 import com.leiwan.zl.data.IndexFenLeiBean;
 import com.leiwan.zl.details.DetailsActivity;
-import com.leiwan.zl.home.index.Adapter;
 import com.leiwan.zl.home.index.Adapter_fenlei;
 import com.leiwan.zl.home.index.Adapter_fenlei_title;
 import com.leiwan.zl.home.index.IndexFragment;
+import com.leiwan.zl.second.SecondActivity;
 import com.leiwan.zl.utils.Connector;
 import com.leiwan.zl.utils.GlideImageLoader;
 import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ObservableScrollView;
-import com.leiwan.zl.xinren.XinRenGoodsListActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -46,7 +45,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class SecondActivity extends BaseActivity implements ObservableScrollView.ScrollViewListener {
+public class XinRenGoodsListActivity extends BaseActivity implements ObservableScrollView.ScrollViewListener {
 
 
     @BindView(R.id.back)
@@ -125,7 +124,7 @@ public class SecondActivity extends BaseActivity implements ObservableScrollView
 
     @Override
     protected int setLayout() {
-        return R.layout.activity_second;
+        return R.layout.activity_xin_ren_goods_list;
     }
 
     @Override
@@ -140,7 +139,7 @@ public class SecondActivity extends BaseActivity implements ObservableScrollView
                 secondBanner.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 heigh1 = secondBanner.getHeight();
                 heigh2 = heigh1 - 156;
-                obscrollview.setScrollViewListener(SecondActivity.this);
+                obscrollview.setScrollViewListener(XinRenGoodsListActivity.this);
             }
         });
     }
@@ -148,9 +147,7 @@ public class SecondActivity extends BaseActivity implements ObservableScrollView
     @Override
     protected void setData() {
         Intent intent = getIntent();
-        String title = intent.getStringExtra("title");
         caseId = intent.getStringExtra("caseID");
-        titleText.setText(title);
 
         bannerList = new ArrayList<>();
         bannerbeanList = new ArrayList<>();
@@ -349,12 +346,12 @@ public class SecondActivity extends BaseActivity implements ObservableScrollView
                                 //可以跳转
                                 if (bannerbeanList.get(position).getPosition() == 1) {
                                     //跳转商品详情
-                                    Intent intent = new Intent(SecondActivity.this, DetailsActivity.class);
+                                    Intent intent = new Intent(XinRenGoodsListActivity.this, XinRenGoodsDetialsActivity.class);
                                     intent.putExtra("id", bannerbeanList.get(position).getPr_id() + "");
                                     startActivity(intent);
                                 } else if (bannerbeanList.get(position).getPosition() == 2) {
                                     //跳转webview
-                                    Intent intent = new Intent(SecondActivity.this, WebActivity.class);
+                                    Intent intent = new Intent(XinRenGoodsListActivity.this, WebActivity.class);
                                     intent.putExtra("weburl", bannerbeanList.get(position).getRoute());
                                     startActivity(intent);
                                 }
@@ -417,7 +414,7 @@ public class SecondActivity extends BaseActivity implements ObservableScrollView
                 adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                        Intent intent = new Intent(view.getContext(), DetailsActivity.class);
+                        Intent intent = new Intent(view.getContext(), XinRenGoodsDetialsActivity.class);
                         intent.putExtra("id", data.getData().get(position).getProduct_id() + "");
                         startActivity(intent);
                     }
@@ -443,7 +440,7 @@ public class SecondActivity extends BaseActivity implements ObservableScrollView
                                 Intent intent = new Intent(view.getContext(), XinRenGoodsListActivity.class);
                                 intent.putExtra("caseID", bean.getData().get(position).getCate_id() + "");
                                 startActivity(intent);
-                            }else {
+                            } else {
                                 Intent intent = new Intent(view.getContext(), SecondActivity.class);
                                 intent.putExtra("caseID", bean.getData().get(position).getCate_id() + "");
                                 intent.putExtra("title", bean.getData().get(position).getCate_name());

@@ -37,7 +37,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon, android:label,android:theme">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
 
         <service android:name="com.amap.api.location.APSService" />
 
@@ -64,9 +64,7 @@
         <activity android:name=".details.DetailsActivity" />
         <activity android:name=".notice.NoticeActivity" />
         <activity android:name=".newpeople.NewPeopleDetailsActivity" />
-        <activity android:name=".login.LoginActivity">
-
-        </activity>
+        <activity android:name=".login.LoginActivity" />
         <activity
             android:name=".wxapi.WXEntryActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -85,6 +83,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".xinren.XinRenGoodsListActivity" />
+        <activity android:name=".xinren.XinRenGoodsDetialsActivity"></activity>
     </application>
 
 </manifest>

@@ -18,7 +18,7 @@
         <TextView
             android:id="@+id/titleText"
             style="@style/titlename"
-            android:text="美食" />
+            android:text="新人" />
 
         <View
             android:layout_width="match_parent"

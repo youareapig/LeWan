@@ -9,7 +9,6 @@ import java.util.List;
 public class GoodsDetailsData {
 
 
-
     private int code;
     private String message;
     private DataBean data;
@@ -40,7 +39,6 @@ public class GoodsDetailsData {
 
     public static class DataBean {
 
-
         private DetailsBean details;
         private List<PriceBean> price;
         private List<HotpushBean> hotpush;
@@ -70,7 +68,6 @@ public class GoodsDetailsData {
         }
 
         public static class DetailsBean {
-
 
             private int product_id;
             private String product_name;
@@ -362,9 +359,6 @@ public class GoodsDetailsData {
             }
 
             public static class ProductTagsBean {
-                /**
-                 * tag_name : 美食
-                 */
 
                 private String tag_name;
 
@@ -379,16 +373,7 @@ public class GoodsDetailsData {
         }
 
         public static class PriceBean {
-            /**
-             * price_id : 6
-             * product_property : 下午茶
-             * price_market : 192.00
-             * price_sale : 19.90
-             * price_commission : {"zigou":"15.00","fenxiang":"0"}
-             * product_totalnum : 721
-             * product_buynum : 721
-             * product_dynamicnum : null
-             */
+
 
             private int price_id;
             private String product_property;
@@ -465,8 +450,8 @@ public class GoodsDetailsData {
 
             public static class PriceCommissionBean {
                 /**
-                 * zigou : 15.00
-                 * fenxiang : 0
+                 * zigou : 7.00
+                 * fenxiang : 9.80
                  */
 
                 private String zigou;
@@ -491,17 +476,7 @@ public class GoodsDetailsData {
         }
 
         public static class HotpushBean {
-            /**
-             * product_id : 1
-             * product_pic : http://oss.lewan6.ren/uploads/20181126/ae7dc26e47f3ac3e48423b93d6c77f2c.jpg
-             * product_name : 268元抢价值4878元汽车镀晶养护套餐，12养护项目，网上预订上门服务，给您的爱车保姆式服务
-             * temp_price : 5.10
-             * temp_commission : {"zigou":"5.00","fenxiang":"0"}
-             * sold_out : 0
-             * merchant_name : 爱车巴
-             * region : 成都市
-             * distance : 4
-             */
+
 
             private int product_id;
             private String product_pic;
@@ -587,8 +562,8 @@ public class GoodsDetailsData {
 
             public static class TempCommissionBean {
                 /**
-                 * zigou : 5.00
-                 * fenxiang : 0
+                 * zigou : 7.00
+                 * fenxiang : 9.80
                  */
 
                 private String zigou;

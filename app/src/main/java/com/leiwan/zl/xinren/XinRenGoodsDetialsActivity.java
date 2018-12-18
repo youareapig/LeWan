@@ -1,4 +1,4 @@
-package com.leiwan.zl.details;
+package com.leiwan.zl.xinren;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -6,8 +6,6 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebSettings;
@@ -21,21 +19,19 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.leiwan.zl.App;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.MainActivity;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.GoodsDetailsData;
+import com.leiwan.zl.details.DetailsActivity;
+import com.leiwan.zl.details.MyGridViewAdpter;
+import com.leiwan.zl.details.MyViewPagerAdapter;
 import com.leiwan.zl.dingdan.DingDanZhiFuActivity;
 import com.leiwan.zl.utils.Connector;
 import com.leiwan.zl.utils.DateUtils;
 import com.leiwan.zl.utils.GlideImageLoader;
 import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ObservableScrollView;
-import com.leiwan.zl.utils.SharedPreferencesUtil;
 import com.leiwan.zl.utils.TimeOverView;
 import com.leiwan.zl.utils.WXSharedUtils;
 import com.youth.banner.Banner;
@@ -53,9 +49,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
-public class DetailsActivity extends BaseActivity implements ObservableScrollView.ScrollViewListener {
+public class XinRenGoodsDetialsActivity extends BaseActivity implements ObservableScrollView.ScrollViewListener {
 
 
     @BindView(R.id.viewpager)
@@ -116,34 +111,11 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     TextView shared;
     @BindView(R.id.shopping)
     TextView shopping;
-    @BindView(R.id.timeover)
-    TimeOverView timeover;
+
     @BindView(R.id.kucun)
     TextView kuCun;
     @BindView(R.id.yishou)
     TextView yiShou;
-    @BindView(R.id.guige_close)
-    ImageView guigeClose;
-    @BindView(R.id.guige_img)
-    ImageView guigeImg;
-    @BindView(R.id.guige_price)
-    TextView guigePrice;
-    @BindView(R.id.guige_name)
-    TextView guigeName;
-    @BindView(R.id.guige_kucun)
-    TextView guigeKucun;
-    @BindView(R.id.guige_yishou)
-    TextView guigeYishou;
-    @BindView(R.id.guigetype)
-    TextView guigeType;
-    @BindView(R.id.guige_recycler)
-    RecyclerView guigeRecycler;
-    @BindView(R.id.include_view)
-    RelativeLayout includeView;
-    @BindView(R.id.guige_view)
-    RelativeLayout guigeView;
-    @BindView(R.id.page2)
-    LinearLayout page2;
     private ImageView[] ivPoints;//小圆点图片的集合
     private int totalPage; //总的页数
     private int mPageSize = 4; //每页显示的最大的数量
@@ -152,28 +124,21 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     private String id;
     private int heigh;
     private List<GoodsDetailsData.DataBean.HotpushBean> hotList;
-    private int level;
-    private List<GoodsDetailsData.DataBean.PriceBean> priceList;
-    private Adapter adapter;
-    private String zigou, fenxiang;
 
     @Override
     protected int setLayout() {
-        return R.layout.activity_details;
+        return R.layout.activity_xin_ren_goods_detials;
     }
 
     @Override
     protected void setView() {
-        page2.setOnClickListener(null);
-        guigeRecycler.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
-
         ViewTreeObserver observer = hideview.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
                 hideview.getViewTreeObserver().removeGlobalOnLayoutListener(this);
                 heigh = hideview.getHeight();
-                scroll.setScrollViewListener(DetailsActivity.this);
+                scroll.setScrollViewListener(XinRenGoodsDetialsActivity.this);
             }
         });
 
@@ -183,8 +148,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     protected void setData() {
         Intent intent = getIntent();
         id = intent.getStringExtra("id");
-        level = SharedPreferencesUtil.getInstance(this).getSP("level", 0);
-        LogUtil.d("tag", "id------" + id + "----level----" + level);
+        LogUtil.d("tag", "id------" + id);
         initWeb();
         getData();
 
@@ -198,8 +162,6 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                 LogUtil.d("tag", "商品详情" + result);
                 GoodsDetailsData detailsData = JSON.parseObject(result, GoodsDetailsData.class);
                 if (detailsData.getCode() == 200) {
-                    //规格
-                    priceList = detailsData.getData().getPrice();
                     //Banner
                     List<String> bannerList = detailsData.getData().getDetails().getProduct_carousel();
                     banner.setImageLoader(new GlideImageLoader(2));
@@ -210,8 +172,9 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                     banner.setIndicatorGravity(BannerConfig.RIGHT);
                     banner.start();
 
-                    MoreType(0);
-
+                    goodsPrice.setText("¥" + detailsData.getData().getPrice().get(0).getPrice_sale());
+                    goodsPrice1.setText("¥" + detailsData.getData().getPrice().get(0).getPrice_market());
+                    goodsYongjin.setText("¥"+detailsData.getData().getPrice().get(0).getPrice_commission().getZigou());
                     goodsPrice.setTypeface(typeface);
                     goodsPrice1.setTypeface(typeface);
                     goodsYongjin.setTypeface(typeface);
@@ -219,38 +182,8 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                     goodsName.setText(detailsData.getData().getDetails().getProduct_name());
                     goodsContent.setText(detailsData.getData().getDetails().getProduct_info());
                     goodsAddress.setText(detailsData.getData().getDetails().getMerchant_address());
+                    kuCun.setText("库存："+detailsData.getData().getPrice().get(0).getProduct_totalnum());
 
-                    //商品标签
-                    if (detailsData.getData().getDetails().getProduct_tags().size() > 1) {
-                        goodsTag1.setText(detailsData.getData().getDetails().getProduct_tags().get(0).getTag_name());
-                        goodsTag2.setText(detailsData.getData().getDetails().getProduct_tags().get(1).getTag_name());
-                    } else {
-                        goodsTag1.setText(detailsData.getData().getDetails().getProduct_tags().get(0).getTag_name());
-                    }
-
-                    //popwindow数据
-                    adapter = new Adapter(R.layout.guige_item, priceList);
-                    guigeRecycler.setAdapter(adapter);
-                    adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
-                            MoreType(position);
-                            adapter.setSelectItem(position);
-                            adapter.notifyDataSetChanged();
-                        }
-                    });
-                    //商品图
-                    Glide.with(App.content)
-                            .load(detailsData.getData().getDetails().getProduct_pic())
-                            .bitmapTransform(new CenterCrop(App.content), new RoundedCornersTransformation(App.content, 10, 0))
-                            .placeholder(R.mipmap.defult_banner)
-                            .error(R.mipmap.defult_banner)
-                            .into(guigeImg);
-                    //商品名称
-                    guigeName.setText(detailsData.getData().getDetails().getProduct_name());
-                    //倒计时
-                    long endetime = detailsData.getData().getDetails().getProduct_endtime();
-                    initTimeOver(endetime);
                     //富文本
                     goodsUseinfo.loadDataWithBaseURL(null, getNewContent(detailsData.getData().getDetails().getProduct_description()), "text/html", "utf-8", null);
                     goodsDescription.loadDataWithBaseURL(null, getNewContent(detailsData.getData().getDetails().getProduct_useinfo()), "text/html", "utf-8", null);
@@ -262,48 +195,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
         });
     }
 
-    //多规格
-    private void MoreType(int item) {
-        zigou = priceList.get(item).getPrice_commission().getZigou();
-        fenxiang = priceList.get(item).getPrice_commission().getFenxiang();
-        if (level == 1) {
-            //普通会员，不显示佣金
-            goodsYongjin.setText("");
-        } else if (level == 2) {
-            //超级会员显示自购和分享佣金
-            goodsYongjin.setText("¥" + zigou + "～" + fenxiang);
-        } else {
-            //超过2的只显示购买佣金
-            goodsYongjin.setText("¥" + zigou);
-        }
-        //规格名
-        guigeType.setText(priceList.get(item).getProduct_property());
-        //商品价格
-        goodsPrice.setText("¥" + priceList.get(item).getPrice_sale());
-        goodsPrice1.setText("¥" + priceList.get(item).getPrice_market());
-        //商品库存
-        kuCun.setText("库存：" + priceList.get(item).getProduct_totalnum());
-        yiShou.setText("已售数量：" + priceList.get(item).getProduct_buynum());
-        guigePrice.setText("¥" + priceList.get(item).getPrice_sale());//商品价格
-        guigeKucun.setText("库存：" + priceList.get(item).getProduct_totalnum());
-        guigeYishou.setText("已售：" + priceList.get(item).getProduct_buynum());
-    }
 
-    private void initTimeOver(long endtime) {
-        long[] arr = DateUtils.timeOver(endtime);
-        long day = arr[0];
-        long hour = arr[1];
-        long min = arr[2];
-        long second = arr[3];
-        if (day <= 0 && hour <= 0 && min <= 0 && second <= 0) {
-            timeover.setVisibility(View.GONE);
-        } else {
-            timeover.setVisibility(View.VISIBLE);
-            timeover.setTime(day, hour, min, second);
-            timeover.start();
-        }
-
-    }
 
     private void initWeb() {
         webSettings1 = goodsDescription.getSettings();
@@ -397,7 +289,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     }
 
 
-    @OnClick({R.id.guige_view, R.id.guige_close, R.id.useinfo, R.id.description, R.id.back, R.id.useinfo1, R.id.description1, R.id.index, R.id.shared, R.id.shopping})
+    @OnClick({R.id.useinfo, R.id.description, R.id.back, R.id.useinfo1, R.id.description1, R.id.index, R.id.shared, R.id.shopping})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.useinfo:
@@ -430,12 +322,6 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                 break;
             case R.id.index:
                 toClass(this, MainActivity.class);
-                break;
-            case R.id.guige_view:
-                includeView.setVisibility(View.VISIBLE);
-                break;
-            case R.id.guige_close:
-                includeView.setVisibility(View.GONE);
                 break;
             case R.id.shared:
                 //TODO 分享链接

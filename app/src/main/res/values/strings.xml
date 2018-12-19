@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">乐玩联盟</string>
+    <string name="novip">您还未注册乐玩联盟暂不能享受免单机会去找邀请码进行注册吧</string>
+    <string name="havenot">该商品您已使用过免单机会，去邀请更多好友进行注册吧！免费送他一份吃喝玩乐，你省他也赚。</string>
 </resources>

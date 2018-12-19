@@ -1,8 +1,11 @@
 package com.leiwan.zl.details;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -37,6 +40,7 @@ import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ObservableScrollView;
 import com.leiwan.zl.utils.SharedPreferencesUtil;
 import com.leiwan.zl.utils.TimeOverView;
+import com.leiwan.zl.utils.ToastUtil;
 import com.leiwan.zl.utils.WXSharedUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -90,6 +94,8 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     View useinfoIcon;
     @BindView(R.id.useinfo)
     RelativeLayout useinfo;
+    @BindView(R.id.goods_address_view)
+    RelativeLayout goodsAddressView;
     @BindView(R.id.description_icon)
     View descriptionIcon;
     @BindView(R.id.description)
@@ -114,6 +120,8 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     TextView index;
     @BindView(R.id.shared)
     TextView shared;
+    @BindView(R.id.yongjintext)
+    TextView yongjinText;
     @BindView(R.id.shopping)
     TextView shopping;
     @BindView(R.id.timeover)
@@ -136,6 +144,10 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     TextView guigeYishou;
     @BindView(R.id.guigetype)
     TextView guigeType;
+    @BindView(R.id.goods_end_text)
+    TextView goodsEndText;
+    @BindView(R.id.shopping_end)
+    TextView shoppingEnd;
     @BindView(R.id.guige_recycler)
     RecyclerView guigeRecycler;
     @BindView(R.id.include_view)
@@ -144,11 +156,16 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     RelativeLayout guigeView;
     @BindView(R.id.page2)
     LinearLayout page2;
+    @BindView(R.id.goods_web1)
+    WebView goodsWeb1;
+    @BindView(R.id.goods_web2)
+    WebView goodsWeb2;
+
     private ImageView[] ivPoints;//小圆点图片的集合
     private int totalPage; //总的页数
     private int mPageSize = 4; //每页显示的最大的数量
     private List<View> viewPagerList;//GridView作为一个View对象添加到ViewPager集合中
-    private WebSettings webSettings1, webSettings2;
+    private WebSettings webSettings1, webSettings2, webSettings01, webSettings02;
     private String id;
     private int heigh;
     private List<GoodsDetailsData.DataBean.HotpushBean> hotList;
@@ -156,6 +173,10 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     private List<GoodsDetailsData.DataBean.PriceBean> priceList;
     private Adapter adapter;
     private String zigou, fenxiang;
+    private int guigeShow = 0;
+    private String address;
+    private static final String BAIDU = "com.baidu.BaiduMap";
+    private static final String GAODE = "com.autonavi.minimap";
 
     @Override
     protected int setLayout() {
@@ -196,7 +217,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
             @Override
             public void MyResult(String result) {
                 LogUtil.d("tag", "商品详情" + result);
-                GoodsDetailsData detailsData = JSON.parseObject(result, GoodsDetailsData.class);
+                final GoodsDetailsData detailsData = JSON.parseObject(result, GoodsDetailsData.class);
                 if (detailsData.getCode() == 200) {
                     //规格
                     priceList = detailsData.getData().getPrice();
@@ -210,15 +231,21 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                     banner.setIndicatorGravity(BannerConfig.RIGHT);
                     banner.start();
 
-                    MoreType(0);
+                    MoreType(0, detailsData.getData().getDetails());
 
                     goodsPrice.setTypeface(typeface);
                     goodsPrice1.setTypeface(typeface);
                     goodsYongjin.setTypeface(typeface);
+                    kuCun.setTypeface(typeface);
+                    yiShou.setTypeface(typeface);
+                    guigePrice.setTypeface(typeface);
+                    guigeKucun.setTypeface(typeface);
+                    guigeYishou.setTypeface(typeface);
 
+                    address = detailsData.getData().getDetails().getMerchant_address();
                     goodsName.setText(detailsData.getData().getDetails().getProduct_name());
                     goodsContent.setText(detailsData.getData().getDetails().getProduct_info());
-                    goodsAddress.setText(detailsData.getData().getDetails().getMerchant_address());
+                    goodsAddress.setText(address);
 
                     //商品标签
                     if (detailsData.getData().getDetails().getProduct_tags().size() > 1) {
@@ -234,7 +261,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                     adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter1, View view, int position) {
-                            MoreType(position);
+                            MoreType(position, detailsData.getData().getDetails());
                             adapter.setSelectItem(position);
                             adapter.notifyDataSetChanged();
                         }
@@ -254,6 +281,9 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                     //富文本
                     goodsUseinfo.loadDataWithBaseURL(null, getNewContent(detailsData.getData().getDetails().getProduct_description()), "text/html", "utf-8", null);
                     goodsDescription.loadDataWithBaseURL(null, getNewContent(detailsData.getData().getDetails().getProduct_useinfo()), "text/html", "utf-8", null);
+                    goodsWeb1.loadDataWithBaseURL(null, getNewContent(detailsData.getData().getDetails().getProduct_info()), "text/html", "utf-8", null);
+                    goodsWeb2.loadDataWithBaseURL(null, getNewContent(detailsData.getData().getDetails().getProduct_notice()), "text/html", "utf-8", null);
+
                     //推荐
                     hotList = detailsData.getData().getHotpush();
                     initHot();
@@ -263,18 +293,21 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     }
 
     //多规格
-    private void MoreType(int item) {
+    private void MoreType(int item, GoodsDetailsData.DataBean.DetailsBean bean) {
         zigou = priceList.get(item).getPrice_commission().getZigou();
         fenxiang = priceList.get(item).getPrice_commission().getFenxiang();
         if (level == 1) {
             //普通会员，不显示佣金
             goodsYongjin.setText("");
+            yongjinText.setVisibility(View.GONE);
         } else if (level == 2) {
             //超级会员显示自购和分享佣金
             goodsYongjin.setText("¥" + zigou + "～" + fenxiang);
+            yongjinText.setVisibility(View.VISIBLE);
         } else {
             //超过2的只显示购买佣金
             goodsYongjin.setText("¥" + zigou);
+            yongjinText.setVisibility(View.VISIBLE);
         }
         //规格名
         guigeType.setText(priceList.get(item).getProduct_property());
@@ -287,6 +320,17 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
         guigePrice.setText("¥" + priceList.get(item).getPrice_sale());//商品价格
         guigeKucun.setText("库存：" + priceList.get(item).getProduct_totalnum());
         guigeYishou.setText("已售：" + priceList.get(item).getProduct_buynum());
+        if (bean.getSold_out() == 1) {
+            //售罄
+            shopping.setVisibility(View.GONE);
+            shoppingEnd.setVisibility(View.VISIBLE);
+            shared.setVisibility(View.GONE);
+        } else if (bean.getSold_out() == 1) {
+            //未售罄
+            shopping.setVisibility(View.VISIBLE);
+            shoppingEnd.setVisibility(View.GONE);
+            shared.setVisibility(View.VISIBLE);
+        }
     }
 
     private void initTimeOver(long endtime) {
@@ -297,8 +341,10 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
         long second = arr[3];
         if (day <= 0 && hour <= 0 && min <= 0 && second <= 0) {
             timeover.setVisibility(View.GONE);
+            goodsEndText.setVisibility(View.GONE);
         } else {
             timeover.setVisibility(View.VISIBLE);
+            goodsEndText.setVisibility(View.VISIBLE);
             timeover.setTime(day, hour, min, second);
             timeover.start();
         }
@@ -322,9 +368,27 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
         webSettings2.setTextZoom(250);
         goodsUseinfo.setWebViewClient(new WebViewClient());
 
+        webSettings01 = goodsWeb1.getSettings();
+        webSettings01.setJavaScriptEnabled(true);
+        webSettings01.setBlockNetworkImage(false);
+        webSettings01.setLoadWithOverviewMode(true);
+        webSettings01.setUseWideViewPort(true);
+        webSettings01.setTextZoom(250);
+        goodsWeb1.setWebViewClient(new WebViewClient());
+
+        webSettings02 = goodsWeb2.getSettings();
+        webSettings02.setJavaScriptEnabled(true);
+        webSettings02.setBlockNetworkImage(false);
+        webSettings02.setLoadWithOverviewMode(true);
+        webSettings02.setUseWideViewPort(true);
+        webSettings02.setTextZoom(250);
+        goodsWeb2.setWebViewClient(new WebViewClient());
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             webSettings1.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
             webSettings2.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+            webSettings01.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+            webSettings02.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
     }
 
@@ -397,7 +461,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     }
 
 
-    @OnClick({R.id.guige_view, R.id.guige_close, R.id.useinfo, R.id.description, R.id.back, R.id.useinfo1, R.id.description1, R.id.index, R.id.shared, R.id.shopping})
+    @OnClick({R.id.goods_address_view, R.id.guige_view, R.id.guige_close, R.id.useinfo, R.id.description, R.id.back, R.id.useinfo1, R.id.description1, R.id.index, R.id.shared, R.id.shopping})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.useinfo:
@@ -433,9 +497,11 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                 break;
             case R.id.guige_view:
                 includeView.setVisibility(View.VISIBLE);
+                guigeShow = 1;
                 break;
             case R.id.guige_close:
                 includeView.setVisibility(View.GONE);
+                guigeShow = 0;
                 break;
             case R.id.shared:
                 //TODO 分享链接
@@ -464,7 +530,34 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
 //                });
                 break;
             case R.id.shopping:
-                toClass(this, DingDanZhiFuActivity.class);
+                if (guigeShow == 0) {
+                    includeView.setVisibility(View.VISIBLE);
+                    guigeShow = 1;
+                } else {
+                    includeView.setVisibility(View.GONE);
+                    guigeShow = 0;
+                    toClass(this, DingDanZhiFuActivity.class);
+                }
+                break;
+            case R.id.goods_address_view:
+                if (isInstalled(BAIDU) && !isInstalled(GAODE)) {
+                    Intent intent = new Intent();
+                    intent.setData(Uri.parse("baidumap://map/geocoder?src=openApiDemo&address=" + address));
+                    startActivity(intent);
+                } else if (!isInstalled(BAIDU) && isInstalled(GAODE)) {
+                    String act = "android.intent.action.VIEW";
+                    String dat = "androidamap://keywordNavi?sourceApplication=softname&keyword=" + address + " &style=2";
+                    Intent intent = new Intent(act, Uri.parse(dat));
+                    intent.setPackage(GAODE);
+                    startActivity(intent);
+                } else if (!isInstalled(BAIDU) && !isInstalled(GAODE)) {
+                    ToastUtil.showShortToast("请安装地图客户端");
+                } else {
+                    Intent intent = new Intent();
+                    intent.setData(Uri.parse("baidumap://map/geocoder?src=openApiDemo&address=" + address));
+                    startActivity(intent);
+                }
+
                 break;
             case R.id.back:
                 finish();
@@ -484,5 +577,18 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
 
     }
 
+    //检测程序是否安装
+    private boolean isInstalled(String packageName) {
+        PackageManager manager = getPackageManager();
+        //获取所有已安装程序的包信息
+        List<PackageInfo> installedPackages = manager.getInstalledPackages(0);
+        if (installedPackages != null) {
+            for (PackageInfo info : installedPackages) {
+                if (info.packageName.equals(packageName))
+                    return true;
+            }
+        }
+        return false;
+    }
 
 }

@@ -20,6 +20,9 @@ import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelmsg.SendAuth;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler {
     private String access_token, openid, refresh_token, unionid, userHead, nickname, country, province, city;
 
@@ -79,47 +82,51 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
      * <p>
      * 50001 api unauthorized 接口未授权
      */
-
+//{"errCode":0,"openId":"okqnw0uIrHZK0mbDo1x6_vftQNXg","type":2}
     @Override
     public void onResp(BaseResp baseResp) {
         LogUtil.d("zhenglei" + "baseResp------------" + JSON.toJSONString(baseResp));
         String baseJson = JSON.toJSONString(baseResp);
         WXBaseRespEntity tokenEntity = JSON.parseObject(baseJson, WXBaseRespEntity.class);
-        switch (baseResp.errCode) {
-            case BaseResp.ErrCode.ERR_OK:
-                if (tokenEntity.getErrCode() == 0) {
-                    //用户同意授权
-                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("wxcode", tokenEntity.getCode() + "");
-                    //同意授权后存入登录状态1
-                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("loginTag", 1);
+        try {
+            JSONObject jsonObject = new JSONObject(baseJson);
+            //type 1微信登录回调 2微信分享回调
+            if (jsonObject.getInt("type") == 1) {
+                switch (baseResp.errCode) {
+                    case BaseResp.ErrCode.ERR_OK:
+                        if (tokenEntity.getErrCode() == 0) {
+                            //用户同意授权
+                            SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("wxcode", tokenEntity.getCode() + "");
+                            //同意授权后存入登录状态1
+                            SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("loginTag", 1);
 
-                    Connector.getWXcode(this, tokenEntity.getCode(), new Connector.MyCallback() {
-                        @Override
-                        public void MyResult(String result) {
-                            LogUtil.d("result", "result---" + result);
-                            WXAccessTokenEntity entity = JSON.parseObject(result, WXAccessTokenEntity.class);
-
-                            access_token = entity.getAccess_token();
-                            openid = entity.getOpenid();
-                            refresh_token = entity.getRefresh_token();
-                            unionid = entity.getUnionid();
-
-                            SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("access_token", access_token);
-                            SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("openid", openid);
-                            SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("refresh_token", refresh_token);
-                            SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("unionid", unionid);
-
-                            Connector.getWXUserInfo(WXEntryActivity.this, access_token, openid, new Connector.MyCallback() {
+                            Connector.getWXcode(this, tokenEntity.getCode(), new Connector.MyCallback() {
                                 @Override
                                 public void MyResult(String result) {
-                                    //resutl为用户信息
-                                    LogUtil.d("result", "userinfo---" + result);
-                                    WXUserInfo info = JSON.parseObject(result, WXUserInfo.class);
-                                    userHead = info.getHeadimgurl();
-                                    nickname = info.getNickname();
-                                    country = info.getCountry();
-                                    province = info.getProvince();
-                                    city = info.getCity();
+                                    LogUtil.d("result", "result---" + result);
+                                    WXAccessTokenEntity entity = JSON.parseObject(result, WXAccessTokenEntity.class);
+
+                                    access_token = entity.getAccess_token();
+                                    openid = entity.getOpenid();
+                                    refresh_token = entity.getRefresh_token();
+                                    unionid = entity.getUnionid();
+
+                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("access_token", access_token);
+                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("openid", openid);
+                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("refresh_token", refresh_token);
+                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("unionid", unionid);
+
+                                    Connector.getWXUserInfo(WXEntryActivity.this, access_token, openid, new Connector.MyCallback() {
+                                        @Override
+                                        public void MyResult(String result) {
+                                            //resutl为用户信息
+                                            LogUtil.d("result", "userinfo---" + result);
+                                            WXUserInfo info = JSON.parseObject(result, WXUserInfo.class);
+                                            userHead = info.getHeadimgurl();
+                                            nickname = info.getNickname();
+                                            country = info.getCountry();
+                                            province = info.getProvince();
+                                            city = info.getCity();
 
 //                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("userhead", userHead);
 //                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("nickname", nickname);
@@ -127,42 +134,48 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
 //                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("province", province);
 //                                    SharedPreferencesUtil.getInstance(WXEntryActivity.this).putSP("city", city);
 
-                                    Intent intent=new Intent(WXEntryActivity.this, LoginActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(intent);
-                                    finish();
+                                            Intent intent = new Intent(WXEntryActivity.this, LoginActivity.class);
+                                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    });
                                 }
                             });
                         }
-                    });
-                }
-                if (tokenEntity.getErrCode() == -4) {
-                    //用户拒绝授权
-                    ToastUtil.showShortToast("用户拒绝授权");
-                    finish();
-                }
-                if (tokenEntity.getErrCode() == -2) {
-                    //用户取消
-                    ToastUtil.showShortToast("用户拒绝授权");
-                    finish();
-                }
-                break;
-            case BaseResp.ErrCode.ERR_USER_CANCEL:
-                ToastUtil.showShortToast("用户拒绝授权");
-                finish();
-                break;
-            case BaseResp.ErrCode.ERR_AUTH_DENIED:
-                ToastUtil.showShortToast("发送被拒绝");
-                finish();
-                break;
-            case BaseResp.ErrCode.ERR_BAN:
-                ToastUtil.showShortToast("签名错误");
-                finish();
-                break;
-            default:
-                ToastUtil.showShortToast("发送返回");
-                break;
+                        if (tokenEntity.getErrCode() == -4) {
+                            //用户拒绝授权
+                            ToastUtil.showShortToast("用户拒绝授权");
+                            finish();
+                        }
+                        if (tokenEntity.getErrCode() == -2) {
+                            //用户取消
+                            ToastUtil.showShortToast("用户拒绝授权");
+                            finish();
+                        }
+                        break;
+                    case BaseResp.ErrCode.ERR_USER_CANCEL:
+                        ToastUtil.showShortToast("用户拒绝授权");
+                        finish();
+                        break;
+                    case BaseResp.ErrCode.ERR_AUTH_DENIED:
+                        ToastUtil.showShortToast("发送被拒绝");
+                        finish();
+                        break;
+                    case BaseResp.ErrCode.ERR_BAN:
+                        ToastUtil.showShortToast("签名错误");
+                        finish();
+                        break;
+                    default:
+                        ToastUtil.showShortToast("发送返回");
+                        break;
 
+                }
+            } else {
+                finish();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
 

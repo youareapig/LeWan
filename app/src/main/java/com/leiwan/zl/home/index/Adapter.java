@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -23,6 +24,7 @@ import com.leiwan.zl.data.HomeData;
 import com.leiwan.zl.utils.DateUtils;
 import com.leiwan.zl.utils.FontStyle;
 import com.leiwan.zl.utils.LogUtil;
+import com.leiwan.zl.utils.SharedPreferencesUtil;
 import com.leiwan.zl.utils.SnapUpCountDownTimerView;
 
 import java.text.DateFormat;
@@ -46,9 +48,11 @@ import static android.R.id.list;
 
 public class Adapter extends BaseQuickAdapter<HomeData.DataBean, BaseViewHolder> {
 
+    private int level;
 
     public Adapter(@LayoutRes int layoutResId, @Nullable List<HomeData.DataBean> data) {
         super(layoutResId, data);
+        level = SharedPreferencesUtil.getInstance(App.content).getSP("level", 0);
     }
 
 
@@ -60,8 +64,20 @@ public class Adapter extends BaseQuickAdapter<HomeData.DataBean, BaseViewHolder>
         long hour = timetype[1];
         long min = timetype[2];
         long second = timetype[3];
-
-
+        String zigou = item.getTemp_commission().getZigou();
+        String fenxiang = item.getTemp_commission().getFenxiang();
+        if (level == 1) {
+            //普通会员，不显示佣金
+            helper.setText(R.id.index_list_item_youhui,"");
+        } else if (level == 2) {
+            //超级会员显示自购和分享佣金
+            helper.setText(R.id.index_list_item_youhui,"¥" + zigou + "～" + fenxiang);
+        } else {
+            //超过2的只显示购买佣金
+            helper.setText(R.id.index_list_item_youhui,"¥" + zigou);
+        }
+        RelativeLayout relativeLayout=helper.getView(R.id.topview);
+        RelativeLayout saleout=helper.getView(R.id.saleout_view);
         helper.setText(R.id.index_list_item_title, item.getProduct_name())
                 .setText(R.id.index_list_item_jiage, "¥" + item.getTemp_price())
                 .setTypeface(R.id.index_list_item_jiage, FontStyle.getFont(App.content))
@@ -69,8 +85,19 @@ public class Adapter extends BaseQuickAdapter<HomeData.DataBean, BaseViewHolder>
                 .setTypeface(R.id.index_list_item_xiaoliang, FontStyle.getFont(App.content))
                 .setText(R.id.index_list_item_location, item.getRegion())
                 .setText(R.id.index_list_item_juli, item.getDistance() + "KM")
-                .setText(R.id.index_list_item_youhui, "返" + item.getTemp_commission().getZigou())
+                .setText(R.id.topnum,helper.getAdapterPosition()+1+"")
                 .setTypeface(R.id.index_list_item_youhui, FontStyle.getFont(App.content));
+        if (helper.getAdapterPosition()>2){
+            relativeLayout.setVisibility(View.GONE);
+        }else {
+            relativeLayout.setVisibility(View.VISIBLE);
+        }
+        if (item.getSold_out()==1){
+            //售罄，显示售罄图标
+            saleout.setVisibility(View.VISIBLE);
+        }else {
+            saleout.setVisibility(View.GONE);
+        }
         ImageView imageView = helper.getView(R.id.index_list_item_image);
         SnapUpCountDownTimerView timerView = helper.getView(R.id.item_timer);
         LinearLayout timeLayout = helper.getView(R.id.timeview);

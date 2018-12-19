@@ -20,8 +20,7 @@
             <ImageView
                 android:id="@+id/index_list_item_image"
                 android:layout_width="@dimen/dp_129"
-                android:layout_height="@dimen/dp_86"
-                android:layout_marginTop="@dimen/dp_3"
+                android:layout_height="@dimen/dp_89"
                 android:src="@mipmap/ic_launcher" />
 
             <RelativeLayout
@@ -63,36 +62,6 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/topview"
-                android:layout_width="@dimen/dp_25"
-                android:layout_height="@dimen/dp_37"
-                android:layout_marginLeft="@dimen/dp_10">
-
-                <ImageView
-                    android:layout_width="@dimen/dp_25"
-                    android:layout_height="@dimen/dp_37"
-                    android:src="@mipmap/bgtop" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:text="TOP"
-                    android:textColor="#333"
-                    android:textSize="@dimen/sp_10" />
-
-                <TextView
-                    android:id="@+id/topnum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:text="1"
-                    android:textColor="#333"
-                    android:textSize="@dimen/sp_17" />
-            </RelativeLayout>
-
-            <RelativeLayout
                 android:id="@+id/saleout_view"
                 android:layout_width="@dimen/dp_56"
                 android:layout_height="@dimen/dp_25"
@@ -112,6 +81,28 @@
                     android:textColor="#fff"
                     android:textSize="@dimen/sp_10" />
             </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/firstregist_view"
+                android:layout_width="@dimen/dp_56"
+                android:layout_height="@dimen/dp_25"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/dp_5">
+
+                <ImageView
+                    android:layout_width="@dimen/dp_56"
+                    android:layout_height="@dimen/dp_25"
+                    android:src="@mipmap/bg50" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="限首次注册"
+                    android:textColor="#fff"
+                    android:textSize="@dimen/sp_10" />
+            </RelativeLayout>
+
         </RelativeLayout>
 
         <LinearLayout

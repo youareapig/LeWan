@@ -3,6 +3,8 @@ package com.leiwan.zl.details;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.AssetManager;
+import android.graphics.Typeface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -16,6 +18,7 @@ import com.leiwan.zl.App;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.GoodsDetailsData;
 import com.leiwan.zl.utils.FontStyle;
+import com.leiwan.zl.utils.SharedPreferencesUtil;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -30,7 +33,7 @@ public class MyGridViewAdpter extends BaseAdapter {
     private List<GoodsDetailsData.DataBean.HotpushBean> lists;//数据源
     private int mIndex; // 页数下标，标示第几页，从0开始
     private int mPargerSize;// 每页显示的最大的数量
-
+    private int level;
 
     public MyGridViewAdpter(Context context, List<GoodsDetailsData.DataBean.HotpushBean> lists,
                             int mIndex, int mPargerSize) {
@@ -38,6 +41,7 @@ public class MyGridViewAdpter extends BaseAdapter {
         this.lists = lists;
         this.mIndex = mIndex;
         this.mPargerSize = mPargerSize;
+        level = SharedPreferencesUtil.getInstance(context).getSP("level", 0);
     }
 
     /**
@@ -85,11 +89,22 @@ public class MyGridViewAdpter extends BaseAdapter {
         //重新确定position因为拿到的总是数据源，数据源是分页加载到每页的GridView上的
         final int pos = position + mIndex * mPargerSize;//假设mPageSiez
         //假设mPagerSize=8，假如点击的是第二页（即mIndex=1）上的第二个位置item(position=1),那么这个item的实际位置就是pos=9
+        String zigou = bean.getTemp_commission().getZigou();
+        String fenxiang = bean.getTemp_commission().getFenxiang();
+        if (level == 1) {
+            //普通会员，不显示佣金
+            holder.tv_yongjin.setText("");
+        } else if (level == 2) {
+            //超级会员显示自购和分享佣金
+            holder.tv_yongjin.setText("¥" + zigou + "～" + fenxiang);
+        } else {
+            //超过2的只显示购买佣金
+            holder.tv_yongjin.setText("¥" + zigou);
+        }
         holder.tv_name.setText(bean.getMerchant_name());
         holder.tv_content.setText(bean.getProduct_name());
         holder.tv_price.setText("¥ " + bean.getTemp_price());
         holder.tv_address.setText(bean.getRegion());
-        holder.tv_yongjin.setText("¥" + bean.getTemp_commission().getZigou());
         Glide.with(App.content)
                 .load(bean.getProduct_pic())
                 .bitmapTransform(new CenterCrop(App.content), new RoundedCornersTransformation(App.content, 10, 0))

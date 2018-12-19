@@ -7,5 +7,6 @@
     <color name="weixuanzhong">#cccccc</color>
     <color name="bar">#ffffff</color>
     <color name="bar1">#E1B872</color>
+    <color name="bar2">#999999</color>
     <color name="lineview">#F5F6FA</color>
 </resources>

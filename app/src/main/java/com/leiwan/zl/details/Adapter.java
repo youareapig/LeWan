@@ -1,5 +1,6 @@
 package com.leiwan.zl.details;
 
+import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
@@ -37,9 +38,11 @@ public class Adapter extends BaseQuickAdapter<GoodsDetailsData.DataBean.PriceBea
         if (helper.getAdapterPosition() == selectItem) {
             //选中
             helper.setBackgroundRes(R.id.item_name, R.drawable.line20);
+            helper.setTextColor(R.id.item_name, Color.parseColor("#FFFFFF"));
         } else {
             //未选中
             helper.setBackgroundRes(R.id.item_name, R.drawable.line19);
+            helper.setTextColor(R.id.item_name,Color.parseColor("#999999"));
         }
 
     }

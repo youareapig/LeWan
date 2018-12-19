@@ -408,7 +408,7 @@ public class XinRenGoodsListActivity extends BaseActivity implements ObservableS
             } else {
                 noData.setVisibility(View.GONE);
                 datalist = data.getData();
-                adapter = new Adapter(R.layout.index_list_item, datalist);
+                adapter = new Adapter(R.layout.index_list_item1, datalist);
                 recycler.setAdapter(adapter);
                 adapter.openLoadAnimation();
                 adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

@@ -9,9 +9,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+import com.leiwan.zl.App;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
+import com.leiwan.zl.data.ConfirmPayData;
+import com.leiwan.zl.utils.Connector;
+import com.leiwan.zl.utils.DateUtils;
+import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ToastUtil;
+import com.tencent.mm.opensdk.modelpay.PayReq;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,6 +80,7 @@ public class DingDanZhiFuActivity extends BaseActivity {
     private int num = 1;
     private double totleprice, totleyuanjia, danprice, danyuanjia;
     private boolean isshow = true;
+    private String goodsID, saleID;
 
     @Override
     protected int setLayout() {
@@ -86,9 +94,31 @@ public class DingDanZhiFuActivity extends BaseActivity {
 
     @Override
     protected void setData() {
-
+        Bundle bundle = getIntent().getExtras();
+        goodsID = bundle.getString("goodsid");
+        saleID = bundle.getString("saleid");
+        LogUtil.d("tag", "goodsid:" + goodsID + "  saldid:" + saleID);
+        getData();
     }
 
+    private void getData() {
+        Connector.ConfirmPay(this, token, saleID, goodsID, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("tag", "确认购买" + result);
+                ConfirmPayData data = JSON.parseObject(result, ConfirmPayData.class);
+                if (data.getCode() == 200) {
+                    name.setText(data.getData().getProduct().getProduct_name());
+                    name1.setText(data.getData().getProduct().getProduct_property());
+                    price.setText(data.getData().getProduct().getPrice_sale()+"");
+                    yuanjia.setText(data.getData().getProduct().getPrice_market()+"");
+                    zongjia.setText(data.getData().getProduct().getPrice_sale()+"");
+                    zongyuanjia.setText(data.getData().getProduct().getPrice_sale()+"");
+                    time.setText(DateUtils.timeslashData(data.getData().getProduct().getProduct_startusetime()+"")+"至"+DateUtils.timeslashData(data.getData().getProduct().getProduct_endusetime()+""));
+                }
+            }
+        });
+    }
 
     @OnClick({R.id.back, R.id.jian, R.id.add, R.id.dingdan, R.id.pay})
     public void onViewClicked(View view) {
@@ -135,6 +165,17 @@ public class DingDanZhiFuActivity extends BaseActivity {
                 break;
             case R.id.pay:
                 ToastUtil.showShortToast("支付");
+                PayReq req = new PayReq();//PayReq就是订单信息对象
+//给req对象赋值
+                req.appId = App.APP_ID;//APPID
+                req.partnerId = "123";//    商户号
+                req.prepayId = "10";//  预付款ID
+                req.nonceStr = "12";//随机数
+                req.timeStamp = "456123";//时间戳
+                req.packageValue = "Sign=WXPay";//固定值Sign=WXPay
+                req.sign = "zl";//签名
+                App.mWxApi.sendReq(req);//将订单信息对象发送给微信服务器，即发送支付请求
+
                 break;
         }
     }

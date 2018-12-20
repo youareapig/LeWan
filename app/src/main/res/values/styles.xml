@@ -59,4 +59,8 @@
 
     </style>
 
+    <style name="checkBoxStyle">
+        <item name="android:button">@drawable/checkebox</item>
+    </style>
+
 </resources>

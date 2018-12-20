@@ -317,6 +317,36 @@ public class Connector {
         params.addBodyParameter("token", token);
         xUtilsPostRequest(context, params, myCallback);
     }
+    //确认购买
+    public static void ConfirmPay(Context context, String token,String saleid,String goodsid,MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().confirmpayUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("product_id", goodsid);
+        params.addBodyParameter("price_id", saleid);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+    //获取订单号
+    public static void SubmitOrder(Context context, String token,String product_id,String price_id,String buynum,String concat,String mobile,String remark,MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().submitorderUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("product_id", product_id);
+        params.addBodyParameter("price_id", price_id);
+        params.addBodyParameter("buynum", buynum);
+        params.addBodyParameter("concat", concat);
+        params.addBodyParameter("mobile", mobile);
+        params.addBodyParameter("remark", remark);
+        xUtilsPostRequest(context, params, myCallback);
+    }
 
     public static void getWXcode(Context context, String code, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().getWXcodeUrl);

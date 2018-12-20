@@ -12,7 +12,7 @@ public class NetInterface {
             teachDetails, indexFenlei, goodsDetailsUrl,
             quanyiUrl, myfriendUrl, orderUrl, darenServiceUrl,
             bankUrl, wechatUrl, supervipUrl, sendmessageUrl, userInfoUrl, friendsnumUrl,
-            mymoneyUrl;
+            mymoneyUrl,submitorderUrl,confirmpayUrl;
     public String getWXcodeUrl, getWXUserInfo, refreshtokenUrl;
 
     public NetInterface() {
@@ -40,6 +40,8 @@ public class NetInterface {
         this.userInfoUrl = mainurl + "api/User/UserPersonal";
         this.friendsnumUrl = mainurl + "api/User/UserFriends";
         this.mymoneyUrl = mainurl + "api/User/UserWallet";
+        this.submitorderUrl=mainurl+"Api/Mall/submitOrder";
+        this.confirmpayUrl=mainurl+"Api/Mall/confirmPay";
 
         this.getWXcodeUrl = getWXcodeUrl;
         this.getWXUserInfo = getWXUserInfo;

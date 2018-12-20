@@ -33,6 +33,7 @@ import com.leiwan.zl.MainActivity;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.GoodsDetailsData;
 import com.leiwan.zl.dingdan.DingDanZhiFuActivity;
+import com.leiwan.zl.share.ShareActivity;
 import com.leiwan.zl.utils.Connector;
 import com.leiwan.zl.utils.DateUtils;
 import com.leiwan.zl.utils.GlideImageLoader;
@@ -171,12 +172,15 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     private List<GoodsDetailsData.DataBean.HotpushBean> hotList;
     private int level;
     private List<GoodsDetailsData.DataBean.PriceBean> priceList;
+    private List<String> bannerList;
     private Adapter adapter;
     private String zigou, fenxiang;
     private int guigeShow = 0;
     private String address;
     private static final String BAIDU = "com.baidu.BaiduMap";
     private static final String GAODE = "com.autonavi.minimap";
+    private String saleID, goodsID, content;
+    private Bundle bundle;
 
     @Override
     protected int setLayout() {
@@ -185,6 +189,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
 
     @Override
     protected void setView() {
+        bundle = new Bundle();
         page2.setOnClickListener(null);
         guigeRecycler.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
 
@@ -222,7 +227,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                     //规格
                     priceList = detailsData.getData().getPrice();
                     //Banner
-                    List<String> bannerList = detailsData.getData().getDetails().getProduct_carousel();
+                    bannerList = detailsData.getData().getDetails().getProduct_carousel();
                     banner.setImageLoader(new GlideImageLoader(2));
                     banner.setImages(bannerList);
                     banner.setBannerAnimation(Transformer.DepthPage);
@@ -230,7 +235,9 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                     banner.setDelayTime(3000);
                     banner.setIndicatorGravity(BannerConfig.RIGHT);
                     banner.start();
-
+                    //商品id
+                    goodsID = detailsData.getData().getDetails().getProduct_id() + "";
+                    content = detailsData.getData().getDetails().getProduct_name();
                     MoreType(0, detailsData.getData().getDetails());
 
                     goodsPrice.setTypeface(typeface);
@@ -243,8 +250,8 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                     guigeYishou.setTypeface(typeface);
 
                     address = detailsData.getData().getDetails().getMerchant_address();
-                    goodsName.setText(detailsData.getData().getDetails().getProduct_name());
-                    goodsContent.setText(detailsData.getData().getDetails().getProduct_info());
+                    goodsName.setText(content);
+//                    goodsContent.setText(content);
                     goodsAddress.setText(address);
 
                     //商品标签
@@ -320,6 +327,8 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
         guigePrice.setText("¥" + priceList.get(item).getPrice_sale());//商品价格
         guigeKucun.setText("库存：" + priceList.get(item).getProduct_totalnum());
         guigeYishou.setText("已售：" + priceList.get(item).getProduct_buynum());
+        //商品价格id
+        saleID = priceList.get(item).getPrice_id() + "";
         if (bean.getSold_out() == 1) {
             //售罄
             shopping.setVisibility(View.GONE);
@@ -504,39 +513,22 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                 guigeShow = 0;
                 break;
             case R.id.shared:
-                //TODO 分享链接
-                WXSharedUtils.getImage("http://file2.zhituad.com/thumb/201102/15/201102150839088669kNhyE.jpg", new WXSharedUtils.HttpCallBackListener() {
-                    @Override
-                    public void onFinish(final Bitmap bitmap) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                WXSharedUtils.Shared_Web("https://blog.csdn.net/qq_42618969/article/details/81030941", "csdn", "微信分享", 2, bitmap);
-                            }
-                        });
-                    }
-                });
-                //TODO 分享图片
-//                WXSharedUtils.getImage("http://file2.zhituad.com/thumb/201102/15/201102150839088669kNhyE.jpg", new WXSharedUtils.HttpCallBackListener() {
-//                    @Override
-//                    public void onFinish(final Bitmap bitmap) {
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                WXSharedUtils.Shared_Image(2, bitmap);
-//                            }
-//                        });
-//                    }
-//                });
+                // 传递banner图片集合
+                bundle.putString("content", content);
+                bundle.putStringArrayList("arr", (ArrayList<String>) bannerList);
+                toClass(this, ShareActivity.class, bundle);
                 break;
             case R.id.shopping:
+
                 if (guigeShow == 0) {
                     includeView.setVisibility(View.VISIBLE);
                     guigeShow = 1;
                 } else {
                     includeView.setVisibility(View.GONE);
                     guigeShow = 0;
-                    toClass(this, DingDanZhiFuActivity.class);
+                    bundle.putString("saleid", saleID);
+                    bundle.putString("goodsid", goodsID);
+                    toClass(this, DingDanZhiFuActivity.class, bundle);
                 }
                 break;
             case R.id.goods_address_view:

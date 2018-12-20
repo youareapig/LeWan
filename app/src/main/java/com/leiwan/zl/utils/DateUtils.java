@@ -149,7 +149,7 @@ public class DateUtils {
 
 
     public static String timeslashData(String time) {
-        SimpleDateFormat sdr = new SimpleDateFormat("yyyy/MM/dd");
+        SimpleDateFormat sdr = new SimpleDateFormat("yyyy-MM-dd");
         @SuppressWarnings("unused")
         long lcc = Long.valueOf(time);
 //		int i = Integer.parseInt(time);

@@ -74,4 +74,6 @@ dependencies {
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
     apt 'com.zhy:mpermission-compiler:1.0.0'
+    compile 'com.github.razerdp:BasePopup:2.1.2'
+    compile 'com.google.zxing:core:3.3.0'
 }

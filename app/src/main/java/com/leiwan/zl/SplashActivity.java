@@ -78,6 +78,8 @@ public class SplashActivity extends BaseActivity {
                                         SharedPreferencesUtil.getInstance(SplashActivity.this).putSP("level", data.getData().getLevel());
                                         //保存用户token
                                         SharedPreferencesUtil.getInstance(SplashActivity.this).putSP("token", data.getData().getToken() + "");
+                                        //保存邀请码
+                                        SharedPreferencesUtil.getInstance(SplashActivity.this).putSP("recode", data.getData().getRecode());
 
                                         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

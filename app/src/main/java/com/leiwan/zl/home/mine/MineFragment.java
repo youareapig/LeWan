@@ -29,6 +29,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
+import com.leiwan.zl.SplashActivity;
 import com.leiwan.zl.address.AddressIndexActivity;
 import com.leiwan.zl.bank.IDBankActivity;
 import com.leiwan.zl.daren.DaRenActivity;
@@ -393,6 +394,10 @@ public class MineFragment extends BaseFragment {
                     vipName.setText(bean.getData().getNickname());
                     //保存用户等级，便于佣金的展示
                     SharedPreferencesUtil.getInstance(getActivity()).putSP("level", bean.getData().getLevel());
+                    //保存用户token
+                    SharedPreferencesUtil.getInstance(getActivity()).putSP("token", bean.getData().getToken() + "");
+                    //保存邀请码
+                    SharedPreferencesUtil.getInstance(getActivity()).putSP("recode", bean.getData().getRecode());
                     if (bean.getData().getLevel() == 1) {
                         //普通会员
                         leaveName.setText(bean.getData().getUsername());

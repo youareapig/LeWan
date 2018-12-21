@@ -8,8 +8,8 @@ public class LoginData {
 
     /**
      * code : 200
-     * message : 登录成功
-     * data : {"token":"199af8536df550d946aa448af6feca6f","nickname":"Albatross","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKWb6FvQhficETJFU8tiaJ3msEvQRhUlXVicMuQKQ4AoIeicHVGW4diaOpXHf94TOMQwlRGagunEUJofSA/132","level":2}
+     * message : 获取成功
+     * data : {"token":"3d98fbcb97684f238e3e09bbdc694605","recode":"VB7DBH","nickname":"少林功夫好、","avatar":"http://thirdwx.qlogo.cn/mmopen/vi_32/wgXT18IR9icbX4ZhAHhjaRUoqdon4MgS5WVqDsAh3OQmZ6icnlceIvCvpWQynZvflYI0Cwn0QdDibYMGF9626zofw/132","level":2,"auth":1,"subscribe":0,"username":"超级会员"}
      */
 
     private int code;
@@ -42,16 +42,24 @@ public class LoginData {
 
     public static class DataBean {
         /**
-         * token : 199af8536df550d946aa448af6feca6f
-         * nickname : Albatross
-         * avatar : http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTKWb6FvQhficETJFU8tiaJ3msEvQRhUlXVicMuQKQ4AoIeicHVGW4diaOpXHf94TOMQwlRGagunEUJofSA/132
+         * token : 3d98fbcb97684f238e3e09bbdc694605
+         * recode : VB7DBH
+         * nickname : 少林功夫好、
+         * avatar : http://thirdwx.qlogo.cn/mmopen/vi_32/wgXT18IR9icbX4ZhAHhjaRUoqdon4MgS5WVqDsAh3OQmZ6icnlceIvCvpWQynZvflYI0Cwn0QdDibYMGF9626zofw/132
          * level : 2
+         * auth : 1
+         * subscribe : 0
+         * username : 超级会员
          */
 
         private String token;
+        private String recode;
         private String nickname;
         private String avatar;
         private int level;
+        private int auth;
+        private int subscribe;
+        private String username;
 
         public String getToken() {
             return token;
@@ -59,6 +67,14 @@ public class LoginData {
 
         public void setToken(String token) {
             this.token = token;
+        }
+
+        public String getRecode() {
+            return recode;
+        }
+
+        public void setRecode(String recode) {
+            this.recode = recode;
         }
 
         public String getNickname() {
@@ -83,6 +99,30 @@ public class LoginData {
 
         public void setLevel(int level) {
             this.level = level;
+        }
+
+        public int getAuth() {
+            return auth;
+        }
+
+        public void setAuth(int auth) {
+            this.auth = auth;
+        }
+
+        public int getSubscribe() {
+            return subscribe;
+        }
+
+        public void setSubscribe(int subscribe) {
+            this.subscribe = subscribe;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
         }
     }
 }

@@ -1,7 +1,10 @@
 package com.leiwan.zl.share;
 
+import android.app.Activity;
+import android.graphics.Bitmap;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -39,14 +42,6 @@ public class Adapter extends BaseQuickAdapter<String, BaseViewHolder> {
     public Adapter(@LayoutRes int layoutResId, @Nullable List<String> data) {
         super(layoutResId, data);
         map = new HashMap<>();
-//        for (int i = 0; i < data.size(); i++) {
-//            if (i == 0) {
-//                map.put(i, true);
-//            }else {
-//                map.put(i, false);
-//            }
-//
-//        }
     }
 
     @Override
@@ -67,6 +62,7 @@ public class Adapter extends BaseQuickAdapter<String, BaseViewHolder> {
         });
         checkBox.setChecked(map.get(helper.getAdapterPosition()) == null ? false : true);
 
+
         Glide.with(App.content)
                 .load(item)
                 .bitmapTransform(new CenterCrop(App.content), new RoundedCornersTransformation(App.content, 5, 0))
@@ -76,11 +72,4 @@ public class Adapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
     }
 
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void resultEvent(Integer chek) {
-//        LogUtil.d("tag", "event----" + chek);
-//        if (chek==1){
-//            checkBox.setChecked(true);
-//        }
-//    }
 }

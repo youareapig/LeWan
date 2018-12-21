@@ -181,7 +181,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     private static final String GAODE = "com.autonavi.minimap";
     private String saleID, goodsID, content;
     private Bundle bundle;
-
+    private String bg;
     @Override
     protected int setLayout() {
         return R.layout.activity_details;
@@ -238,6 +238,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                     //商品id
                     goodsID = detailsData.getData().getDetails().getProduct_id() + "";
                     content = detailsData.getData().getDetails().getProduct_name();
+                    bg=detailsData.getData().getDetails().getProduct_poster();
                     MoreType(0, detailsData.getData().getDetails());
 
                     goodsPrice.setTypeface(typeface);
@@ -515,6 +516,8 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
             case R.id.shared:
                 // 传递banner图片集合
                 bundle.putString("content", content);
+                bundle.putString("id", id);
+                bundle.putString("bg",bg);
                 bundle.putStringArrayList("arr", (ArrayList<String>) bannerList);
                 toClass(this, ShareActivity.class, bundle);
                 break;

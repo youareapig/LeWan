@@ -1,30 +1,54 @@
 package com.leiwan.zl.home.center;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
+import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import com.androidkun.xtablayout.XTabLayout;
+import com.alibaba.fastjson.JSON;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
-import com.leiwan.zl.home.center.fragment.WeiYuYue;
-import com.leiwan.zl.home.center.fragment.YiShiYong;
+import com.leiwan.zl.data.YuYueData;
+import com.leiwan.zl.utils.Connector;
+import com.leiwan.zl.utils.LogUtil;
+import com.leiwan.zl.utils.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2018/11/14.
  */
 
 public class CenterFragment extends BaseFragment {
-    @BindView(R.id.center_tab)
-    XTabLayout centerTab;
-    @BindView(R.id.center_viewpager)
-    ViewPager centerViewpager;
-    private List<String> titleList;
-    private List<Fragment> fragmentList;
+
+
+    @BindView(R.id.search)
+    EditText search;
+    @BindView(R.id.myyuyue)
+    LinearLayout myyuyue;
+    @BindView(R.id.mydingdan)
+    LinearLayout mydingdan;
+    @BindView(R.id.mywenti)
+    LinearLayout mywenti;
+    @BindView(R.id.recycler)
+    RecyclerView recycler;
+    Unbinder unbinder;
+    private Adapter adapter;
+    private List<YuYueData.DataBean> list;
 
     @Override
     protected int setLayout() {
@@ -33,25 +57,55 @@ public class CenterFragment extends BaseFragment {
 
     @Override
     protected void setView() {
-        titleList = new ArrayList<>();
-        titleList.add("未预约");
-        titleList.add("已使用");
-        fragmentList = new ArrayList<>();
-        fragmentList.add(new WeiYuYue());
-        fragmentList.add(new YiShiYong());
-
-        centerViewpager.setAdapter(new TabAdapter(getActivity().getSupportFragmentManager(), titleList, fragmentList));
-        centerViewpager.setOffscreenPageLimit(0);
-        centerTab.setupWithViewPager(centerViewpager);
-        centerTab.getTabAt(0).select();
-        centerTab.getTabAt(1).select();
-        centerViewpager.setCurrentItem(0);
+        recycler.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
+        recycler.setNestedScrollingEnabled(false);
+        search.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    String content=search.getText().toString().trim();
+                    if (TextUtils.isEmpty(content)){
+                        ToastUtil.showShortToast("请输入关键字");
+                    }else {
+                        getData(content);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
     protected void setData() {
-
+        getData(null);
     }
 
+    private void getData(String content) {
+        Connector.YuYueList(getActivity(), token, content, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("tag", "预约--" + result);
+                YuYueData data = JSON.parseObject(result, YuYueData.class);
+                if (data.getCode() == 200) {
+                    list=data.getData();
+                    adapter = new Adapter(R.layout.center_item, list);
+                    recycler.setAdapter(adapter);
+                    adapter.openLoadAnimation();
+                }
+            }
+        });
+    }
 
+    @OnClick({R.id.myyuyue, R.id.mydingdan, R.id.mywenti})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.myyuyue:
+                break;
+            case R.id.mydingdan:
+                break;
+            case R.id.mywenti:
+                break;
+        }
+    }
 }

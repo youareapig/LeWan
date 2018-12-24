@@ -1,6 +1,5 @@
 package com.leiwan.zl.dingdan;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
@@ -14,15 +13,11 @@ import com.leiwan.zl.dingdan.fragment.TK;
 import com.leiwan.zl.dingdan.fragment.YFK;
 import com.leiwan.zl.dingdan.fragment.YWC;
 import com.leiwan.zl.home.center.TabAdapter;
-import com.leiwan.zl.newpeople.fragment.KeTang;
-import com.leiwan.zl.newpeople.fragment.ShouCe;
-import com.leiwan.zl.newpeople.fragment.YongJin;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class DingDanActivity extends BaseActivity {

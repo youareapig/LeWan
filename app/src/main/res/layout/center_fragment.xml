@@ -13,32 +13,132 @@
         android:text="预约中心"
         android:textColor="#333333"
         android:textSize="@dimen/sp_18" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:background="@color/lineview"/>
 
-    <com.androidkun.xtablayout.XTabLayout
-        android:id="@+id/center_tab"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_47"
-        app:xTabDisplayNum="2"
-        app:xTabDividerWidthWidthText="true"
-        app:xTabIndicatorColor="#E1B872"
-        app:xTabIndicatorHeight="6dp"
-        app:xTabMode="scrollable"
-        app:xTabSelectedTextColor="#333333"
-        app:xTabTextColor="#333333"
-        app:xTabTextSize="@dimen/sp_14" />
+        android:layout_height="@dimen/dp_58"
+        android:background="#F5F6FA">
 
-    <View
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="@dimen/dp_316"
+            android:layout_height="@dimen/dp_33"
+            android:layout_centerInParent="true"
+            android:background="@drawable/search1"
+            android:gravity="center"
+            android:singleLine="true"
+            android:imeOptions="actionSearch"
+            android:hint="输入商品名称进行查询"
+            android:textColor="#333"
+            android:textColorHint="#ccc"
+            android:textSize="@dimen/sp_13" />
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_5"
-        android:background="@drawable/jianbian" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_28"
+        android:orientation="horizontal">
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/center_viewpager"
+        <LinearLayout
+            android:id="@+id/myyuyue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dp_57"
+                android:layout_height="@dimen/dp_57"
+                android:src="@mipmap/myyuyue" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的预约"
+                android:textColor="#333"
+                android:textSize="@dimen/sp_13" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mydingdan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dp_57"
+                android:layout_height="@dimen/dp_57"
+                android:src="@mipmap/mydingdan"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的订单"
+                android:textColor="#333"
+                android:textSize="@dimen/sp_13" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/mywenti"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/dp_57"
+                android:layout_height="@dimen/dp_57"
+                android:src="@mipmap/wenti"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="常见问题"
+                android:textColor="#333"
+                android:textSize="@dimen/sp_13" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_marginTop="@dimen/dp_28">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="@dimen/dp_6"
+                    android:layout_height="@dimen/dp_13"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:background="#333" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_12"
+                    android:text="预约商品"
+                    android:textColor="#333"
+                    android:textSize="@dimen/sp_15" />
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

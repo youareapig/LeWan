@@ -1,10 +1,14 @@
 package com.leiwan.zl.dingdan.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
+import com.leiwan.zl.dingdan.details.YiFuKuanDetailsActivity;
 import com.leiwan.zl.utils.Connector;
 
 import java.util.ArrayList;
@@ -42,10 +46,18 @@ public class YFK extends BaseFragment {
         adapter = new Adapter(R.layout.dingdan_item, list);
         recycler.setAdapter(adapter);
         adapter.openLoadAnimation();
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                Intent intent = new Intent(view.getContext(), YiFuKuanDetailsActivity.class);
+                startActivity(intent);
+            }
+        });
         getData();
     }
+
     private void getData() {
-        Connector.Order(getActivity(), token, "3",new Connector.MyCallback() {
+        Connector.Order(getActivity(), token, "3", new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
             }

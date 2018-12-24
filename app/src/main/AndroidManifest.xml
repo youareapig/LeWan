@@ -91,7 +91,10 @@
             android:exported="true"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
-        <activity android:name=".share.ShareActivity"></activity>
+        <activity android:name=".share.ShareActivity" />
+        <activity android:name=".dingdan.details.DaiFuKuanDetailsActivity" />
+        <activity android:name=".dingdan.details.YiFuKuanDetailsActivity" />
+        <activity android:name=".dingdan.details.YiWanChengActivity"></activity>
     </application>
 
 </manifest>

@@ -6,10 +6,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import java.util.List;
 
-/**
- * Created by DELL on 2017/9/12.
- */
-
 public class TabAdapter extends FragmentPagerAdapter {
     private List<String> list;
     private List<Fragment> list1;

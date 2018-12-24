@@ -1,12 +1,10 @@
 package com.leiwan.zl.newpeople;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.androidkun.xtablayout.XTabLayout;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
@@ -15,17 +13,13 @@ import com.leiwan.zl.home.center.TabAdapter;
 import com.leiwan.zl.newpeople.fragment.KeTang;
 import com.leiwan.zl.newpeople.fragment.ShouCe;
 import com.leiwan.zl.newpeople.fragment.YongJin;
-import com.leiwan.zl.shouru.fragment.ShouRuFragment;
-import com.leiwan.zl.shouru.fragment.TiXianFragment;
 import com.leiwan.zl.utils.Connector;
 import com.leiwan.zl.utils.LogUtil;
-import com.leiwan.zl.utils.SharedPreferencesUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class NewPeopleActivity extends BaseActivity {

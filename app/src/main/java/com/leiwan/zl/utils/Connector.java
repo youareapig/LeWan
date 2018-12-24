@@ -330,6 +330,19 @@ public class Connector {
         params.addBodyParameter("price_id", saleid);
         xUtilsPostRequest(context, params, myCallback);
     }
+    //获取预约列表
+    public static void YuYueList(Context context, String token,String tilte,MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().yuyuelistUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("type", "2");
+        params.addBodyParameter("title", tilte);
+        xUtilsPostRequest(context, params, myCallback);
+    }
     //获取订单号
     public static void SubmitOrder(Context context, String token,String product_id,String price_id,String buynum,String concat,String mobile,String remark,MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().submitorderUrl);

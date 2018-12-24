@@ -1,4 +1,4 @@
-package com.leiwan.zl.home.center.fragment;
+package com.leiwan.zl.home.center;
 
 import android.app.Activity;
 import android.support.annotation.LayoutRes;
@@ -17,6 +17,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.HomeData;
+import com.leiwan.zl.data.YuYueData;
 import com.leiwan.zl.utils.SnapUpCountDownTimerView;
 
 import java.text.SimpleDateFormat;
@@ -32,17 +33,17 @@ import static android.R.id.list;
  * Created by DELL on 2017/8/30.
  */
 
-public class Adapter extends BaseQuickAdapter<String, BaseViewHolder> {
+public class Adapter extends BaseQuickAdapter<YuYueData.DataBean, BaseViewHolder> {
 
 
-    public Adapter(@LayoutRes int layoutResId, @Nullable List<String> data) {
+    public Adapter(@LayoutRes int layoutResId, @Nullable List<YuYueData.DataBean> data) {
         super(layoutResId, data);
     }
 
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.name, item);
+    protected void convert(BaseViewHolder helper, YuYueData.DataBean item) {
+        helper.setText(R.id.name, item.getProduct_name());
     }
 
 }

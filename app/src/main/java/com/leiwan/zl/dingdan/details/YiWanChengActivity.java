@@ -1,15 +1,41 @@
 package com.leiwan.zl.dingdan.details;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
+import com.leiwan.zl.utils.Connector;
+import com.leiwan.zl.utils.LogUtil;
 
-public class YiWanChengActivity extends AppCompatActivity {
+public class YiWanChengActivity extends BaseActivity {
+
+    private String orderID;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_yi_wan_cheng);
+    protected int setLayout() {
+        return R.layout.activity_yi_wan_cheng;
+    }
+
+    @Override
+    protected void setView() {
+
+    }
+
+    @Override
+    protected void setData() {
+        Intent intent = getIntent();
+        orderID = intent.getStringExtra("orderid");
+        getData();
+    }
+
+    private void getData() {
+        Connector.OrderDetails(this, token, orderID, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("tag", "已完成" + result);
+            }
+        });
     }
 }

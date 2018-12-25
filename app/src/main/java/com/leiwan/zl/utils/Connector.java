@@ -344,7 +344,7 @@ public class Connector {
         xUtilsPostRequest(context, params, myCallback);
     }
     //获取订单号
-    public static void SubmitOrder(Context context, String token,String product_id,String price_id,String buynum,String concat,String mobile,String remark,MyCallback myCallback) {
+    public static void SubmitOrder(Context context, String token,String product_id,String price_id,String address_id,String calendar_id,String buynum,String concat,String mobile,String remark,MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().submitorderUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -354,13 +354,26 @@ public class Connector {
         params.addBodyParameter("token", token);
         params.addBodyParameter("product_id", product_id);
         params.addBodyParameter("price_id", price_id);
+        params.addBodyParameter("address_id", address_id);
         params.addBodyParameter("buynum", buynum);
+        params.addBodyParameter("calendar_id", calendar_id);
         params.addBodyParameter("concat", concat);
         params.addBodyParameter("mobile", mobile);
         params.addBodyParameter("remark", remark);
         xUtilsPostRequest(context, params, myCallback);
     }
-
+    //获取订单详情
+    public static void OrderDetails(Context context, String token,String order_id,MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().orderdetailsUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("order_id", order_id);
+        xUtilsPostRequest(context, params, myCallback);
+    }
     public static void getWXcode(Context context, String code, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().getWXcodeUrl);
         params.addBodyParameter("appid", App.APP_ID);

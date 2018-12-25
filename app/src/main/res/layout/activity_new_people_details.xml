@@ -20,7 +20,7 @@
         <TextView
             android:id="@+id/titlename"
             style="@style/titlename"
-            android:text="收入明细" />
+            android:text="新手教程" />
 
         <View
             android:layout_width="match_parent"

@@ -3,7 +3,6 @@ package com.leiwan.zl.details;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
@@ -40,9 +39,9 @@ import com.leiwan.zl.utils.GlideImageLoader;
 import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ObservableScrollView;
 import com.leiwan.zl.utils.SharedPreferencesUtil;
+import com.leiwan.zl.utils.SpacesItemDecoration;
 import com.leiwan.zl.utils.TimeOverView;
 import com.leiwan.zl.utils.ToastUtil;
-import com.leiwan.zl.utils.WXSharedUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -79,10 +78,6 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     TextView goodsName;
     @BindView(R.id.goods_content)
     TextView goodsContent;
-    @BindView(R.id.goods_tag1)
-    TextView goodsTag1;
-    @BindView(R.id.goods_tag2)
-    TextView goodsTag2;
     @BindView(R.id.goods_yongjin)
     TextView goodsYongjin;
     @BindView(R.id.goods_address)
@@ -161,6 +156,10 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     WebView goodsWeb1;
     @BindView(R.id.goods_web2)
     WebView goodsWeb2;
+    @BindView(R.id.shangjia_recycler)
+    RecyclerView shangjiaRecycler;
+    @BindView(R.id.tagrecycler)
+    RecyclerView tagRecycler;
 
     private ImageView[] ivPoints;//小圆点图片的集合
     private int totalPage; //总的页数
@@ -172,8 +171,12 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     private List<GoodsDetailsData.DataBean.HotpushBean> hotList;
     private int level;
     private List<GoodsDetailsData.DataBean.PriceBean> priceList;
+    private List<GoodsDetailsData.DataBean.DetailsBean.ProductTagsBean> tagList;
     private List<String> bannerList;
     private Adapter adapter;
+    private Adapter1 adapter1;
+    private Adapter_Tag adapter_tag;
+    private List<GoodsDetailsData.DataBean.DetailsBean.ShopBean> shopList;
     private String zigou, fenxiang;
     private int guigeShow = 0;
     private String address;
@@ -182,6 +185,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     private String saleID, goodsID, content;
     private Bundle bundle;
     private String bg;
+
     @Override
     protected int setLayout() {
         return R.layout.activity_details;
@@ -192,6 +196,9 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
         bundle = new Bundle();
         page2.setOnClickListener(null);
         guigeRecycler.setLayoutManager(new GridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false));
+        shangjiaRecycler.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false));
+        shangjiaRecycler.addItemDecoration(new SpacesItemDecoration(10));
+        tagRecycler.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false));
 
         ViewTreeObserver observer = hideview.getViewTreeObserver();
         observer.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -226,6 +233,10 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                 if (detailsData.getCode() == 200) {
                     //规格
                     priceList = detailsData.getData().getPrice();
+                    //多店
+                    shopList = detailsData.getData().getDetails().getShop();
+                    //标签
+                    tagList = detailsData.getData().getDetails().getProduct_tags();
                     //Banner
                     bannerList = detailsData.getData().getDetails().getProduct_carousel();
                     banner.setImageLoader(new GlideImageLoader(2));
@@ -238,9 +249,9 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                     //商品id
                     goodsID = detailsData.getData().getDetails().getProduct_id() + "";
                     content = detailsData.getData().getDetails().getProduct_name();
-                    bg=detailsData.getData().getDetails().getProduct_poster();
+                    bg = detailsData.getData().getDetails().getProduct_poster();
                     MoreType(0, detailsData.getData().getDetails());
-
+                    MoreDian(0, detailsData.getData().getDetails());
                     goodsPrice.setTypeface(typeface);
                     goodsPrice1.setTypeface(typeface);
                     goodsYongjin.setTypeface(typeface);
@@ -250,18 +261,10 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                     guigeKucun.setTypeface(typeface);
                     guigeYishou.setTypeface(typeface);
 
-                    address = detailsData.getData().getDetails().getMerchant_address();
+
                     goodsName.setText(content);
 //                    goodsContent.setText(content);
-                    goodsAddress.setText(address);
 
-                    //商品标签
-                    if (detailsData.getData().getDetails().getProduct_tags().size() > 1) {
-                        goodsTag1.setText(detailsData.getData().getDetails().getProduct_tags().get(0).getTag_name());
-                        goodsTag2.setText(detailsData.getData().getDetails().getProduct_tags().get(1).getTag_name());
-                    } else {
-                        goodsTag1.setText(detailsData.getData().getDetails().getProduct_tags().get(0).getTag_name());
-                    }
 
                     //popwindow数据
                     adapter = new Adapter(R.layout.guige_item, priceList);
@@ -274,6 +277,20 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                             adapter.notifyDataSetChanged();
                         }
                     });
+                    //多店
+                    adapter1 = new Adapter1(R.layout.guige_item, shopList);
+                    shangjiaRecycler.setAdapter(adapter1);
+                    adapter1.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            MoreDian(position, detailsData.getData().getDetails());
+                            adapter1.setSelectItem(position);
+                            adapter1.notifyDataSetChanged();
+                        }
+                    });
+                    //标签
+                    adapter_tag = new Adapter_Tag(R.layout.goodstagitem, tagList);
+                    tagRecycler.setAdapter(adapter_tag);
                     //商品图
                     Glide.with(App.content)
                             .load(detailsData.getData().getDetails().getProduct_pic())
@@ -298,6 +315,12 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                 }
             }
         });
+    }
+
+    //多店
+    private void MoreDian(int item, GoodsDetailsData.DataBean.DetailsBean shopBean) {
+        address = shopBean.getShop().get(item).getMerchant_address();
+        goodsAddress.setText(address);
     }
 
     //多规格
@@ -328,6 +351,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
         guigePrice.setText("¥" + priceList.get(item).getPrice_sale());//商品价格
         guigeKucun.setText("库存：" + priceList.get(item).getProduct_totalnum());
         guigeYishou.setText("已售：" + priceList.get(item).getProduct_buynum());
+
         //商品价格id
         saleID = priceList.get(item).getPrice_id() + "";
         if (bean.getSold_out() == 1) {
@@ -517,7 +541,7 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                 // 传递banner图片集合
                 bundle.putString("content", content);
                 bundle.putString("id", id);
-                bundle.putString("bg",bg);
+                bundle.putString("bg", bg);
                 bundle.putStringArrayList("arr", (ArrayList<String>) bannerList);
                 toClass(this, ShareActivity.class, bundle);
                 break;

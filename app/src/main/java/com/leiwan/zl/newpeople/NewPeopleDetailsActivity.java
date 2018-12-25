@@ -49,14 +49,7 @@ public class NewPeopleDetailsActivity extends BaseActivity {
         Intent intent=getIntent();
         id=intent.getStringExtra("id");
         getData();
-        webSettings = webview.getSettings();
-        webSettings.setJavaScriptEnabled(true);
-        webSettings.setBlockNetworkImage(false);
-        webSettings.setLoadWithOverviewMode(true);
-        webSettings.setUseWideViewPort(true);
-        webSettings.setTextZoom(250);
-        webview.loadDataWithBaseURL(null, getNewContent("<p>\\r\\n\\t的司法地方\\r\\n</p>\\r\\n<p>\\r\\n\\t<strong>1</strong> \\r\\n</p>\\r\\n<p>\\r\\n\\t<br />\\r\\n</p>\\r\\n<p>\\r\\n\\t<strong>3dddddddddd</strong> \\r\\n</p>\\r\\n<p>\\r\\n\\t<br />\\r\\n</p>\\r\\n<p>\\r\\n\\t4\\r\\n</p>\\r\\n<p>\\r\\n\\t3\\r\\n</p>\\r\\n<p>\\r\\n\\t43434\\r\\n</p>"), "text/html", "utf-8", null);
-        webview.setWebViewClient(new WebViewClient());
+
     }
 
     private String getNewContent(String htmltext) {
@@ -77,6 +70,14 @@ public class NewPeopleDetailsActivity extends BaseActivity {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("tag","新手详情"+result);
+                webSettings = webview.getSettings();
+                webSettings.setJavaScriptEnabled(true);
+                webSettings.setBlockNetworkImage(false);
+                webSettings.setLoadWithOverviewMode(true);
+                webSettings.setUseWideViewPort(true);
+                webSettings.setTextZoom(250);
+                webview.loadDataWithBaseURL(null, getNewContent("<p>\\r\\n\\t的司法地方\\r\\n</p>\\r\\n<p>\\r\\n\\t<strong>1</strong> \\r\\n</p>\\r\\n<p>\\r\\n\\t<br />\\r\\n</p>\\r\\n<p>\\r\\n\\t<strong>3dddddddddd</strong> \\r\\n</p>\\r\\n<p>\\r\\n\\t<br />\\r\\n</p>\\r\\n<p>\\r\\n\\t4\\r\\n</p>\\r\\n<p>\\r\\n\\t3\\r\\n</p>\\r\\n<p>\\r\\n\\t43434\\r\\n</p>"), "text/html", "utf-8", null);
+                webview.setWebViewClient(new WebViewClient());
             }
         });
     }

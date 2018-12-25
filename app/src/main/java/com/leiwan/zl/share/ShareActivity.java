@@ -1,13 +1,10 @@
 package com.leiwan.zl.share;
 
-import android.Manifest;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.Rect;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -19,38 +16,22 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.leiwan.zl.App;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
-import com.leiwan.zl.home.index.IndexFragment;
 import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.QRCodeUtil;
 import com.leiwan.zl.utils.SharedPreferencesUtil;
-import com.leiwan.zl.utils.ToastUtil;
-import com.leiwan.zl.utils.Util;
 import com.leiwan.zl.utils.WXSharedUtils;
-import com.leiwan.zl.utils.pop.MyPop;
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
-import com.tencent.mm.opensdk.modelmsg.WXImageObject;
-import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
-import com.zhy.m.permission.MPermissions;
-import com.zhy.m.permission.PermissionDenied;
-import com.zhy.m.permission.PermissionGrant;
-
-import org.jsoup.helper.StringUtil;
+import com.leiwan.zl.utils.pop.SharePop;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class ShareActivity extends BaseActivity {
@@ -155,7 +136,7 @@ public class ShareActivity extends BaseActivity {
                 break;
             case R.id.share_link:
                 MyToast();
-                MyPop m = new MyPop(this);
+                SharePop m = new SharePop(this);
                 m.showPopupWindow();
                 m.findViewById(R.id.share_haoyou).setOnClickListener(new View.OnClickListener() {
                     @Override

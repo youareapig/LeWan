@@ -140,42 +140,21 @@
                         android:paddingLeft="@dimen/dp_12"
                         android:paddingRight="@dimen/dp_12">
 
-                        <TextView
-                            android:id="@+id/goods_tag1"
+
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/tagrecycler"
                             android:layout_width="wrap_content"
-                            android:layout_height="@dimen/dp_18"
-                            android:layout_gravity="center_vertical"
-                            android:background="@drawable/line9"
-                            android:gravity="center"
-                            android:paddingLeft="@dimen/dp_5"
-                            android:paddingRight="@dimen/dp_5"
-                            android:text="限量抢购"
-                            android:textColor="#F7AE31"
-                            android:textSize="@dimen/sp_11" />
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"/>
 
                         <TextView
-                            android:id="@+id/goods_tag2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="@dimen/dp_18"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="@dimen/dp_10"
-                            android:layout_toRightOf="@+id/goods_tag1"
-                            android:background="@drawable/line9"
-                            android:gravity="center"
-                            android:paddingLeft="@dimen/dp_5"
-                            android:paddingRight="@dimen/dp_5"
-                            android:text="家庭聚餐"
-                            android:textColor="#F7AE31"
-                            android:textSize="@dimen/sp_11" />
-
-                        <TextView
-                            android:layout_toLeftOf="@+id/goods_yongjin"
                             android:id="@+id/yongjintext"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:text="佣金："
                             android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/goods_yongjin"
+                            android:text="佣金："
                             android:textColor="#999999"
                             android:textSize="@dimen/sp_12" />
 
@@ -262,6 +241,33 @@
                         android:background="@color/lineview" />
 
                     <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/dp_12"
+                        android:paddingRight="@dimen/dp_12">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/dp_6"
+                            android:text="商家"
+                            android:textColor="#999"
+                            android:textSize="@dimen/sp_15" />
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/shangjia_recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_35" />
+
+                    </RelativeLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_1"
+                        android:background="@color/lineview" />
+
+                    <RelativeLayout
                         android:id="@+id/goods_address_view"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/dp_40"
@@ -273,7 +279,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_marginTop="@dimen/dp_6"
-                            android:text="商家"
+                            android:text="地址"
                             android:textColor="#999"
                             android:textSize="@dimen/sp_15" />
 

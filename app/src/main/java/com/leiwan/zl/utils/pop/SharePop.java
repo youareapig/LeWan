@@ -15,12 +15,12 @@ import razerdp.basepopup.BasePopupWindow;
  * Created by Administrator on 2018/12/21.
  */
 
-public class MyPop extends BasePopupWindow {
-    public MyPop(Context context) {
+public class SharePop extends BasePopupWindow {
+    public SharePop(Context context) {
         super(context);
     }
 
-    public MyPop(Context context, int width, int height) {
+    public SharePop(Context context, int width, int height) {
         super(context, width, height);
     }
 

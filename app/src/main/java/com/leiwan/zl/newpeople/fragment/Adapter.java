@@ -35,8 +35,8 @@ public class Adapter extends BaseQuickAdapter<TeachListData.DataBean, BaseViewHo
         Glide.with(App.content)
                 .load(item.getPic())
                 .bitmapTransform(new CenterCrop(App.content), new RoundedCornersTransformation(App.content, 10, 0))
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.defult_banner)
+                .error(R.mipmap.defult_banner)
                 .into(imageView);
         helper.setText(R.id.item_content,item.getTitle());
 

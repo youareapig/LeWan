@@ -65,16 +65,13 @@
                         android:layout_marginTop="@dimen/dp_16"
                         android:background="#fff" />
 
-                    <TextView
+                    <com.leiwan.zl.utils.TimeOverView2
                         android:id="@+id/dingdan_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="@dimen/dp_20"
-                        android:layout_marginTop="@dimen/dp_58"
-                        android:text="剩余支付时间：09分56秒"
-                        android:textColor="#fff"
-                        android:textSize="@dimen/sp_14" />
+                        android:layout_marginTop="@dimen/dp_58" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -113,6 +110,7 @@
                             android:textSize="@dimen/sp_15" />
 
                         <TextView
+                            android:id="@+id/dingdan_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:ellipsize="end"
@@ -141,6 +139,7 @@
                                 android:textSize="@dimen/sp_15" />
 
                             <TextView
+                                android:id="@+id/dingdan_guige"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_12"
@@ -157,6 +156,7 @@
                                 android:textSize="@dimen/sp_15" />
 
                             <TextView
+                                android:id="@+id/dingdan_youhui"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_12"
@@ -190,6 +190,7 @@
                                 android:textSize="@dimen/sp_15" />
 
                             <TextView
+                                android:id="@+id/dingdan_price"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="@dimen/dp_12"
@@ -211,6 +212,7 @@
                         android:layout_height="@dimen/dp_52">
 
                         <TextView
+                            android:id="@+id/dingdan_id"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -230,6 +232,7 @@
                         android:layout_height="@dimen/dp_52">
 
                         <TextView
+                            android:id="@+id/dingdan_day"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -249,6 +252,7 @@
                         android:layout_height="@dimen/dp_52">
 
                         <TextView
+                            android:id="@+id/dingdan_submittime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
@@ -290,6 +294,7 @@
                             android:src="@mipmap/dingwei" />
 
                         <TextView
+                            android:id="@+id/dingdan_address"
                             android:layout_width="@dimen/dp_213"
                             android:layout_height="@dimen/dp_20"
                             android:layout_alignParentBottom="true"
@@ -382,6 +387,7 @@
 
 
                         <TextView
+                            android:id="@+id/dingdan_people"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_60"
@@ -390,6 +396,7 @@
                             android:textSize="@dimen/sp_15" />
 
                         <TextView
+                            android:id="@+id/dingdan_people_tel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/dp_98"
@@ -454,6 +461,7 @@
                 </RelativeLayout>
 
                 <TextView
+                    android:id="@+id/dingdan_pay"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_48"
                     android:background="#F77917"

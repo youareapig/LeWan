@@ -5,9 +5,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.alibaba.fastjson.JSON;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
+import com.leiwan.zl.data.OrderListData;
+import com.leiwan.zl.dingdan.details.YiFuKuanDetailsActivity;
 import com.leiwan.zl.dingdan.details.YiWanChengActivity;
 import com.leiwan.zl.utils.Connector;
 
@@ -23,7 +26,6 @@ import butterknife.BindView;
 public class YWC extends BaseFragment {
     @BindView(R.id.recycler)
     RecyclerView recycler;
-    private List<String> list;
     private Adapter adapter;
 
     @Override
@@ -38,18 +40,7 @@ public class YWC extends BaseFragment {
 
     @Override
     protected void setData() {
-        list = new ArrayList<>();
-        list.add("已完成");
-        adapter = new Adapter(R.layout.dingdan_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
-        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(view.getContext(), YiWanChengActivity.class);
-                startActivity(intent);
-            }
-        });
+
         getData();
     }
 
@@ -57,6 +48,19 @@ public class YWC extends BaseFragment {
         Connector.Order(getActivity(), token, "4", new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
+                OrderListData data= JSON.parseObject(result,OrderListData.class);
+                if (data.getCode()==200){
+                    adapter = new Adapter(R.layout.dingdan_item, data.getData());
+                    recycler.setAdapter(adapter);
+                    adapter.openLoadAnimation();
+                    adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                            Intent intent = new Intent(view.getContext(), YiWanChengActivity.class);
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
         });
     }

@@ -2,6 +2,7 @@ package com.leiwan.zl.dingdan;
 
 import android.icu.text.DecimalFormat;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,10 +15,12 @@ import com.leiwan.zl.App;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.ConfirmPayData;
+import com.leiwan.zl.data.SubmitOrderData;
 import com.leiwan.zl.utils.Connector;
 import com.leiwan.zl.utils.DateUtils;
 import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ToastUtil;
+import com.leiwan.zl.utils.pop.PayPop;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 
 import butterknife.BindView;
@@ -110,11 +113,11 @@ public class DingDanZhiFuActivity extends BaseActivity {
                 if (data.getCode() == 200) {
                     name.setText(data.getData().getProduct().getProduct_name());
                     name1.setText(data.getData().getProduct().getProduct_property());
-                    price.setText(data.getData().getProduct().getPrice_sale()+"");
-                    yuanjia.setText(data.getData().getProduct().getPrice_market()+"");
-                    zongjia.setText(data.getData().getProduct().getPrice_sale()+"");
-                    zongyuanjia.setText(data.getData().getProduct().getPrice_sale()+"");
-                    time.setText(DateUtils.timeslashData(data.getData().getProduct().getProduct_startusetime()+"")+"至"+DateUtils.timeslashData(data.getData().getProduct().getProduct_endusetime()+""));
+                    price.setText(data.getData().getProduct().getPrice_sale() + "");
+                    yuanjia.setText(data.getData().getProduct().getPrice_market() + "");
+                    zongjia.setText(data.getData().getProduct().getPrice_sale() + "");
+                    zongyuanjia.setText(data.getData().getProduct().getPrice_sale() + "");
+                    time.setText(DateUtils.timeslashData(data.getData().getProduct().getProduct_startusetime() + "") + "至" + DateUtils.timeslashData(data.getData().getProduct().getProduct_endusetime() + ""));
                 }
             }
         });
@@ -164,17 +167,30 @@ public class DingDanZhiFuActivity extends BaseActivity {
                 }
                 break;
             case R.id.pay:
-                ToastUtil.showShortToast("支付");
-                PayReq req = new PayReq();//PayReq就是订单信息对象
-//给req对象赋值
-                req.appId = App.APP_ID;//APPID
-                req.partnerId = "123";//    商户号
-                req.prepayId = "10";//  预付款ID
-                req.nonceStr = "12";//随机数
-                req.timeStamp = "456123";//时间戳
-                req.packageValue = "Sign=WXPay";//固定值Sign=WXPay
-                req.sign = "zl";//签名
-                App.mWxApi.sendReq(req);//将订单信息对象发送给微信服务器，即发送支付请求
+                final String shuliang = goodsnum.getText().toString();
+                final String lxr = lianxiren.getText().toString().trim();
+                final String tel = telnumber.getText().toString().trim();
+                final String bz = beizhu.getText().toString().trim();
+                if (TextUtils.isEmpty(lxr) || TextUtils.isEmpty(tel) || TextUtils.isEmpty(bz)) {
+                    ToastUtil.showShortToast("请完善信息");
+                } else {
+                    PayPop payPop = new PayPop(this);
+                    payPop.showPopupWindow();
+                    payPop.findViewById(R.id.pay_wechat).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //下单微信支付
+                            submitOrder(shuliang, lxr, tel, bz);
+                        }
+                    });
+                    payPop.findViewById(R.id.pay_ali).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //下单支付宝支付
+                            submitOrder(shuliang, lxr, tel, bz);
+                        }
+                    });
+                }
 
                 break;
         }
@@ -185,6 +201,33 @@ public class DingDanZhiFuActivity extends BaseActivity {
         DecimalFormat format = new DecimalFormat("0.00");
         String mynum = format.format(d);
         return mynum;
+    }
+
+    private void submitOrder(String sl, String lxr, String tel, String bz) {
+        Connector.SubmitOrder(this, token, goodsID, saleID, null, null, sl, lxr, tel, bz, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("tag", "下单---" + result);
+                SubmitOrderData data = JSON.parseObject(result, SubmitOrderData.class);
+                if (data.getCode() == 200) {
+                    String order_no = data.getData().getOrder_no();
+                    String order_id = data.getData().getOrder_id() + "";
+                    ToastUtil.showShortToast("下单成功");
+
+
+                    PayReq req = new PayReq();//PayReq就是订单信息对象
+                    //给req对象赋值
+                    req.appId = App.APP_ID;//APPID
+                    req.partnerId = "123";//    商户号
+                    req.prepayId = "10";//  预付款ID
+                    req.nonceStr = "12";//随机数
+                    req.timeStamp = "456123";//时间戳
+                    req.packageValue = "Sign=WXPay";//固定值Sign=WXPay
+                    req.sign = "zl";//签名
+                    App.mWxApi.sendReq(req);//将订单信息对象发送给微信服务器，即发送支付请求
+                }
+            }
+        });
     }
 
 }

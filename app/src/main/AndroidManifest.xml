@@ -94,7 +94,8 @@
         <activity android:name=".share.ShareActivity" />
         <activity android:name=".dingdan.details.DaiFuKuanDetailsActivity" />
         <activity android:name=".dingdan.details.YiFuKuanDetailsActivity" />
-        <activity android:name=".dingdan.details.YiWanChengActivity"></activity>
+        <activity android:name=".dingdan.details.YiWanChengActivity" />
+        <activity android:name=".home.center.AppointmentActivity"></activity>
     </application>
 
 </manifest>

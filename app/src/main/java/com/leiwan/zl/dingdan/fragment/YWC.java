@@ -48,7 +48,7 @@ public class YWC extends BaseFragment {
         Connector.Order(getActivity(), token, "4", new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
-                OrderListData data= JSON.parseObject(result,OrderListData.class);
+                final OrderListData data= JSON.parseObject(result,OrderListData.class);
                 if (data.getCode()==200){
                     adapter = new Adapter(R.layout.dingdan_item, data.getData());
                     recycler.setAdapter(adapter);
@@ -57,6 +57,7 @@ public class YWC extends BaseFragment {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                             Intent intent = new Intent(view.getContext(), YiWanChengActivity.class);
+                            intent.putExtra("orderid",data.getData().get(position).getOrder_id()+"");
                             startActivity(intent);
                         }
                     });

@@ -41,6 +41,7 @@ import com.leiwan.zl.utils.ObservableScrollView;
 import com.leiwan.zl.utils.SharedPreferencesUtil;
 import com.leiwan.zl.utils.SpacesItemDecoration;
 import com.leiwan.zl.utils.TimeOverView;
+import com.leiwan.zl.utils.TimeOverView1;
 import com.leiwan.zl.utils.ToastUtil;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -160,6 +161,12 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     RecyclerView shangjiaRecycler;
     @BindView(R.id.tagrecycler)
     RecyclerView tagRecycler;
+    @BindView(R.id.shopping_over)
+    TextView shoppingOver;
+    @BindView(R.id.kaiqiangtime)
+    TimeOverView1 kaiqiangtime;
+    @BindView(R.id.kaiqiang)
+    RelativeLayout kaiqiang;
 
     private ImageView[] ivPoints;//小圆点图片的集合
     private int totalPage; //总的页数
@@ -185,6 +192,8 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
     private String saleID, goodsID, content;
     private Bundle bundle;
     private String bg;
+    private int overtime;
+    private int startTime;
 
     @Override
     protected int setLayout() {
@@ -308,6 +317,33 @@ public class DetailsActivity extends BaseActivity implements ObservableScrollVie
                     goodsDescription.loadDataWithBaseURL(null, getNewContent(detailsData.getData().getDetails().getProduct_useinfo()), "text/html", "utf-8", null);
                     goodsWeb1.loadDataWithBaseURL(null, getNewContent(detailsData.getData().getDetails().getProduct_info()), "text/html", "utf-8", null);
                     goodsWeb2.loadDataWithBaseURL(null, getNewContent(detailsData.getData().getDetails().getProduct_notice()), "text/html", "utf-8", null);
+                    //活动是否结束
+                    overtime = detailsData.getData().getDetails().getProduct_endtime();
+
+                    if ((int)DateUtils.dateToStamp() - overtime > 0) {
+                        //活动结束
+                        shoppingOver.setVisibility(View.VISIBLE);
+                        shared.setVisibility(View.GONE);
+                        shopping.setVisibility(View.GONE);
+                    }
+                    //活动是否开始
+                    startTime = detailsData.getData().getDetails().getProduct_starttime();
+                    if ((int)DateUtils.dateToStamp() - startTime < 0) {
+                        //未开始
+                        shared.setVisibility(View.GONE);
+                        shopping.setVisibility(View.GONE);
+                        kaiqiang.setVisibility(View.VISIBLE);
+                        long shi = DateUtils.timeOver(startTime)[1];
+                        long fen = DateUtils.timeOver(startTime)[1];
+                        long miao = DateUtils.timeOver(startTime)[1];
+                        kaiqiangtime.setTime(shi, fen, miao);
+                        kaiqiangtime.start();
+                        if (shi == 0 && fen == 0 && miao == 0) {
+                            kaiqiang.setVisibility(View.GONE);
+                            shared.setVisibility(View.VISIBLE);
+                            shopping.setVisibility(View.VISIBLE);
+                        }
+                    }
 
                     //推荐
                     hotList = detailsData.getData().getHotpush();

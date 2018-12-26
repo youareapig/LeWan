@@ -63,10 +63,10 @@ public class CenterFragment extends BaseFragment {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    String content=search.getText().toString().trim();
-                    if (TextUtils.isEmpty(content)){
+                    String content = search.getText().toString().trim();
+                    if (TextUtils.isEmpty(content)) {
                         ToastUtil.showShortToast("请输入关键字");
-                    }else {
+                    } else {
                         getData(content);
                     }
                     return true;
@@ -88,7 +88,7 @@ public class CenterFragment extends BaseFragment {
                 LogUtil.d("tag", "预约--" + result);
                 YuYueData data = JSON.parseObject(result, YuYueData.class);
                 if (data.getCode() == 200) {
-                    list=data.getData();
+                    list = data.getData();
                     adapter = new Adapter(R.layout.center_item, list);
                     recycler.setAdapter(adapter);
                     adapter.openLoadAnimation();
@@ -101,6 +101,7 @@ public class CenterFragment extends BaseFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.myyuyue:
+                toClass(getActivity(), AppointmentActivity.class);
                 break;
             case R.id.mydingdan:
                 break;

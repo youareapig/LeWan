@@ -169,6 +169,8 @@ public class XinRenGoodsDetialsActivity extends BaseActivity implements Observab
     RecyclerView shangjiaRecycler;
     @BindView(R.id.tagrecycler)
     RecyclerView tagRecycler;
+    @BindView(R.id.shopping_over)
+    TextView shoppingOver;
 
     private ImageView[] ivPoints;//小圆点图片的集合
     private int totalPage; //总的页数
@@ -187,14 +189,14 @@ public class XinRenGoodsDetialsActivity extends BaseActivity implements Observab
     private List<GoodsDetailsData.DataBean.DetailsBean.ShopBean> shopList;
     private String zigou, fenxiang;
     private int miandan;
-    private long startTime;
+    private int startTime;
     private int guigeShow = 0;
     private String address;
     private String saleID, goodsID, content;
     private static final String BAIDU = "com.baidu.BaiduMap";
     private static final String GAODE = "com.autonavi.minimap";
     private Bundle bundle;
-
+    private int overtime;
     @Override
     protected int setLayout() {
         return R.layout.activity_xin_ren_goods_detials;
@@ -264,25 +266,33 @@ public class XinRenGoodsDetialsActivity extends BaseActivity implements Observab
 
                     //免单是否使用
                     miandan = detailsData.getData().getDetails().getFreesheet();
-                    //开始抢购时间
-                    startTime = detailsData.getData().getDetails().getProduct_startusetime();
-                    LogUtil.d("tag", "qinag---" + (startTime - DateUtils.dateToStamp()));
-                    if (startTime - DateUtils.dateToStamp() > 0) {
-                        //还没开始抢购
+
+                    //活动是否结束
+                    overtime = detailsData.getData().getDetails().getProduct_endtime();
+
+                    if ((int)DateUtils.dateToStamp() - overtime > 0) {
+                        //活动结束
+                        shoppingOver.setVisibility(View.VISIBLE);
                         shared.setVisibility(View.GONE);
                         shopping.setVisibility(View.GONE);
-                        shoppingEnd.setVisibility(View.GONE);
+                    }
+                    //开始抢购时间
+                    startTime = detailsData.getData().getDetails().getProduct_starttime();
+                    if ((int)DateUtils.dateToStamp() - startTime < 0) {
+                        //未开始
+                        shared.setVisibility(View.GONE);
+                        shopping.setVisibility(View.GONE);
                         kaiqiang.setVisibility(View.VISIBLE);
                         long shi = DateUtils.timeOver(startTime)[1];
                         long fen = DateUtils.timeOver(startTime)[1];
                         long miao = DateUtils.timeOver(startTime)[1];
                         kaiqiangtime.setTime(shi, fen, miao);
                         kaiqiangtime.start();
-                    } else {
-                        //已经开始抢购
-                        shared.setVisibility(View.VISIBLE);
-                        shopping.setVisibility(View.VISIBLE);
-                        kaiqiang.setVisibility(View.GONE);
+                        if (shi == 0 && fen == 0 && miao == 0) {
+                            kaiqiang.setVisibility(View.GONE);
+                            shared.setVisibility(View.VISIBLE);
+                            shopping.setVisibility(View.VISIBLE);
+                        }
                     }
 
 
@@ -338,6 +348,16 @@ public class XinRenGoodsDetialsActivity extends BaseActivity implements Observab
                     goodsDescription.loadDataWithBaseURL(null, getNewContent(detailsData.getData().getDetails().getProduct_useinfo()), "text/html", "utf-8", null);
                     goodsWeb1.loadDataWithBaseURL(null, getNewContent(detailsData.getData().getDetails().getProduct_info()), "text/html", "utf-8", null);
                     goodsWeb2.loadDataWithBaseURL(null, getNewContent(detailsData.getData().getDetails().getProduct_notice()), "text/html", "utf-8", null);
+                    //活动是否结束
+                    overtime = detailsData.getData().getDetails().getProduct_endtime();
+
+                    if (DateUtils.dateToStamp() - overtime < 0) {
+                        //活动结束
+                        shoppingOver.setVisibility(View.VISIBLE);
+                        shared.setVisibility(View.GONE);
+                        shopping.setVisibility(View.GONE);
+                    }
+
                     //推荐
 
                     initHot();

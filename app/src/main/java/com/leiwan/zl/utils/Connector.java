@@ -285,7 +285,7 @@ public class Connector {
     }
 
     //获取个人信息
-    public static void UserInfo(Context context, String token,MyCallback myCallback) {
+    public static void UserInfo(Context context, String token, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().userInfoUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -295,8 +295,9 @@ public class Connector {
         params.addBodyParameter("token", token);
         xUtilsPostRequest(context, params, myCallback);
     }
+
     //获取好友数量
-    public static void FriendNum(Context context, String token,MyCallback myCallback) {
+    public static void FriendNum(Context context, String token, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().friendsnumUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -306,8 +307,9 @@ public class Connector {
         params.addBodyParameter("token", token);
         xUtilsPostRequest(context, params, myCallback);
     }
+
     //获取我的钱包
-    public static void MyMoney(Context context, String token,MyCallback myCallback) {
+    public static void MyMoney(Context context, String token, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().mymoneyUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -317,8 +319,9 @@ public class Connector {
         params.addBodyParameter("token", token);
         xUtilsPostRequest(context, params, myCallback);
     }
+
     //确认购买
-    public static void ConfirmPay(Context context, String token,String saleid,String goodsid,MyCallback myCallback) {
+    public static void ConfirmPay(Context context, String token, String saleid, String goodsid, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().confirmpayUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -330,8 +333,9 @@ public class Connector {
         params.addBodyParameter("price_id", saleid);
         xUtilsPostRequest(context, params, myCallback);
     }
+
     //获取预约列表
-    public static void YuYueList(Context context, String token,String tilte,MyCallback myCallback) {
+    public static void YuYueList(Context context, String token, String tilte, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().yuyuelistUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -343,8 +347,9 @@ public class Connector {
         params.addBodyParameter("title", tilte);
         xUtilsPostRequest(context, params, myCallback);
     }
+
     //获取订单号
-    public static void SubmitOrder(Context context, String token,String product_id,String price_id,String address_id,String calendar_id,String buynum,String concat,String mobile,String remark,MyCallback myCallback) {
+    public static void SubmitOrder(Context context, String token, String product_id, String price_id, String address_id, String calendar_id, String buynum, String concat, String mobile, String remark, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().submitorderUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -362,8 +367,9 @@ public class Connector {
         params.addBodyParameter("remark", remark);
         xUtilsPostRequest(context, params, myCallback);
     }
+
     //获取订单详情
-    public static void OrderDetails(Context context, String token,String order_id,MyCallback myCallback) {
+    public static void OrderDetails(Context context, String token, String order_id, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().orderdetailsUrl);
         params.addHeader("provincecode", "510000");
         params.addHeader("citycode", "510100");
@@ -374,6 +380,60 @@ public class Connector {
         params.addBodyParameter("order_id", order_id);
         xUtilsPostRequest(context, params, myCallback);
     }
+
+    //已预约列表
+    public static void IsAppointment(Context context, String token, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().isappointmentUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+
+    //未预约列表
+    public static void NoAppointment(Context context, String token, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().noappointmentUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+
+    //添加收货地址
+    public static void AddAddress(Context context, String token, String name, String moble, String code1, String code2, String code3, String address, MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().addaddressUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("contacts", name);
+        params.addBodyParameter("phone", moble);
+        params.addBodyParameter("province", code1);
+        params.addBodyParameter("city", code2);
+        params.addBodyParameter("area", code3);
+        params.addBodyParameter("address", address);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+    //添加收货地址
+    public static void AddressList(Context context, String token,MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().addresslistUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+
     public static void getWXcode(Context context, String code, MyCallback myCallback) {
         RequestParams params = new RequestParams(NetInterface.getInstance().getWXcodeUrl);
         params.addBodyParameter("appid", App.APP_ID);

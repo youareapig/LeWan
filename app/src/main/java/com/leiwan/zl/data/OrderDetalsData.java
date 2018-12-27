@@ -11,7 +11,7 @@ public class OrderDetalsData {
     /**
      * code : 200
      * message : 获取成功
-     * data : {"order_id":7621,"express_firm":null,"express_no":null,"order_no":"LW18122614040801926199797","fullname":"减肥减肥","mobile":"15896359806","isexpress":1,"reservation":1,"status":1,"addtime":1545804248,"product_id":53,"product_name":"重大通知：300抢购1000元美年大健康体检套餐，周末节假日、11个分店通用，为您的健康保驾护航。","product_property":"基础+女性升级包二","num":1,"price":"648.00","totalmoney":"648.00","startusetime":1545062400,"endusetime":1576598400,"cash":"0.00","points":0,"commission":"0.00","coupon":"0.00","payamount":"648.00","endtime":1,"code_count":0,"payendtime":1545806048,"shop":[{"merchant_name":"美年大健康","merchant_400tel":"18302889646","merchant_ssq":"四川省\t\t\t\t\t\t成都市\t\t\t\t\t\t武侯区\t\t\t\t\t\t","merchant_address":"成都市武侯区浆洗街27号","merchant_lng":"104.086405","merchant_lat":"30.661092"},{"merchant_name":"金牛分店","merchant_400tel":"18302889646","merchant_ssq":"四川省\t\t\t\t\t\t成都市\t\t\t\t\t\t金牛区\t\t\t\t\t\t","merchant_address":"成都市金牛区金沙路15号1-2层","merchant_lng":"104.049323","merchant_lat":"30.692545"},{"merchant_name":"星辉分店","merchant_400tel":"18302889601","merchant_ssq":"四川省\t\t\t\t\t\t成都市金牛区","merchant_address":"成都市金牛区星辉西路12号1-2层","merchant_lng":"104.080991","merchant_lat":"30.684565"},{"merchant_name":"天府新谷分院","merchant_400tel":"18302889602","merchant_ssq":"四川省\t\t\t\t\t\t成都市高新南区","merchant_address":"成都市高新区府城大道西段399号天府新谷1栋1-2层","merchant_lng":"104.061764","merchant_lat":"30.594101"},{"merchant_name":"天府三街分院","merchant_400tel":"18302889603","merchant_ssq":"四川省\t\t\t\t\t\t成都市高新南区","merchant_address":"成都市高新区天府大道中段天府三街福年广场3层","merchant_lng":"104.071521","merchant_lat":"30.553275"},{"merchant_name":"凯儿分院","merchant_400tel":"18302889604","merchant_ssq":"四川省\t\t\t\t\t\t成都市武侯区","merchant_address":"成都市武侯区二环路南四段51号莱蒙都会5层","merchant_lng":"104.040133","merchant_lat":"30.63784"},{"merchant_name":"维康分院","merchant_400tel":"18302889605","merchant_ssq":"四川省\t\t\t\t\t\t成都市锦江区","merchant_address":"成都市锦江区静居寺路20号2 楼","merchant_lng":"104.117119","merchant_lat":"30.62769"},{"merchant_name":"双流分院","merchant_400tel":"18302889606","merchant_ssq":"四川省\t\t\t\t\t\t成都市双流区","merchant_address":"成都市双流区东升街道宜城大街三段九号附501附601","merchant_lng":"103.93613","merchant_lat":"30.583767"},{"merchant_name":"慈铭高新","merchant_400tel":"18302889607","merchant_ssq":"四川省\t\t\t\t\t\t成都市高新南区","merchant_address":"成都市高新区天府二街99号","merchant_lng":"104.072924","merchant_lat":"30.556765"},{"merchant_name":"慈铭金沙分院","merchant_400tel":"18302889608","merchant_ssq":"四川省\t\t\t\t\t\t成都市青羊区","merchant_address":"成都青羊区金沙遗址路5号","merchant_lng":"104.015772","merchant_lat":"30.685678"},{"merchant_name":"新都分院","merchant_400tel":"18302889609","merchant_ssq":"四川省\t\t\t\t\t\t成都市新都区","merchant_address":"成都市新都区新都大道479号友盛上都二楼","merchant_lng":"104.197909","merchant_lat":"30.824664"}],"code":[]}
+     * data : {"order_id":7629,"express_firm":null,"express_no":null,"order_no":"LW18122709404300512279447","fullname":"旺财","mobile":"13778877888","isexpress":1,"reservation":1,"status":5,"addtime":1545874843,"product_id":54,"product_name":"【六店】9.9元抢899元畅享汽车服务，洗车+内室除味+安全检测+各代金券+添加雨刮精等，5个月超长使用期，周末节假日通用","product_property":"汽车养护","num":1,"price":"0.01","totalmoney":"0.01","startusetime":1545408000,"endusetime":1559232000,"cash":"0.00","points":0,"commission":"0.00","coupon":"0.00","payamount":"0.01","endtime":1,"code_count":1,"payendtime":1545876643,"shop":[{"merchant_name":"畅享汽车A分店","merchant_400tel":"028-84542003","merchant_ssq":"四川省\t\t\t\t\t\t成都市\t\t\t\t\t\t锦江区\t\t\t\t\t\t","merchant_address":"二环路东5段132号","merchant_lng":"104.102654","merchant_lat":"30.628565"},{"merchant_name":"龙泉鼎力店","merchant_400tel":"028-64731929","merchant_ssq":"四川省\t\t\t\t\t\t成都市\t\t\t\t\t\t龙泉驿区\t\t\t\t\t\t","merchant_address":"北泉路818号","merchant_lng":"104.251774","merchant_lat":"30.57638"},{"merchant_name":"犀浦君印店","merchant_400tel":"028-87839502","merchant_ssq":"四川省\t\t\t\t\t\t成都市\t\t\t\t\t\t郫都区\t\t\t\t\t\t","merchant_address":"犀浦兴业北街258号","merchant_lng":"103.988827","merchant_lat":"30.763269"},{"merchant_name":"龙泉建材路店","merchant_400tel":"028-88493957","merchant_ssq":"四川省\t\t\t\t\t\t成都市龙泉驿区","merchant_address":"建材路219号","merchant_lng":"104.286252","merchant_lat":"30.576032"},{"merchant_name":"温江春江店","merchant_400tel":"028-82791018","merchant_ssq":"四川省\t\t\t\t\t\t成都市温江区","merchant_address":"春江南路158号","merchant_lng":"103.847013","merchant_lat":"30.720418"},{"merchant_name":"郫都君悦星空店","merchant_400tel":"028-67242428","merchant_ssq":"四川省\t\t\t\t\t\t成都市\t\t\t\t\t\t郫都区\t\t\t\t\t\t","merchant_address":"顺文路1号","merchant_lng":"103.889422","merchant_lat":"30.801077"},{"merchant_name":"锦华万达店","merchant_400tel":"15328047181","merchant_ssq":"四川省\t\t\t\t\t\t成都市\t\t\t\t\t\t锦江区\t\t\t\t\t\t","merchant_address":"二环路东5段132","merchant_lng":"104.102708","merchant_lat":"30.628534"}],"code":[{"consume_code":"4776109735385","consume_status":2,"consume_type":1}]}
      */
 
     private int code;
@@ -44,34 +44,34 @@ public class OrderDetalsData {
 
     public static class DataBean {
         /**
-         * order_id : 7621
+         * order_id : 7629
          * express_firm : null
          * express_no : null
-         * order_no : LW18122614040801926199797
-         * fullname : 减肥减肥
-         * mobile : 15896359806
+         * order_no : LW18122709404300512279447
+         * fullname : 旺财
+         * mobile : 13778877888
          * isexpress : 1
          * reservation : 1
-         * status : 1
-         * addtime : 1545804248
-         * product_id : 53
-         * product_name : 重大通知：300抢购1000元美年大健康体检套餐，周末节假日、11个分店通用，为您的健康保驾护航。
-         * product_property : 基础+女性升级包二
+         * status : 5
+         * addtime : 1545874843
+         * product_id : 54
+         * product_name : 【六店】9.9元抢899元畅享汽车服务，洗车+内室除味+安全检测+各代金券+添加雨刮精等，5个月超长使用期，周末节假日通用
+         * product_property : 汽车养护
          * num : 1
-         * price : 648.00
-         * totalmoney : 648.00
-         * startusetime : 1545062400
-         * endusetime : 1576598400
+         * price : 0.01
+         * totalmoney : 0.01
+         * startusetime : 1545408000
+         * endusetime : 1559232000
          * cash : 0.00
          * points : 0
          * commission : 0.00
          * coupon : 0.00
-         * payamount : 648.00
+         * payamount : 0.01
          * endtime : 1
-         * code_count : 0
-         * payendtime : 1545806048
-         * shop : [{"merchant_name":"美年大健康","merchant_400tel":"18302889646","merchant_ssq":"四川省\t\t\t\t\t\t成都市\t\t\t\t\t\t武侯区\t\t\t\t\t\t","merchant_address":"成都市武侯区浆洗街27号","merchant_lng":"104.086405","merchant_lat":"30.661092"},{"merchant_name":"金牛分店","merchant_400tel":"18302889646","merchant_ssq":"四川省\t\t\t\t\t\t成都市\t\t\t\t\t\t金牛区\t\t\t\t\t\t","merchant_address":"成都市金牛区金沙路15号1-2层","merchant_lng":"104.049323","merchant_lat":"30.692545"},{"merchant_name":"星辉分店","merchant_400tel":"18302889601","merchant_ssq":"四川省\t\t\t\t\t\t成都市金牛区","merchant_address":"成都市金牛区星辉西路12号1-2层","merchant_lng":"104.080991","merchant_lat":"30.684565"},{"merchant_name":"天府新谷分院","merchant_400tel":"18302889602","merchant_ssq":"四川省\t\t\t\t\t\t成都市高新南区","merchant_address":"成都市高新区府城大道西段399号天府新谷1栋1-2层","merchant_lng":"104.061764","merchant_lat":"30.594101"},{"merchant_name":"天府三街分院","merchant_400tel":"18302889603","merchant_ssq":"四川省\t\t\t\t\t\t成都市高新南区","merchant_address":"成都市高新区天府大道中段天府三街福年广场3层","merchant_lng":"104.071521","merchant_lat":"30.553275"},{"merchant_name":"凯儿分院","merchant_400tel":"18302889604","merchant_ssq":"四川省\t\t\t\t\t\t成都市武侯区","merchant_address":"成都市武侯区二环路南四段51号莱蒙都会5层","merchant_lng":"104.040133","merchant_lat":"30.63784"},{"merchant_name":"维康分院","merchant_400tel":"18302889605","merchant_ssq":"四川省\t\t\t\t\t\t成都市锦江区","merchant_address":"成都市锦江区静居寺路20号2 楼","merchant_lng":"104.117119","merchant_lat":"30.62769"},{"merchant_name":"双流分院","merchant_400tel":"18302889606","merchant_ssq":"四川省\t\t\t\t\t\t成都市双流区","merchant_address":"成都市双流区东升街道宜城大街三段九号附501附601","merchant_lng":"103.93613","merchant_lat":"30.583767"},{"merchant_name":"慈铭高新","merchant_400tel":"18302889607","merchant_ssq":"四川省\t\t\t\t\t\t成都市高新南区","merchant_address":"成都市高新区天府二街99号","merchant_lng":"104.072924","merchant_lat":"30.556765"},{"merchant_name":"慈铭金沙分院","merchant_400tel":"18302889608","merchant_ssq":"四川省\t\t\t\t\t\t成都市青羊区","merchant_address":"成都青羊区金沙遗址路5号","merchant_lng":"104.015772","merchant_lat":"30.685678"},{"merchant_name":"新都分院","merchant_400tel":"18302889609","merchant_ssq":"四川省\t\t\t\t\t\t成都市新都区","merchant_address":"成都市新都区新都大道479号友盛上都二楼","merchant_lng":"104.197909","merchant_lat":"30.824664"}]
-         * code : []
+         * code_count : 1
+         * payendtime : 1545876643
+         * shop : [{"merchant_name":"畅享汽车A分店","merchant_400tel":"028-84542003","merchant_ssq":"四川省\t\t\t\t\t\t成都市\t\t\t\t\t\t锦江区\t\t\t\t\t\t","merchant_address":"二环路东5段132号","merchant_lng":"104.102654","merchant_lat":"30.628565"},{"merchant_name":"龙泉鼎力店","merchant_400tel":"028-64731929","merchant_ssq":"四川省\t\t\t\t\t\t成都市\t\t\t\t\t\t龙泉驿区\t\t\t\t\t\t","merchant_address":"北泉路818号","merchant_lng":"104.251774","merchant_lat":"30.57638"},{"merchant_name":"犀浦君印店","merchant_400tel":"028-87839502","merchant_ssq":"四川省\t\t\t\t\t\t成都市\t\t\t\t\t\t郫都区\t\t\t\t\t\t","merchant_address":"犀浦兴业北街258号","merchant_lng":"103.988827","merchant_lat":"30.763269"},{"merchant_name":"龙泉建材路店","merchant_400tel":"028-88493957","merchant_ssq":"四川省\t\t\t\t\t\t成都市龙泉驿区","merchant_address":"建材路219号","merchant_lng":"104.286252","merchant_lat":"30.576032"},{"merchant_name":"温江春江店","merchant_400tel":"028-82791018","merchant_ssq":"四川省\t\t\t\t\t\t成都市温江区","merchant_address":"春江南路158号","merchant_lng":"103.847013","merchant_lat":"30.720418"},{"merchant_name":"郫都君悦星空店","merchant_400tel":"028-67242428","merchant_ssq":"四川省\t\t\t\t\t\t成都市\t\t\t\t\t\t郫都区\t\t\t\t\t\t","merchant_address":"顺文路1号","merchant_lng":"103.889422","merchant_lat":"30.801077"},{"merchant_name":"锦华万达店","merchant_400tel":"15328047181","merchant_ssq":"四川省\t\t\t\t\t\t成都市\t\t\t\t\t\t锦江区\t\t\t\t\t\t","merchant_address":"二环路东5段132","merchant_lng":"104.102708","merchant_lat":"30.628534"}]
+         * code : [{"consume_code":"4776109735385","consume_status":2,"consume_type":1}]
          */
 
         private int order_id;
@@ -101,7 +101,7 @@ public class OrderDetalsData {
         private int code_count;
         private int payendtime;
         private List<ShopBean> shop;
-        private List<?> code;
+        private List<CodeBean> code;
 
         public int getOrder_id() {
             return order_id;
@@ -319,22 +319,22 @@ public class OrderDetalsData {
             this.shop = shop;
         }
 
-        public List<?> getCode() {
+        public List<CodeBean> getCode() {
             return code;
         }
 
-        public void setCode(List<?> code) {
+        public void setCode(List<CodeBean> code) {
             this.code = code;
         }
 
         public static class ShopBean {
             /**
-             * merchant_name : 美年大健康
-             * merchant_400tel : 18302889646
-             * merchant_ssq : 四川省						成都市						武侯区
-             * merchant_address : 成都市武侯区浆洗街27号
-             * merchant_lng : 104.086405
-             * merchant_lat : 30.661092
+             * merchant_name : 畅享汽车A分店
+             * merchant_400tel : 028-84542003
+             * merchant_ssq : 四川省						成都市						锦江区
+             * merchant_address : 二环路东5段132号
+             * merchant_lng : 104.102654
+             * merchant_lat : 30.628565
              */
 
             private String merchant_name;
@@ -390,6 +390,42 @@ public class OrderDetalsData {
 
             public void setMerchant_lat(String merchant_lat) {
                 this.merchant_lat = merchant_lat;
+            }
+        }
+
+        public static class CodeBean {
+            /**
+             * consume_code : 4776109735385
+             * consume_status : 2
+             * consume_type : 1
+             */
+
+            private String consume_code;
+            private int consume_status;
+            private int consume_type;
+
+            public String getConsume_code() {
+                return consume_code;
+            }
+
+            public void setConsume_code(String consume_code) {
+                this.consume_code = consume_code;
+            }
+
+            public int getConsume_status() {
+                return consume_status;
+            }
+
+            public void setConsume_status(int consume_status) {
+                this.consume_status = consume_status;
+            }
+
+            public int getConsume_type() {
+                return consume_type;
+            }
+
+            public void setConsume_type(int consume_type) {
+                this.consume_type = consume_type;
             }
         }
     }

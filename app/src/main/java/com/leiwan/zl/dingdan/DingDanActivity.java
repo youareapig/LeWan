@@ -9,7 +9,6 @@ import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
 import com.leiwan.zl.dingdan.fragment.All;
 import com.leiwan.zl.dingdan.fragment.DFK;
-import com.leiwan.zl.dingdan.fragment.TK;
 import com.leiwan.zl.dingdan.fragment.YFK;
 import com.leiwan.zl.dingdan.fragment.YWC;
 import com.leiwan.zl.home.center.TabAdapter;
@@ -43,13 +42,11 @@ public class DingDanActivity extends BaseActivity {
         titleList.add("待付款");
         titleList.add("已付款");
         titleList.add("已完成");
-        titleList.add("退款");
         fragmentList = new ArrayList<>();
         fragmentList.add(new All());
         fragmentList.add(new DFK());
         fragmentList.add(new YFK());
         fragmentList.add(new YWC());
-        fragmentList.add(new TK());
 
         dingdanViewpager.setAdapter(new TabAdapter(getSupportFragmentManager(), titleList, fragmentList));
         dingdanViewpager.setOffscreenPageLimit(0);

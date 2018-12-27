@@ -76,6 +76,8 @@ public class DingDanZhiFuActivity extends BaseActivity {
     TextView popDate;
     @BindView(R.id.pop_number)
     TextView popNumber;
+    @BindView(R.id.address)
+    TextView address;
     @BindView(R.id.include_view)
     RelativeLayout includeView;
     @BindView(R.id.icon)
@@ -204,7 +206,7 @@ public class DingDanZhiFuActivity extends BaseActivity {
     }
 
     private void submitOrder(String sl, String lxr, String tel, String bz) {
-        Connector.SubmitOrder(this, token, goodsID, saleID, null, null, sl, lxr, tel, bz, new Connector.MyCallback() {
+        Connector.SubmitOrder(this, token, goodsID, saleID, "4399", null, sl, lxr, tel, bz, new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
                 LogUtil.d("tag", "下单---" + result);

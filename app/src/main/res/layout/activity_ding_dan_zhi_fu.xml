@@ -312,6 +312,41 @@
                             android:background="@color/lineview" />
                     </RelativeLayout>
 
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/dp_50"
+                        android:layout_marginLeft="@dimen/dp_21">
+
+                        <TextView
+                            android:id="@+id/addressText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="收货地址："
+                            android:textColor="#333"
+                            android:textSize="@dimen/sp_15" />
+
+                        <TextView
+                            android:id="@+id/address"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/dp_10"
+                            android:layout_toRightOf="@+id/addressText"
+                            android:gravity="center_vertical"
+                            android:singleLine="true"
+                            android:text="四川省成都市锦江区龙舟路"
+                            android:textColor="#333"
+                            android:textSize="@dimen/sp_15" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/dp_1"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/lineview" />
+                    </RelativeLayout>
+
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

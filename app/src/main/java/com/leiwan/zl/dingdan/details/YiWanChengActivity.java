@@ -3,6 +3,7 @@ package com.leiwan.zl.dingdan.details;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -47,6 +48,7 @@ public class YiWanChengActivity extends BaseActivity {
     @BindView(R.id.shoppingagin)
     TextView shoppingAgin;
     private String orderID;
+    private AdapterCode adapter;
 
     @Override
     protected int setLayout() {
@@ -55,7 +57,8 @@ public class YiWanChengActivity extends BaseActivity {
 
     @Override
     protected void setView() {
-
+        recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recycler.setNestedScrollingEnabled(false);
     }
 
     @Override
@@ -82,6 +85,9 @@ public class YiWanChengActivity extends BaseActivity {
                     dingdanPeople.setText("联系人: " + data.getData().getFullname());
                     dingdanTel.setText("联系电话: " + data.getData().getMobile());
 
+                    adapter = new AdapterCode(R.layout.ordercodeitem, data.getData().getCode());
+                    recycler.setAdapter(adapter);
+                    adapter.openLoadAnimation();
                 }
             }
         });

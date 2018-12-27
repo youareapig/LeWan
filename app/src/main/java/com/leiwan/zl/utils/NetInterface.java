@@ -12,7 +12,8 @@ public class NetInterface {
             teachDetails, indexFenlei, goodsDetailsUrl,
             quanyiUrl, myfriendUrl, orderUrl, darenServiceUrl,
             bankUrl, wechatUrl, supervipUrl, sendmessageUrl, userInfoUrl, friendsnumUrl,
-            mymoneyUrl,submitorderUrl,confirmpayUrl,yuyuelistUrl,orderdetailsUrl;
+            mymoneyUrl,submitorderUrl,confirmpayUrl,yuyuelistUrl,orderdetailsUrl,
+            isappointmentUrl,noappointmentUrl,addaddressUrl,addresslistUrl;
     public String getWXcodeUrl, getWXUserInfo, refreshtokenUrl;
 
     public NetInterface() {
@@ -44,6 +45,10 @@ public class NetInterface {
         this.confirmpayUrl=mainurl+"Api/Mall/confirmPay";
         this.yuyuelistUrl=mainurl+"api/Yuyue/ConsumeBookedProduct";
         this.orderdetailsUrl=mainurl+"api/User/UserOrderInfo";
+        this.isappointmentUrl=mainurl+"api/Yuyue/ConsumeBookedAll";
+        this.noappointmentUrl=mainurl+"api/Yuyue/ConsumeBespokeAll";
+        this.addaddressUrl=mainurl+"api/UserAddress/UserAppendAddress";
+        this.addresslistUrl=mainurl+"api/UserAddress/UserAddressList";
 
         this.getWXcodeUrl = getWXcodeUrl;
         this.getWXUserInfo = getWXUserInfo;

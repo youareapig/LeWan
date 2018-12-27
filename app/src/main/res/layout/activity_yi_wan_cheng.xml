@@ -15,11 +15,11 @@
         <ImageView
             android:id="@+id/back"
             style="@style/titleback"
-            android:src="@mipmap/back2" />
+            android:src="@mipmap/back" />
 
         <TextView
             style="@style/titlename"
-            android:text="我的订单"
+            android:text="订单详情"
             android:textColor="#333" />
 
         <View

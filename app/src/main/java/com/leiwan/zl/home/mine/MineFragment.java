@@ -151,6 +151,8 @@ public class MineFragment extends BaseFragment {
     TextView vipBenyue;
     @BindView(R.id.vip_shangyue)
     TextView vipShangyue;
+    @BindView(R.id.vip_ketixian)
+    TextView vipKetixian;
 
 
     private Uri pictureUri = null;
@@ -453,10 +455,12 @@ public class MineFragment extends BaseFragment {
                 LogUtil.d("tag", "钱包" + result);
                 WalletData data = JSON.parseObject(result, WalletData.class);
                 if (data.getCode() == 200) {
-                    vipAllMoney.setText(data.getData().getReward().getPutforward() + "");
+                    vipAllMoney.setText((data.getData().getReward().getPending()+data.getData().getReward().getGrandtotal())+"");
+
                     vipDaijiesuan.setText(data.getData().getReward().getPending() + "");
                     vipLeijijiesuan.setText(data.getData().getReward().getGrandtotal() + "");
                     vipLeijitixian.setText(data.getData().getReward().getSumup() + "");
+                    vipKetixian.setText(data.getData().getReward().getPutforward()+"");
 
                     vipToday.setText(data.getData().getIncome().getToday() + "");
                     vipYestoday.setText(data.getData().getIncome().getYesterday() + "");

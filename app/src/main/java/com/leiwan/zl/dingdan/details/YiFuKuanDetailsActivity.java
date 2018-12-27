@@ -89,6 +89,10 @@ public class YiFuKuanDetailsActivity extends BaseActivity {
                     dingdanPeople.setText("联系人: " + data.getData().getFullname());
                     dingdanTel.setText("联系电话: " + data.getData().getMobile());
 
+                    adapter=new AdapterCode(R.layout.ordercodeitem,data.getData().getCode());
+                    recycler.setAdapter(adapter);
+                    adapter.openLoadAnimation();
+
                 }
             }
         });

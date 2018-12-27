@@ -1,6 +1,7 @@
 package com.leiwan.zl.address;
 
 import android.content.Intent;
+import android.location.Address;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -9,10 +10,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.leiwan.zl.App;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
+import com.leiwan.zl.data.AddressData;
+import com.leiwan.zl.utils.Connector;
+import com.leiwan.zl.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,7 +37,7 @@ public class AddressIndexActivity extends BaseActivity {
     RelativeLayout addadr;
     @BindView(R.id.noData)
     TextView noData;
-    private List<String> list;
+    private List<AddressData.DataBean> list;
     private Adapter adapter;
 
     @Override
@@ -47,34 +52,8 @@ public class AddressIndexActivity extends BaseActivity {
 
     @Override
     protected void setData() {
-        list = new ArrayList<>();
-        list.add("李四");
-        list.add("王五");
-        list.add("旺旺");
-        adapter = new Adapter(R.layout.address_item, list);
-        recycler.setAdapter(adapter);
-        adapter.openLoadAnimation();
-        adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (view.getId()) {
-                    case R.id.bianji:
-                        Intent intent = new Intent(App.content, UpdateAddressActivity.class);
-                        startActivity(intent);
-                        break;
-                    case R.id.delete:
-                        list.remove(position);
-                        adapter.notifyItemRemoved(position);
-                        break;
-                }
-            }
-        });
-        //判断是否有数据
-        if (list.size() == 0) {
-            noData.setVisibility(View.VISIBLE);
-        } else {
-            noData.setVisibility(View.GONE);
-        }
+        getData();
+
     }
 
 
@@ -88,6 +67,43 @@ public class AddressIndexActivity extends BaseActivity {
                 toClass(this, UpdateAddressActivity.class);
                 break;
         }
+    }
+
+    private void getData() {
+        Connector.AddressList(this, token, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("tag", "收货地址" + result);
+                AddressData data = JSON.parseObject(result, AddressData.class);
+                if (data.getCode() == 200) {
+                    list=data.getData();
+                    adapter = new Adapter(R.layout.address_item, list);
+                    recycler.setAdapter(adapter);
+                    adapter.openLoadAnimation();
+                    adapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+                        @Override
+                        public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                            switch (view.getId()) {
+                                case R.id.bianji:
+                                    Intent intent = new Intent(App.content, UpdateAddressActivity.class);
+                                    startActivity(intent);
+                                    break;
+                                case R.id.delete:
+                                    list.remove(position);
+                                    adapter.notifyItemRemoved(position);
+                                    break;
+                            }
+                        }
+                    });
+                    //判断是否有数据
+                    if (list.size() == 0) {
+                        noData.setVisibility(View.VISIBLE);
+                    } else {
+                        noData.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
     }
 
 }

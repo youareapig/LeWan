@@ -47,7 +47,7 @@ public class DFK extends BaseFragment {
         Connector.Order(getActivity(), token, "2",new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
-                OrderListData data= JSON.parseObject(result,OrderListData.class);
+                final OrderListData data= JSON.parseObject(result,OrderListData.class);
                 if (data.getCode()==200){
                     adapter = new Adapter(R.layout.dingdan_item, data.getData());
                     recycler.setAdapter(adapter);
@@ -56,6 +56,7 @@ public class DFK extends BaseFragment {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                             Intent intent=new Intent(view.getContext(), DaiFuKuanDetailsActivity.class);
+                            intent.putExtra("orderid",data.getData().get(position).getOrder_id()+"");
                             startActivity(intent);
                         }
                     });

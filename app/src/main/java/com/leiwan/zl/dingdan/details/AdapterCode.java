@@ -3,6 +3,7 @@ package com.leiwan.zl.dingdan.details;
 import android.graphics.Color;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -16,31 +17,45 @@ import java.util.List;
  * Created by DELL on 2017/8/30.
  */
 
-public class AdapterCode extends BaseQuickAdapter<OrderDetalsData.DataBean.ShopBean, BaseViewHolder> {
-    private int selectItem = 0;
+public class AdapterCode extends BaseQuickAdapter<OrderDetalsData.DataBean.CodeBean, BaseViewHolder> {
 
-    public AdapterCode(@LayoutRes int layoutResId, @Nullable List<OrderDetalsData.DataBean.ShopBean> data) {
+    public AdapterCode(@LayoutRes int layoutResId, @Nullable List<OrderDetalsData.DataBean.CodeBean> data) {
         super(layoutResId, data);
     }
 
 
     @Override
-    protected void convert(BaseViewHolder helper, OrderDetalsData.DataBean.ShopBean item) {
-        helper.setText(R.id.item_store, item.getMerchant_name() + item.getMerchant_400tel());
-        if (helper.getAdapterPosition() == selectItem) {
-            //选中
-            helper.setBackgroundRes(R.id.item_store_view, R.drawable.line24);
-            helper.setTextColor(R.id.item_store, Color.parseColor("#FFFFFF"));
-        } else {
-            //未选中
-            helper.setBackgroundRes(R.id.item_store_view, R.drawable.line25);
-            helper.setTextColor(R.id.item_store, Color.parseColor("#333333"));
+    protected void convert(BaseViewHolder helper, OrderDetalsData.DataBean.CodeBean item) {
+        helper.setText(R.id.item_code, item.getConsume_code());
+        TextView textView = helper.getView(R.id.item_codetag);
+        if (item.getConsume_type() == 1) {
+            //已预约
+            textView.setText("已预约");
+            textView.setBackgroundResource(R.drawable.line27);
+        } else if (item.getConsume_type() == 2) {
+            //未预约
+            textView.setText("未预约");
+            textView.setBackgroundResource(R.drawable.line27);
+        }
+        if (item.getConsume_status() == 1) {
+            //未使用
+            textView.setText("未使用");
+            textView.setBackgroundResource(R.drawable.line27);
+        } else if (item.getConsume_status() == 2) {
+            //已使用
+            textView.setText("已使用");
+            textView.setBackgroundResource(R.drawable.line27);
+        } else if (item.getConsume_status() == 3) {
+            //已过期
+            textView.setText("已过期");
+            textView.setBackgroundResource(R.drawable.line26);
+        } else if (item.getConsume_status() == 4) {
+            //冻结
+            textView.setText("已冻结");
+            textView.setBackgroundResource(R.drawable.line26);
         }
 
     }
 
-    public void setSelectItem(int selectItem) {
-        this.selectItem = selectItem;
-    }
 
 }

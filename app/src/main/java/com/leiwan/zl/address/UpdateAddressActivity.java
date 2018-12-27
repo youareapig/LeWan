@@ -10,6 +10,8 @@ import android.widget.RelativeLayout;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
 import com.leiwan.zl.utils.AddressPickTask;
+import com.leiwan.zl.utils.Connector;
+import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ToastUtil;
 
 import butterknife.BindView;
@@ -58,7 +60,7 @@ public class UpdateAddressActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.save:
-                AddressPickTask task = new AddressPickTask(this);
+              /*  AddressPickTask task = new AddressPickTask(this);
                 task.setHideCounty(false);
                 task.setHideProvince(false);
                 task.setCallback(new AddressPickTask.Callback() {
@@ -72,8 +74,19 @@ public class UpdateAddressActivity extends BaseActivity {
                         Log.d("tag", "地址：" + province.getAreaName() + city.getAreaName() + county.getAreaName());
                     }
                 });
-                task.execute("四川", "成都", "锦江");
+                task.execute("四川", "成api/UserAddress/UserAppendAddress都", "锦江");*/
+
+                add();
                 break;
         }
+    }
+
+    private void add() {
+        Connector.AddAddress(this, token, "旺财", "15889988899", "510000", "510100", "510104", "四川省成都市锦江区龙舟路", new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("tag", "添加收货地址" + result);
+            }
+        });
     }
 }

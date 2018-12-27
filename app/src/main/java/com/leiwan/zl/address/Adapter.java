@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.leiwan.zl.R;
+import com.leiwan.zl.data.AddressData;
 
 import java.util.List;
 
@@ -22,21 +23,22 @@ import java.util.List;
  * Created by DELL on 2017/8/30.
  */
 
-public class Adapter extends BaseQuickAdapter<String,BaseViewHolder> {
+public class Adapter extends BaseQuickAdapter<AddressData.DataBean, BaseViewHolder> {
 
 
-    public Adapter(@LayoutRes int layoutResId, @Nullable List<String> data) {
+    public Adapter(@LayoutRes int layoutResId, @Nullable List<AddressData.DataBean> data) {
         super(layoutResId, data);
     }
 
 
     @Override
-    protected void convert(BaseViewHolder helper, String item) {
-        helper.setText(R.id.name,item)
+    protected void convert(BaseViewHolder helper, AddressData.DataBean item) {
+        helper.setText(R.id.name, item.getContact())
+                .setText(R.id.tel, item.getMobile())
+                .setText(R.id.adr, item.getAddress())
                 .addOnClickListener(R.id.bianji)
                 .addOnClickListener(R.id.delete);
     }
-
 
 
 }

@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.OrderListData;
+import com.leiwan.zl.dingdan.details.ExpressageActivity;
 import com.leiwan.zl.dingdan.details.YiFuKuanDetailsActivity;
 import com.leiwan.zl.dingdan.details.YiWanChengActivity;
 import com.leiwan.zl.utils.Connector;
@@ -48,17 +49,36 @@ public class YWC extends BaseFragment {
         Connector.Order(getActivity(), token, "4", new Connector.MyCallback() {
             @Override
             public void MyResult(String result) {
-                final OrderListData data= JSON.parseObject(result,OrderListData.class);
-                if (data.getCode()==200){
+                final OrderListData data = JSON.parseObject(result, OrderListData.class);
+                if (data.getCode() == 200) {
                     adapter = new Adapter(R.layout.dingdan_item, data.getData());
                     recycler.setAdapter(adapter);
                     adapter.openLoadAnimation();
                     adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
                         @Override
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                            Intent intent = new Intent(view.getContext(), YiWanChengActivity.class);
-                            intent.putExtra("orderid",data.getData().get(position).getOrder_id()+"");
-                            startActivity(intent);
+                            switch (data.getData().get(position).getOrder_status()) {
+                                case 2:
+                                    Intent intent3 = new Intent(view.getContext(), ExpressageActivity.class);
+                                    intent3.putExtra("orderid", data.getData().get(position).getOrder_id() + "");
+                                    intent3.putExtra("title", "待发货");
+                                    startActivity(intent3);
+                                    //待发货
+                                    break;
+                                case 4:
+                                    Intent intent4 = new Intent(view.getContext(), ExpressageActivity.class);
+                                    intent4.putExtra("orderid", data.getData().get(position).getOrder_id() + "");
+                                    intent4.putExtra("title", "待收货");
+                                    startActivity(intent4);
+                                    //待收货
+                                    break;
+                                default:
+                                    Intent intent = new Intent(view.getContext(), YiWanChengActivity.class);
+                                    intent.putExtra("orderid", data.getData().get(position).getOrder_id() + "");
+                                    startActivity(intent);
+                                    break;
+                            }
+
                         }
                     });
                 }

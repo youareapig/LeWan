@@ -45,10 +45,13 @@ public class TiXianActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.back:
+                finish();
                 break;
             case R.id.toAlipay:
+                toClass(this, AlipayActivity.class);
                 break;
             case R.id.toBank:
+                toClass(this, BankpayActivity.class);
                 break;
             case R.id.withdraw_explain:
                 break;

@@ -1,4 +1,4 @@
-package com.leiwan.zl.home.fragment;
+package com.leiwan.zl.home.center.fragment;
 
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;

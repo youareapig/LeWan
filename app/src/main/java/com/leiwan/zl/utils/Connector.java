@@ -404,6 +404,32 @@ public class Connector {
         params.addBodyParameter("token", token);
         xUtilsPostRequest(context, params, myCallback);
     }
+    //可预约商品详情
+    public static void AppointmentDetails(Context context, String token, String id,MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().appointmentdetailsUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("pr_id", id);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+    //可预约商品详情
+    public static void AppointmentCalendar(Context context, String token, String id,String merchant_id,String price_id,MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().appointmentcalendarUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("pr_id", id);
+        params.addBodyParameter("merchant_id", merchant_id);
+        params.addBodyParameter("price_id", price_id);
+        xUtilsPostRequest(context, params, myCallback);
+    }
 
     //添加收货地址
     public static void AddAddress(Context context, String token, String name, String moble, String code1, String code2, String code3, String address, MyCallback myCallback) {

@@ -97,7 +97,9 @@
         <activity android:name=".dingdan.details.YiWanChengActivity" />
         <activity android:name=".home.center.AppointmentActivity" />
         <activity android:name=".dingdan.details.ExpressageActivity" />
-        <activity android:name=".tixian.AlipayActivity"></activity>
+        <activity android:name=".tixian.AlipayActivity" />
+        <activity android:name=".tixian.BankpayActivity" />
+        <activity android:name=".home.center.AppointmentDetalsActivity"></activity>
     </application>
 
 </manifest>

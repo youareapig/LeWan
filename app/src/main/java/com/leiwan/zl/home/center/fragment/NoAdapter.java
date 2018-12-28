@@ -1,4 +1,4 @@
-package com.leiwan.zl.home.fragment;
+package com.leiwan.zl.home.center.fragment;
 
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;

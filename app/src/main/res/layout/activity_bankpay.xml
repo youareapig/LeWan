@@ -19,7 +19,7 @@
 
         <TextView
             style="@style/titlename"
-            android:text="提现到支付宝" />
+            android:text="提现到银行卡" />
 
         <View
             android:layout_width="match_parent"
@@ -32,33 +32,61 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_84"
         android:layout_marginTop="@dimen/dp_10"
-        android:background="#fff">
+        android:background="#fff"
+        android:paddingLeft="@dimen/dp_20">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="@dimen/dp_42"
+                android:layout_height="@dimen/dp_43"
+                android:src="@mipmap/alipay" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:text="中国工商银行"
+                android:textColor="#333"
+                android:textSize="@dimen/sp_15" />
+        </LinearLayout>
+
 
         <ImageView
-            android:layout_width="@dimen/dp_42"
-            android:layout_height="@dimen/dp_43"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_12"
-            android:src="@mipmap/alipay" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_70"
-            android:text="提现到支付宝"
-            android:textColor="#333"
-            android:textSize="@dimen/sp_15" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/dp_19"
+            android:layout_height="@dimen/dp_19"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_38"
-            android:text="实时到账"
-            android:textColor="#999"
-            android:textSize="@dimen/sp_13" />
+            android:src="@mipmap/jiantou1" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*******************2673"
+                android:textColor="#333"
+                android:textSize="@dimen/sp_15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:text="储蓄卡"
+                android:textColor="#333"
+                android:textSize="@dimen/sp_15" />
+        </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout

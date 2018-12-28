@@ -6,12 +6,12 @@ import android.os.Bundle;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
 
-public class AlipayActivity extends BaseActivity {
+public class BankpayActivity extends BaseActivity {
 
 
     @Override
     protected int setLayout() {
-        return R.layout.activity_alipay;
+        return R.layout.activity_bankpay;
     }
 
     @Override

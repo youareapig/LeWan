@@ -1,11 +1,7 @@
-package com.leiwan.zl.home.fragment;
+package com.leiwan.zl.home.center.fragment;
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.alibaba.fastjson.JSON;
 import com.leiwan.zl.BaseFragment;
@@ -17,8 +13,6 @@ import com.leiwan.zl.utils.LogUtil;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 
 /**
  * Created by Administrator on 2018/12/26.

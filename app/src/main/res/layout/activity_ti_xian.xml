@@ -217,7 +217,7 @@
                     android:id="@+id/withdraw_explain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="提现说明"
+                    android:text="收入明细"
                     android:textColor="#2C2C2C"
                     android:textSize="@dimen/sp_13" />
             </LinearLayout>

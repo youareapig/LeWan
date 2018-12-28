@@ -1,6 +1,5 @@
 package com.leiwan.zl.home.center;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.widget.ImageView;
@@ -8,14 +7,13 @@ import android.widget.ImageView;
 import com.androidkun.xtablayout.XTabLayout;
 import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
-import com.leiwan.zl.home.fragment.IsAppointment;
-import com.leiwan.zl.home.fragment.NoAppointment;
+import com.leiwan.zl.home.center.fragment.IsAppointment;
+import com.leiwan.zl.home.center.fragment.NoAppointment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 public class AppointmentActivity extends BaseActivity {

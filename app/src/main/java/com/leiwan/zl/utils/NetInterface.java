@@ -13,7 +13,8 @@ public class NetInterface {
             quanyiUrl, myfriendUrl, orderUrl, darenServiceUrl,
             bankUrl, wechatUrl, supervipUrl, sendmessageUrl, userInfoUrl, friendsnumUrl,
             mymoneyUrl,submitorderUrl,confirmpayUrl,yuyuelistUrl,orderdetailsUrl,
-            isappointmentUrl,noappointmentUrl,addaddressUrl,addresslistUrl;
+            isappointmentUrl,noappointmentUrl,addaddressUrl,addresslistUrl,appointmentdetailsUrl,
+            appointmentcalendarUrl;
     public String getWXcodeUrl, getWXUserInfo, refreshtokenUrl;
 
     public NetInterface() {
@@ -49,6 +50,8 @@ public class NetInterface {
         this.noappointmentUrl=mainurl+"api/Yuyue/ConsumeBespokeAll";
         this.addaddressUrl=mainurl+"api/UserAddress/UserAppendAddress";
         this.addresslistUrl=mainurl+"api/UserAddress/UserAddressList";
+        this.appointmentdetailsUrl=mainurl+"api/Yuyue/ConsumeBookedProductDet";
+        this.appointmentcalendarUrl=mainurl+"Api/Yuyue/ConsumeBookedProductCalendar";
 
         this.getWXcodeUrl = getWXcodeUrl;
         this.getWXUserInfo = getWXUserInfo;

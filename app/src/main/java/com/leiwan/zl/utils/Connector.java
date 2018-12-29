@@ -430,6 +430,44 @@ public class Connector {
         params.addBodyParameter("price_id", price_id);
         xUtilsPostRequest(context, params, myCallback);
     }
+    //查询具体日期的套餐
+    public static void GetCase(Context context, String token, String id,MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().getcaseUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("reservationday_id", id);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+
+    //查询门店列表
+    public static void GetFenDian(Context context, String token, String id,MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().fendianUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("order_id", id);
+        xUtilsPostRequest(context, params, myCallback);
+    }
+    //预约日历表
+    public static void Calander(Context context, String token,String code, String id,MyCallback myCallback) {
+        RequestParams params = new RequestParams(NetInterface.getInstance().canlanderUrl);
+        params.addHeader("provincecode", "510000");
+        params.addHeader("citycode", "510100");
+        params.addHeader("sign", null);
+        params.addHeader("product", "app");
+        params.addHeader("platform", "android");
+        params.addBodyParameter("token", token);
+        params.addBodyParameter("code", code);
+        params.addBodyParameter("fen_merchant_id", id);
+        xUtilsPostRequest(context, params, myCallback);
+    }
 
     //添加收货地址
     public static void AddAddress(Context context, String token, String name, String moble, String code1, String code2, String code3, String address, MyCallback myCallback) {

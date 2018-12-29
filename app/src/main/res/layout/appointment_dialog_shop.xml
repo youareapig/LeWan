@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="@dimen/dp_298"
+        android:layout_height="@dimen/dp_178"
+        android:layout_gravity="center"
+        android:background="@drawable/line6"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="@dimen/dp_237"
+            android:layout_height="@dimen/dp_46"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_51"
+            android:text="您还未购买该商品，是否进入商品详情进行购买"
+            android:textColor="#333"
+            android:textSize="@dimen/sp_15" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_marginTop="@dimen/dp_36"
+            android:background="#f5f6fc" />
+
+        <TextView
+            android:id="@+id/dialog_shop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_15"
+            android:text="去购买"
+            android:textColor="#FF8B30"
+            android:textSize="@dimen/sp_15" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/dialog_close"
+        android:layout_width="@dimen/dp_44"
+        android:layout_height="@dimen/dp_44"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dp_28"
+        android:src="@mipmap/close1" />
+</LinearLayout>

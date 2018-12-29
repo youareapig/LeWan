@@ -31,9 +31,9 @@
                 android:id="@+id/goodsname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="小龙坎麻辣浓麻辣浓麻辣浓麻辣浓汤火锅"
-                android:singleLine="true"
                 android:ellipsize="end"
+                android:singleLine="true"
+                android:text="小龙坎麻辣浓麻辣浓麻辣浓麻辣浓汤火锅"
                 android:textColor="#333"
                 android:textSize="@dimen/sp_15" />
         </LinearLayout>
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/linearLayout2"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -65,11 +65,12 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/expendview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/linearLayout3"
-            android:layout_marginTop="27dp"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
             <TextView
@@ -88,23 +89,17 @@
                 android:textSize="@dimen/sp_15" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+
+        <TextView
+            android:id="@+id/validdate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="10dp"
-            android:orientation="horizontal">
+            android:layout_marginBottom="@dimen/dp_10"
+            android:text="商品期限：2018-09-24至2018-11-31"
+            android:textColor="#999"
+            android:textSize="@dimen/sp_12" />
 
-            <TextView
-                android:id="@+id/validdate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="商品期限：2018-09-24至2018-11-31"
-                android:textColor="#999"
-                android:textSize="@dimen/sp_12" />
-
-        </LinearLayout>
 
         <TextView
             android:id="@+id/ordertag"

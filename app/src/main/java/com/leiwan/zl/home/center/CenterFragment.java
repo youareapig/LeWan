@@ -19,6 +19,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.leiwan.zl.BaseFragment;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.YuYueData;
+import com.leiwan.zl.dingdan.DingDanActivity;
 import com.leiwan.zl.utils.Connector;
 import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ToastUtil;
@@ -114,6 +115,7 @@ public class CenterFragment extends BaseFragment {
                 toClass(getActivity(), AppointmentActivity.class);
                 break;
             case R.id.mydingdan:
+                toClass(getActivity(), DingDanActivity.class);
                 break;
             case R.id.mywenti:
                 break;

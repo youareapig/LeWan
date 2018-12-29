@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/item_name"
+            android:layout_width="@dimen/dp_147"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="【68元2人份西冷牛排】"
+            android:textColor="#333"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:id="@+id/item_size"
+            android:layout_width="@dimen/dp_147"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_name"
+            android:layout_marginTop="@dimen/dp_5"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="午餐券"
+            android:textColor="#333"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:id="@+id/item_num"
+            android:layout_width="@dimen/dp_147"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/item_size"
+            android:layout_marginTop="@dimen/dp_5"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="可约数量：5"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:textColor="#333"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:id="@+id/item_money"
+            android:layout_width="@dimen/dp_147"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/item_size"
+            android:layout_marginTop="@dimen/dp_5"
+            android:ellipsize="end"
+            android:gravity="end"
+            android:layout_marginBottom="@dimen/dp_10"
+            android:singleLine="true"
+            android:text="额外加收：0元"
+            android:textColor="#333"
+            android:textSize="@dimen/sp_13" />
+
+        <TextView
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_width="@dimen/dp_77"
+            android:layout_height="@dimen/dp_28"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/line9"
+            android:gravity="center"
+            android:text="预约"
+            android:textColor="#FC9929"
+            android:textSize="@dimen/sp_17" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:background="#f5f5fc" />
+    </RelativeLayout>
+</LinearLayout>

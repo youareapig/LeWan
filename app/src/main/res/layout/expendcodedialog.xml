@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="@dimen/dp_298"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/line6"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/expense_date"
+            android:layout_width="@dimen/dp_98"
+            android:layout_height="@dimen/dp_42"
+            android:layout_gravity="center"
+            android:background="@drawable/line30"
+            android:gravity="center"
+            android:text="消费电子码"
+            android:textColor="#fff"
+            android:textSize="@dimen/sp_15" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/dialog_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_20"
+            android:layout_marginLeft="@dimen/dp_19"
+            android:layout_marginRight="@dimen/dp_30"
+            android:layout_marginTop="@dimen/dp_10" />
+    </LinearLayout>
+
+</LinearLayout>

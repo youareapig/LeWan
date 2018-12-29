@@ -1,11 +1,18 @@
 package com.leiwan.zl.home.center;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
@@ -19,11 +26,17 @@ import com.leiwan.zl.BaseActivity;
 import com.leiwan.zl.R;
 import com.leiwan.zl.data.AppointmentDetailsData;
 import com.leiwan.zl.data.CalenderData;
+import com.leiwan.zl.data.ComboData;
+import com.leiwan.zl.details.DetailsActivity;
+import com.leiwan.zl.home.mine.MineFragment;
 import com.leiwan.zl.utils.Connector;
+import com.leiwan.zl.utils.DateUtils;
 import com.leiwan.zl.utils.DividerGridItemDecoration;
 import com.leiwan.zl.utils.LogUtil;
 import com.leiwan.zl.utils.ObservableScrollView;
 import com.leiwan.zl.utils.SpacesItemDecoration;
+import com.leiwan.zl.utils.ToastUtil;
+import com.zhy.m.permission.MPermissions;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -94,7 +107,12 @@ public class AppointmentDetalsActivity extends BaseActivity implements Observabl
     private AdapterStore adapterStore;
     private AdapterSize adapterSize;
     private AdapterCalender adapterCalender;
+    private AdapterCombo adapterCombo;
     private int height = 0;
+    private int isshopping = 0;
+    private RecyclerView dialogRecycler;
+    private String date;
+    private TextView dialogDate;
 
     @Override
     protected int setLayout() {
@@ -188,6 +206,8 @@ public class AppointmentDetalsActivity extends BaseActivity implements Observabl
                 if (data.getCode() == 200) {
                     title.setText(data.getData().getProduct_name());
                     address.setText("消费地址：" + data.getData().getMerchant_address());
+                    //是否购买 1已购买，2未购买去预约
+                    isshopping = data.getData().getBooked();
                     //默认日历
                     merchant_id = data.getData().getShop().get(0).getMerchant_id() + "";
                     price_id = data.getData().getPrice().get(0).getPrice_id() + "";
@@ -236,7 +256,7 @@ public class AppointmentDetalsActivity extends BaseActivity implements Observabl
             @Override
             public void MyResult(String result) {
                 LogUtil.d("tag", "rili--" + result);
-                CalenderData data = JSON.parseObject(result, CalenderData.class);
+                final CalenderData data = JSON.parseObject(result, CalenderData.class);
                 if (data.getCode() == 200) {
                     adapterCalender = new AdapterCalender(R.layout.calendar_item, data.getData());
                     recyclerCalendar.setAdapter(adapterCalender);
@@ -246,8 +266,84 @@ public class AppointmentDetalsActivity extends BaseActivity implements Observabl
                         public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                             adapterCalender.setSelectItem(position);
                             adapterCalender.notifyDataSetChanged();
+                            date=data.getData().get(position).getCalendar()+"";
+                            if (isshopping == 1) {
+                                appointmentDialog(view, data.getData().get(position).getReservationday_id() + "");
+                            }
+                            if (isshopping == 2) {
+                                shopDialog(view);
+                            }
                         }
                     });
+                }
+            }
+        });
+    }
+
+    //未购买
+    private void shopDialog(View view) {
+        final AlertDialog builder = new AlertDialog.Builder(view.getContext()).create();
+        //去掉白色背景
+        builder.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.appointment_dialog_shop,
+                null);
+        builder.setView(layout);
+        builder.setCanceledOnTouchOutside(false);
+        builder.show();
+
+        layout.findViewById(R.id.dialog_shop).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), DetailsActivity.class);
+                intent.putExtra("id", id);
+                startActivity(intent);
+                builder.cancel();
+            }
+        });
+        layout.findViewById(R.id.dialog_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                builder.cancel();
+            }
+        });
+    }
+
+    //已购买,去预约
+    private void appointmentDialog(View v, String calanderId) {
+        final AlertDialog builder = new AlertDialog.Builder(v.getContext()).create();
+        //去掉白色背景
+        builder.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        LayoutInflater inflater = getLayoutInflater();
+        View layout = inflater.inflate(R.layout.appointment_dialog,
+                null);
+        builder.setView(layout);
+        builder.setCanceledOnTouchOutside(false);
+        builder.show();
+        dialogRecycler = (RecyclerView) layout.findViewById(R.id.dialog_recycler);
+        dialogDate= (TextView) layout.findViewById(R.id.expense_date);
+        dialogRecycler.setLayoutManager(new LinearLayoutManager(v.getContext(), LinearLayoutManager.VERTICAL, false));
+        getCase(calanderId);
+
+        layout.findViewById(R.id.dialog_close).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                builder.cancel();
+            }
+        });
+    }
+
+    private void getCase(String calendarId) {
+        Connector.GetCase(this, token, calendarId, new Connector.MyCallback() {
+            @Override
+            public void MyResult(String result) {
+                LogUtil.d("tag", "套餐--" + result);
+                ComboData data = JSON.parseObject(result, ComboData.class);
+                if (data.getCode() == 200) {
+                    dialogDate.setText("消费日期："+ DateUtils.timeslash(date));
+                    adapterCombo=new AdapterCombo(R.layout.appointment_dialog_item,data.getData());
+                    dialogRecycler.setAdapter(adapterCombo);
+                    adapterCombo.openLoadAnimation();
                 }
             }
         });
